@@ -22,13 +22,7 @@ public class Pokeri {
     
     public static void main(String[] args) {
         
-        Pakka pakka = new Pakka();
         
-        for (int i = 0; i < 52; i++) {
-            
-            Kortti kortti = pakka.nostaKortti();
-            System.out.println("maa: " + kortti.maa() + " arvo: " + kortti.arvo());
-        }
         
     }
     

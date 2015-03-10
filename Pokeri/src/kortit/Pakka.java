@@ -6,6 +6,8 @@
 package kortit;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -16,13 +18,22 @@ public class Pakka {
     
     
     private final int KOKO = 52;
-    private ArrayDeque<Kortti> pakka = new ArrayDeque<>();
+    private ArrayList<Kortti> pakka = new ArrayList<>();
+    
+    
+    /**
+     * Luodaan uusi pakka ja sekoitetaan se;
+     */
     
     public Pakka() {
-        
         this.luoPakka();
-        
+        this.sekoita();
     }
+    
+    
+    /**
+     * Luodaan uusi pakka jossa kortit ovat järjestyksessä.
+     */
     
     private void luoPakka() {
         
@@ -33,29 +44,34 @@ public class Pakka {
             maa = Maa.getByID(i);
 
             for (int a = 0; a < KOKO / 4; a++) {
-                
-                pakka.add(new Kortti(maa, a));
-                
-            }
-            
-        }
+                pakka.add(new Kortti(maa, a));   
+            }   
+        }    
+    }
+    
+    
+    /**
+     * Metodi pakan sekoittamiseen.
+     */
+    
+    private void sekoita() {
+        
+        Collections.shuffle(pakka);
         
     }
     
-    public void sekoita() {
-        
-        Random random = new Random();
-        
-        
-        
-    }
+    /**
+     * Nostaa kortin.
+     * @return "päällimmäinen" kortti.
+     */
     
     public Kortti nostaKortti() {
-        return pakka.pop();
+        
+        Kortti kortti = pakka.get(pakka.size() - 1);
+        this.pakka.remove(pakka.size() - 1);
+        return kortti;
     }
     
-    public ArrayDeque pakka() {
-        return this.pakka;
-    }
+    
     
 }

@@ -14,21 +14,28 @@ public class Kortti {
     private Maa maa;
     private int arvo;
     
+    
+    /**
+     * Kortin konstruktori, ottaa kortin maan ja arvon.
+     * @param maa kortin maa
+     * @param arvo kortin arvo 
+     */
+    
     public Kortti(Maa maa, int arvo) {
         this.maa = maa;
         this.arvo = arvo;
     }
     
     
-    public int maaID() {
+    public int getMaaID() {
         return this.maa.id;
     }
     
-    public Maa maa() {
+    public Maa getMaa() {
         return this.maa;
     }
     
-    public int arvo() {
+    public int getArvo() {
         return this.arvo;
     }
     
