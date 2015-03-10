@@ -5,17 +5,31 @@
  */
 package pokeri;
 
+import kortit.Kortti;
+import kortit.Maa;
+import kortit.Pakka;
+
 /**
  *
- * @author Sara ja Laur
+ * @author Laur
  */
-public class Pokeri {
 
-    /**
-     * @param args the command line arguments
-     */
+
+public class Pokeri {
+    
+    
+    
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        Pakka pakka = new Pakka();
+        
+        for (int i = 0; i < 52; i++) {
+            
+            Kortti kortti = pakka.nostaKortti();
+            System.out.println("maa: " + kortti.maa() + " arvo: " + kortti.arvo());
+        }
+        
     }
     
 }
