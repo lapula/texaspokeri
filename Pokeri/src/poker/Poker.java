@@ -8,6 +8,7 @@ package poker;
 import cards.Card;
 import cards.Suit;
 import cards.Deck;
+import gameLogic.Game;
 
 /**
  *
@@ -21,7 +22,9 @@ public class Poker {
     
     public static void main(String[] args) {
         
+        Game game = new Game();
         
+        game.start();
         
     }
     

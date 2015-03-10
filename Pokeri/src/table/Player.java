@@ -15,9 +15,13 @@ import cards.Card;
 public class Player {
     
     private ArrayList<Card> hand = new ArrayList<>();
+    private int balance;
+    private boolean isHuman;
     
-    public Player() {
-        
+    
+    public Player(int balance, boolean isHuman) {
+        this.balance = balance;
+        this.isHuman = isHuman;
     }
     
     
@@ -27,6 +31,20 @@ public class Player {
     
     public ArrayList getCard() {
         return this.hand;
+    }
+    
+    public boolean alterBalance(int sum) {
+        
+        if (balance - sum < 0) {
+            return false;
+        }
+        
+        this.balance += sum;
+        return true;
+    }
+    
+    public int getBalance(int sum) {
+        return this.balance;
     }
     
 }
