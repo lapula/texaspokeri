@@ -9,7 +9,7 @@ package cards;
  *
  * @author Sara ja Laur
  */
-public class Card {
+public class Card implements Comparable<Card>{
     
     private Suit suit;
     private int value;
@@ -37,6 +37,17 @@ public class Card {
     
     public int getValue() {
         return this.value;
+    }
+
+    @Override
+    public int compareTo(Card other) {
+        if (this.getValue() > other.getValue()) {
+            return 1;
+        } else if (this.getValue() < other.getValue()) {
+            return -1;
+        }
+        
+        return 0;
     }
     
     

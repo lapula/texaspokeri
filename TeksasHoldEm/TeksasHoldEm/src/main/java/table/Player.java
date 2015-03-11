@@ -31,7 +31,7 @@ public class Player {
         hand.add(card);
     }
     
-    public ArrayList getCards() {
+    public ArrayList<Card> getCards() {
         return this.hand;
     }
     

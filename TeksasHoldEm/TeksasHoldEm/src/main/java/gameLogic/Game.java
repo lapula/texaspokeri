@@ -5,6 +5,7 @@
  */
 package gameLogic;
 
+import cards.Card;
 import cards.Deck;
 import java.util.ArrayList;
 import table.Player;
@@ -24,6 +25,7 @@ public class Game {
     private Table table = new Table(0);
     private Deck deck;
     private Bidding bidding;
+    private Resolve resolve;
     
     
     public Game() {
@@ -42,7 +44,7 @@ public class Game {
         while (true) {
             
             setUp();
-            
+                     
             for (int i = 0; i < PHASE; i++) {
 
                 if (i == 0) {
@@ -60,7 +62,11 @@ public class Game {
                 currentPlayers = bidding.startBidding();
             }
             
-            System.out.println(currentPlayers.get(0).getBalance());
+            resolve = new Resolve(currentPlayers, table);
+            
+            System.out.println(resolve.giveWinner());
+            
+            
             
             break;
         }

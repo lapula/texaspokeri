@@ -5,6 +5,9 @@
  */
 package cards;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -56,6 +59,22 @@ public class CardTest {
     @Test
     public void testGetValue() {
         assertEquals(4, card.getValue());
+    }
+    
+    @Test
+    public void testCompare() {
+        Card card2 = new Card(Suit.HEARTS, 12);
+        Card card3 = new Card(Suit.HEARTS, 11);
+        
+        ArrayList<Card> list = new ArrayList<Card>();
+        
+        list.add(card);
+        list.add(card2);
+        list.add(card3);
+        
+        Collections.sort(list);
+        
+        assertEquals(card2, list.get(2));
     }
     
 }

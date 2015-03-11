@@ -26,7 +26,7 @@ public class Table {
         tableCards.add(card);
     }
     
-    public ArrayList getCards() {
+    public ArrayList<Card> getCards() {
         return this.tableCards;
     }
     
