@@ -54,7 +54,7 @@ public class Deck {
      * Metodi pakan sekoittamiseen.
      */
     
-    private void shuffle() {
+    public void shuffle() {
         
         Collections.shuffle(deck);
         

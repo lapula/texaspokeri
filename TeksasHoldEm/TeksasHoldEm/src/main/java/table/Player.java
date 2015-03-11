@@ -17,11 +17,13 @@ public class Player {
     private ArrayList<Card> hand = new ArrayList<>();
     private int balance;
     private boolean isHuman;
+    private int bid;
     
     
     public Player(int balance, boolean isHuman) {
         this.balance = balance;
         this.isHuman = isHuman;
+        this.bid = 0;
     }
     
     
@@ -29,7 +31,7 @@ public class Player {
         hand.add(card);
     }
     
-    public ArrayList getCard() {
+    public ArrayList getCards() {
         return this.hand;
     }
     
@@ -43,12 +45,24 @@ public class Player {
         return true;
     }
     
-    public int getBalance(int sum) {
+    public int getBalance() {
         return this.balance;
     }
     
     public boolean isHuman() {
         return this.isHuman;
+    }
+    
+    public int bid() {
+        return this.bid;
+    }
+    
+    public void addBid(int sum) {
+        this.bid += sum;
+    }
+    
+    public void resetBid() {
+        this.bid = 0;
     }
     
 }

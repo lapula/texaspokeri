@@ -5,6 +5,10 @@
  */
 package gameLogic;
 
+import cards.Deck;
+import java.util.ArrayList;
+import table.Player;
+import table.Table;
 import table.allPlayers;
 
 /**
@@ -14,20 +18,64 @@ import table.allPlayers;
 public class Game {
     
     private int roundNumber;
+    private final int PHASE = 4;
     private gameSettings gameSettings;
+    private ArrayList<Player> currentPlayers;
+    private Table table = new Table(0);
+    private Deck deck;
+    private Bidding bidding;
+    
     
     public Game() {
         
         this.roundNumber = 1;
         gameSettings = new gameSettings(4, 100);
         gameSettings.initialize();
+        currentPlayers = allPlayers.getPlayers();
         
     }
     
     
     public void start() {
         System.out.println("Started!");
-        System.out.println(allPlayers.getPlayers().size());
+        
+        while (true) {
+            
+            setUp();
+            
+            for (int i = 0; i < PHASE; i++) {
+
+                if (i == 0) {
+                    //nothing;
+                } else if (i == 1) {
+                    table.addCard(deck.drawCard());
+                    table.addCard(deck.drawCard());
+                    table.addCard(deck.drawCard());
+                } else {
+                    table.addCard(deck.drawCard());
+                }
+                
+                
+                bidding = new Bidding(currentPlayers);
+                currentPlayers = bidding.startBidding();
+            }
+            
+            System.out.println(currentPlayers.get(0).getBalance());
+            
+            break;
+        }
+        
+    }
+    
+    private void setUp() {
+        
+        deck = new Deck();
+        table.resetPot();
+        
+        for (int i = 0; i < currentPlayers.size(); i++) {
+            currentPlayers.get(i).addCard(deck.drawCard());
+            currentPlayers.get(i).addCard(deck.drawCard());
+        }
     }
     
     

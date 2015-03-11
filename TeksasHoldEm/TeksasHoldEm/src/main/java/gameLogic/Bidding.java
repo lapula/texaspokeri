@@ -22,25 +22,50 @@ public class Bidding {
         this.players = players;
     }
     
-    public void startBidding() {
+    public ArrayList<Player> startBidding() {
         
-        bid = false;
+        int highest = 0;
         
         while (true) {
-            
-            int bid = 0;
             
             for (int i = 0; i < players.size(); i++) {
                 
                 if (players.get(i).isHuman()) {
+                    System.out.println("Choose action: pass");
+                    
+                    players.get(i).addBid(0);
                     
                 } else {
-                    
+                    players.get(i).addBid(highest);
                 }
                 
             }
             
+            if (biddingDone()) {
+                return players;
+            }
+            
         }
+        
+        
+        
+    }
+    
+    private boolean biddingDone() {
+        
+        if (players.size() == 1) {
+            return true;
+        }
+        
+        for (int i = 0; i < players.size() - 1; i++) {
+            if (players.get(i).bid() == players.get(i + 1).bid()) {
+                continue;
+            } else {
+                return false;
+            }
+        }
+        
+        return true;
         
     }
     
