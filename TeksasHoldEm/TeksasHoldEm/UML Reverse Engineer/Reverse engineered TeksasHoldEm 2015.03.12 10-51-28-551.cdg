@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Reverse engineered TeksasHoldEm 2015.03.12 10-51-28-551">
+  <ClassDiagramComponents>
+    <Class xPosition="20.0" yPosition="20.0" package="cards" name="Card" visibility="public">
+      <Constructors>
+        <Constructor name="Card" visibility="public">
+          <Argument type="Suit" name="suit"/>
+          <Argument type="int" name="value"/>
+        </Constructor>
+      </Constructors>
+      <Fields>
+        <Field name="suit" visibility="private" type="Suit"/>
+        <Field name="value" visibility="private" type="int"/>
+      </Fields>
+      <Methods>
+        <Method name="getSuitID" visibility="public" returnType="int"/>
+        <Method name="getSuit" visibility="public" returnType="Suit"/>
+        <Method name="getValue" visibility="public" returnType="int"/>
+        <Method name="compareTo" visibility="public" returnType="int">
+          <Argument type="Card" name="other"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class xPosition="320.0" yPosition="20.0" package="cards" name="Deck" visibility="public">
+      <Constructors>
+        <Constructor name="Deck" visibility="public"/>
+      </Constructors>
+      <Fields>
+        <Field name="SIZE" visibility="private" type="int" isFinal="true"/>
+        <Field name="deck" visibility="private" type="ArrayList&lt;Card&gt;"/>
+      </Fields>
+      <Methods>
+        <Method name="createDeck" visibility="private" returnType="void"/>
+        <Method name="shuffle" visibility="public" returnType="void"/>
+        <Method name="drawCard" visibility="public" returnType="Card"/>
+      </Methods>
+    </Class>
+    <Enum xPosition="620.0" yPosition="20.0" package="cards" name="Suit" visibility="public">
+      <Literals>
+        <Literal name="SPADES"/>
+        <Literal name="HEARTS"/>
+        <Literal name="CLUBS"/>
+        <Literal name="DIAMONDS"/>
+      </Literals>
+    </Enum>
+    <Class xPosition="920.0" yPosition="20.0" package="gameLogic" name="Bidding" visibility="public">
+      <Constructors>
+        <Constructor name="Bidding" visibility="public">
+          <Argument type="ArrayList&lt;Player&gt;" name="players"/>
+        </Constructor>
+      </Constructors>
+      <Fields>
+        <Field name="bid" visibility="private" type="boolean"/>
+        <Field name="players" visibility="private" type="ArrayList&lt;Player&gt;"/>
+      </Fields>
+      <Methods>
+        <Method name="startBidding" visibility="public" returnType="ArrayList&lt;Player&gt;"/>
+        <Method name="biddingDone" visibility="private" returnType="boolean"/>
+      </Methods>
+    </Class>
+    <Class xPosition="20.0" yPosition="420.0" package="gameLogic" name="Game" visibility="public">
+      <Constructors>
+        <Constructor name="Game" visibility="public"/>
+      </Constructors>
+      <Fields>
+        <Field name="roundNumber" visibility="private" type="int"/>
+        <Field name="PHASE" visibility="private" type="int" isFinal="true"/>
+        <Field name="gameSettings" visibility="private" type="GameSettings"/>
+        <Field name="currentPlayers" visibility="private" type="ArrayList&lt;Player&gt;"/>
+        <Field name="table" visibility="private" type="Table"/>
+        <Field name="deck" visibility="private" type="Deck"/>
+        <Field name="bidding" visibility="private" type="Bidding"/>
+        <Field name="resolve" visibility="private" type="Resolve"/>
+      </Fields>
+      <Methods>
+        <Method name="start" visibility="public" returnType="void"/>
+        <Method name="setUp" visibility="private" returnType="void"/>
+      </Methods>
+    </Class>
+    <Class xPosition="320.0" yPosition="420.0" package="gameLogic" name="GameSettings" visibility="public">
+      <Constructors>
+        <Constructor name="GameSettings" visibility="public">
+          <Argument type="int" name="playerCount"/>
+          <Argument type="int" name="startingBalance"/>
+        </Constructor>
+      </Constructors>
+      <Fields>
+        <Field name="playerCount" visibility="package" type="int"/>
+        <Field name="startingBalance" visibility="package" type="int"/>
+      </Fields>
+      <Methods>
+        <Method name="initialize" visibility="public" returnType="void"/>
+      </Methods>
+    </Class>
+    <Class xPosition="620.0" yPosition="420.0" package="gameLogic" name="HandRating" visibility="public">
+      <Constructors>
+        <Constructor name="HandRating" visibility="public"/>
+      </Constructors>
+      <Fields/>
+      <Methods>
+        <Method name="giveRating" visibility="public" returnType="int">
+          <Argument type="ArrayList&lt;Card&gt;" name="cards"/>
+        </Method>
+        <Method name="tryHands" visibility="private" returnType="int">
+          <Argument type="ArrayList&lt;Card&gt;" name="cards"/>
+        </Method>
+        <Method name="highCard" visibility="private" returnType="int">
+          <Argument type="ArrayList&lt;Card&gt;" name="cards"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class xPosition="920.0" yPosition="420.0" package="gameLogic" name="Resolve" visibility="public">
+      <Constructors>
+        <Constructor name="Resolve" visibility="public">
+          <Argument type="ArrayList&lt;Player&gt;" name="players"/>
+          <Argument type="Table" name="table"/>
+        </Constructor>
+      </Constructors>
+      <Fields>
+        <Field name="players" visibility="private" type="ArrayList&lt;Player&gt;"/>
+        <Field name="table" visibility="private" type="Table"/>
+        <Field name="handRating" visibility="private" type="HandRating"/>
+      </Fields>
+      <Methods>
+        <Method name="giveWinner" visibility="public" returnType="int"/>
+        <Method name="unify" visibility="private" returnType="ArrayList&lt;Card&gt;">
+          <Argument type="ArrayList&lt;Card&gt;" name="player"/>
+          <Argument type="ArrayList&lt;Card&gt;" name="table"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class xPosition="20.0" yPosition="820.0" package="main.teksasholdem" name="Poker" visibility="public">
+      <Constructors/>
+      <Fields/>
+      <Methods>
+        <Method name="main" visibility="public" returnType="void" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class xPosition="320.0" yPosition="820.0" package="table" name="AllPlayers" visibility="public">
+      <Constructors>
+        <Constructor name="AllPlayers" visibility="public"/>
+      </Constructors>
+      <Fields>
+        <Field name="players" visibility="private" type="ArrayList&lt;Player&gt;" isStatic="true"/>
+      </Fields>
+      <Methods>
+        <Method name="addPlayer" visibility="public" returnType="void" isStatic="true">
+          <Argument type="Player" name="player"/>
+        </Method>
+        <Method name="getPlayers" visibility="public" returnType="ArrayList" isStatic="true"/>
+      </Methods>
+    </Class>
+    <Class xPosition="620.0" yPosition="820.0" package="table" name="Player" visibility="public">
+      <Constructors>
+        <Constructor name="Player" visibility="public">
+          <Argument type="int" name="balance"/>
+          <Argument type="boolean" name="isHuman"/>
+        </Constructor>
+      </Constructors>
+      <Fields>
+        <Field name="hand" visibility="private" type="ArrayList&lt;Card&gt;"/>
+        <Field name="balance" visibility="private" type="int"/>
+        <Field name="isHuman" visibility="private" type="boolean"/>
+        <Field name="bid" visibility="private" type="int"/>
+      </Fields>
+      <Methods>
+        <Method name="addCard" visibility="public" returnType="void">
+          <Argument type="Card" name="card"/>
+        </Method>
+        <Method name="getCards" visibility="public" returnType="ArrayList&lt;Card&gt;"/>
+        <Method name="alterBalance" visibility="public" returnType="boolean">
+          <Argument type="int" name="sum"/>
+        </Method>
+        <Method name="getBalance" visibility="public" returnType="int"/>
+        <Method name="isHuman" visibility="public" returnType="boolean"/>
+        <Method name="bid" visibility="public" returnType="int"/>
+        <Method name="addBid" visibility="public" returnType="void">
+          <Argument type="int" name="sum"/>
+        </Method>
+        <Method name="resetBid" visibility="public" returnType="void"/>
+      </Methods>
+    </Class>
+    <Class xPosition="920.0" yPosition="820.0" package="table" name="Table" visibility="public">
+      <Constructors>
+        <Constructor name="Table" visibility="public">
+          <Argument type="int" name="pot"/>
+        </Constructor>
+      </Constructors>
+      <Fields>
+        <Field name="tableCards" visibility="private" type="ArrayList&lt;Card&gt;"/>
+        <Field name="pot" visibility="private" type="int"/>
+      </Fields>
+      <Methods>
+        <Method name="addCard" visibility="public" returnType="void">
+          <Argument type="Card" name="card"/>
+        </Method>
+        <Method name="getCards" visibility="public" returnType="ArrayList&lt;Card&gt;"/>
+        <Method name="addToPot" visibility="public" returnType="void">
+          <Argument type="int" name="sum"/>
+        </Method>
+        <Method name="getPot" visibility="public" returnType="int"/>
+        <Method name="resetPot" visibility="public" returnType="void"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation source="Deck" target="Card" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="bidding" source="Game" target="Bidding" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="HandRating" target="Card" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="currentPlayers" source="Game" target="Player" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List"/>
+    <HasRelation name="tableCards" source="Table" target="Card" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List"/>
+    <HasRelation name="suit" source="Card" target="Suit" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Card" target="Suit" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="gameSettings" source="Game" target="GameSettings" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List"/>
+    <HasRelation name="deck" source="Game" target="Deck" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="handRating" source="Resolve" target="HandRating" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="players" source="Resolve" target="Player" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List"/>
+    <UseRelation source="AllPlayers" target="Player" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="players" source="AllPlayers" target="Player" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List"/>
+    <UseRelation source="Table" target="Card" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Bidding" target="Player" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Card" target="Card" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="resolve" source="Game" target="Resolve" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="table" source="Game" target="Table" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="hand" source="Player" target="Card" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List"/>
+    <HasRelation name="deck" source="Deck" target="Card" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List"/>
+    <HasRelation name="players" source="Bidding" target="Player" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List"/>
+    <UseRelation source="Resolve" target="Card" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Player" target="Card" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="table" source="Resolve" target="Table" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

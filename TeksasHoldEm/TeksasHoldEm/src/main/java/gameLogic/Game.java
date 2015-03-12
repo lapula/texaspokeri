@@ -10,7 +10,7 @@ import cards.Deck;
 import java.util.ArrayList;
 import table.Player;
 import table.Table;
-import table.allPlayers;
+import table.AllPlayers;
 
 /**
  *
@@ -20,7 +20,7 @@ public class Game {
     
     private int roundNumber;
     private final int PHASE = 4;
-    private gameSettings gameSettings;
+    private GameSettings gameSettings;
     private ArrayList<Player> currentPlayers;
     private Table table = new Table(0);
     private Deck deck;
@@ -31,9 +31,9 @@ public class Game {
     public Game() {
         
         this.roundNumber = 1;
-        gameSettings = new gameSettings(4, 100);
+        gameSettings = new GameSettings(4, 100);
         gameSettings.initialize();
-        currentPlayers = allPlayers.getPlayers();
+        currentPlayers = AllPlayers.getPlayers();
         
     }
     

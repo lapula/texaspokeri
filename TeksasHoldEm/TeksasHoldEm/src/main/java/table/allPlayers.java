@@ -11,17 +11,31 @@ import java.util.ArrayList;
  *
  * @author Sara ja Laur
  */
-public class allPlayers {
+public class AllPlayers {
     
     private static ArrayList<Player> players = new ArrayList<Player>();
     
-    public allPlayers() {
+    /**
+     * Luokka jossa pidetään listaa kaikista pelaajista, siis myös niistä jotka
+     * ovat tietyltä kierrokselta tippuneet (muttei koko pelistä).
+     */
+    
+    public AllPlayers() {
         
     }
+    
+    /**
+     * Lisätään listalle uusi pelaaja.
+     * @param player uusi pelaaja.
+     */
     
     public static void addPlayer(Player player) {
         players.add(player);
     }
+    
+    /**
+     * @return lista pelaajista.
+     */
     
     public static ArrayList getPlayers() {
         return players;

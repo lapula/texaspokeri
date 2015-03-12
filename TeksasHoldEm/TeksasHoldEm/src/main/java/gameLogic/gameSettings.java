@@ -7,19 +7,19 @@ package gameLogic;
 
 import java.util.ArrayList;
 import table.Player;
-import table.allPlayers;
+import table.AllPlayers;
 
 /**
  *
  * @author Sara ja Laur
  */
-public class gameSettings {
+public class GameSettings {
     
     int playerCount;
     int startingBalance;
     
     
-    public gameSettings(int playerCount, int startingBalance) {
+    public GameSettings(int playerCount, int startingBalance) {
         
         
         this.playerCount = playerCount;
@@ -29,9 +29,9 @@ public class gameSettings {
     }
     
     public void initialize() {
-        allPlayers.addPlayer(new Player(startingBalance, true));
+        AllPlayers.addPlayer(new Player(startingBalance, true));
         for (int i = 0; i < playerCount - 1; i++) {
-            allPlayers.addPlayer(new Player(startingBalance, false));
+            AllPlayers.addPlayer(new Player(startingBalance, false));
         }
     }
     

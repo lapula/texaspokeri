@@ -26,18 +26,35 @@ public class Card implements Comparable<Card>{
         this.value = value;
     }
     
+    /**
+     * @return maan ID
+     */
     
     public int getSuitID() {
         return this.suit.id;
     }
     
+    /**
+     * @return Maan luokka.
+     */
+    
     public Suit getSuit() {
         return this.suit;
     }
     
+    /**
+     * @return kortin arvo
+     */
+    
     public int getValue() {
         return this.value;
     }
+    
+    /**
+     * Compare to metodi korttien arvon vertailuun.
+     * @param other verrattava kortti
+     * @return onko kortti isompi, samankokoinen vai pienempi (1, 0, -1)
+     */
 
     @Override
     public int compareTo(Card other) {

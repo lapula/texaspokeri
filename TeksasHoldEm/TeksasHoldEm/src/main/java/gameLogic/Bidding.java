@@ -6,7 +6,7 @@
 package gameLogic;
 
 import java.util.ArrayList;
-import table.allPlayers;
+import table.AllPlayers;
 import table.Player;
 
 /**
