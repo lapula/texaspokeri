@@ -1,0 +1,12 @@
+table\AllPlayers.class
+gameLogic\GameSettings.class
+table\Table.class
+gameLogic\Game.class
+gameLogic\HandRating.class
+cards\Card.class
+cards\Suit.class
+main\teksasholdem\Poker.class
+gameLogic\Resolve.class
+gameLogic\Bidding.class
+table\Player.class
+cards\Deck.class
