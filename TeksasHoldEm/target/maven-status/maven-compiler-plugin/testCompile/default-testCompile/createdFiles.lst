@@ -1,3 +1,6 @@
-cards\CardTest.class
-cards\SuitTest.class
-cards\DeckTest.class
+pokeri\cards\CardTest.class
+pokeri\cards\SuitTest.class
+pokeri\cards\DeckTest.class
+pokeri\table\PlayerTest.class
+pokeri\table\TableTest.class
+pokeri\table\AllPlayersTest.class
