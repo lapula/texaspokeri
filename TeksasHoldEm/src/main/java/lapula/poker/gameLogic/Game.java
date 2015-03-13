@@ -62,6 +62,24 @@ public class Game {
                 currentPlayers = bidding.startBidding();
             }
             
+            /**
+             * VÄLIAIKAINEN TARKISTUSMETODI
+             */
+            
+            System.out.println("Table Cards: ");
+            for (int i = 0; i < 5; i++) {
+                System.out.print(table.getCards().get(i).getValue() + ", ");
+            }
+            System.out.println("");
+            for (int i = 0; i < 4; i++) {
+                System.out.println("Player " + i + " cards:");
+                System.out.println(currentPlayers.get(i).getCards().get(0).getValue());
+                System.out.println(currentPlayers.get(i).getCards().get(1).getValue());
+            }
+            /**
+             * loppuu tähän.
+             */
+            
             resolve = new Resolve(currentPlayers, table);
             
             System.out.println(resolve.giveWinner());

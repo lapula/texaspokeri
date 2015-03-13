@@ -37,6 +37,10 @@ public class Resolve {
             result[i] = rating;
         }
         
+        
+        /**
+         * EI VALMIS VIELÄ
+         */
         Arrays.sort(result);
         
         return result[result.length - 1];

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import lapula.poker.cards.Suit;
 
 /**
  *
@@ -21,8 +22,20 @@ public class HandRating {
      * Tämän luokan idea on antaa kädelle arvo. Mahdollisia käsiä on 9 ja jokaiselle niistä 
      * määritellään korkein kortti. Paras käsi saa arvoksi 900.0, toinen 800.0 jne. Arvoon lisätään
      * korkein kortti, eli värisuora alkaen ässästä on 912.0 jne.
-     * Alunperin oli tarkoitus käyttää Integeriä mutta jouduin vaihtamaan double:en sillä kahden
+     * Alunperin oli tarkoitus käyttää Integeriä arvona mutta jouduin vaihtamaan double:en sillä kahden
      * kortin tapauksessa piti voida ottaa huomioon myös toisen kortin arvo.
+     * 
+     * Lista tulosten merkityksistä:
+     * 
+     * Straight Flush: 900
+     * Four of a Kind: 800
+     * Full House: 700
+     * Flush: 600
+     * Straight: 500
+     * Three of a Kind: 400
+     * Two Pairs: 300
+     * One Pair: 200
+     * High Card: 100
      */
     
     
@@ -65,6 +78,21 @@ public class HandRating {
         double tulos = 0;
         
         if (tulos == 0) {
+            tulos = straightFlush(cards);
+        }
+        if (tulos == 0) {
+            tulos = fourOfAKind(cards);
+        }
+        if (tulos == 0) {
+            tulos = fullHouse(cards);
+        }
+        if (tulos == 0) {
+            tulos = flush(cards);
+        }
+        if (tulos == 0) {
+            tulos = straight(cards);
+        }
+        if (tulos == 0) {
             tulos = threeOfAKind(cards);
         }
         if (tulos == 0) {
@@ -82,25 +110,120 @@ public class HandRating {
     }
     
     
-    /*private double straightFlush(ArrayList<Card> cards) {
+    private double straightFlush(ArrayList<Card> cards) {
+        
+        Collections.sort(cards);
+        
+        int start = cards.get(0).getValue();
+        
+        for (int i = 1; i < cards.size(); i++) {
+            if (cards.get(i).getValue() == start + 1) {
+                start += 1;
+            } else {
+                return 0;
+            }
+        }
+        
+        Suit define = cards.get(0).getSuit();
+        
+        for (int i = 1; i < cards.size(); i++) {
+            if (cards.get(i).getSuit() == define) {
+                continue;
+            } else {
+                return 0;
+            }
+        }
+        
+        return 900.0 + start;
         
     }
     
     private double fourOfAKind(ArrayList<Card> cards) {
         
+        Collections.sort(cards);
+        int start = 0;
+        
+        if (cards.get(0).getValue() != cards.get(1).getValue()) {
+            start = 1;
+        }
+        
+        int define = cards.get(start).getValue();
+        
+        for (int i = start + 1; i < cards.size(); i++) {
+            
+            if (cards.get(i).getValue() == define) {
+                continue;
+            } else {
+                return 0;
+            }
+            
+        }
+        
+        return 800.0 + define;
+        
     }
     
     private double fullHouse(ArrayList<Card> cards) {
         
-    }
+        Collections.sort(cards);
+        int start = 0;
+        
+        if (cards.get(0).getValue() == cards.get(1).getValue()) {
+            start = 2;
+        } else if (cards.get(cards.size() - 1).getValue() == cards.get(cards.size() - 2).getValue()) {
+            start = 0;
+        } else {
+            return 0;
+        }
+        
+        int define = cards.get(start).getValue();
+        
+        for (int i = start + 1; i < start + 3; i++) {
+            if (cards.get(i).getValue() == define) {
+                continue;
+            } else {
+                return 0;
+            }
+        }
+        
+        return 700.0 + define;
+        
+    } 
     
     private double flush(ArrayList<Card> cards) {
+        
+        Collections.sort(cards);
+        
+        Suit define = cards.get(0).getSuit();
+        
+        for (int i = 1; i < cards.size(); i++) {
+            if (cards.get(i).getSuit() == define) {
+                continue;
+            } else {
+                return 0;
+            }
+        }
+        
+        return 600.0 + cards.get(cards.size() - 1).getValue();
         
     }
     
     private double straight(ArrayList<Card> cards) {
         
-    }*/
+        Collections.sort(cards);
+        
+        int straight = cards.get(0).getValue();
+        
+        for (int i = 1; i < cards.size(); i++) {
+            if (cards.get(i).getValue() == straight + 1) {
+                straight += 1;
+            } else {
+                return 0;
+            }
+        }
+        
+        return 500.0 + straight;
+    }
     
     private double threeOfAKind(ArrayList<Card> cards) {
         
@@ -110,7 +233,7 @@ public class HandRating {
             if (cards.get(i).getValue() == cards.get(i - 1).getValue() &&
                 cards.get(i - 2).getValue() == cards.get(i - 1).getValue()) {
                 
-                return 400 + cards.get(i).getValue();
+                return 400.0 + cards.get(i).getValue();
             }
         }
         
@@ -133,7 +256,7 @@ public class HandRating {
                     continue;
                 }
                 
-                return 300 + cards.get(i).getValue() + (cards.get(index).getValue() / 100.0);
+                return 300.0 + cards.get(i).getValue() + (cards.get(index).getValue() / 100.0);
             }
         }
         
@@ -147,7 +270,7 @@ public class HandRating {
         
         for (int i = cards.size() - 1; i > 0; i--) {
             if (cards.get(i).getValue() == cards.get(i - 1).getValue()) {
-                return 200 + cards.get(i).getValue();
+                return 200.0 + cards.get(i).getValue();
             }
         }
         
@@ -157,7 +280,7 @@ public class HandRating {
     private double highCard(ArrayList<Card> cards) {
         
         Collections.sort(cards);
-        return 100 + cards.get(cards.size() - 1).getValue();
+        return 100.0 + cards.get(cards.size() - 1).getValue();
     }
     
     
