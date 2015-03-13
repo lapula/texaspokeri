@@ -1,6 +1,8 @@
-C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\test\java\pokeri\table\AllPlayersTest.java
-C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\test\java\pokeri\table\PlayerTest.java
-C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\test\java\pokeri\cards\CardTest.java
-C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\test\java\pokeri\cards\DeckTest.java
-C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\test\java\pokeri\table\TableTest.java
-C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\test\java\pokeri\cards\SuitTest.java
+C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\test\java\lapula\poker\PokerTest.java
+C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\test\java\lapula\poker\gameLogic\HandRatingTest.java
+C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\test\java\lapula\poker\table\PlayerTest.java
+C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\test\java\lapula\poker\cards\DeckTest.java
+C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\test\java\lapula\poker\cards\CardTest.java
+C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\test\java\lapula\poker\table\TableTest.java
+C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\test\java\lapula\poker\cards\SuitTest.java
+C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\test\java\lapula\poker\table\AllPlayersTest.java
