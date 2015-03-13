@@ -36,7 +36,7 @@ public class AllPlayersTest {
     @Test
     public void testAddPlayer() {
         
-        Player player = new Player(100, true); 
+        Player player = new Player(100, true, 1); 
         AllPlayers.addPlayer(player);
         
         assertEquals(player, AllPlayers.getPlayers().get(0));

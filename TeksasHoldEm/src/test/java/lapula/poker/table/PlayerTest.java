@@ -23,7 +23,7 @@ public class PlayerTest {
     Player player;
     
     public PlayerTest() {
-        player = new Player(100, true);
+        player = new Player(100, true, 1);
     }
     
     @Before
@@ -101,6 +101,13 @@ public class PlayerTest {
         player.addBid(10);
         player.resetBid();
         assertEquals(0, player.bid());
+        
+    }
+    
+    @Test
+    public void testGetId() {
+        
+        assertEquals(1, player.getId());
         
     }
     

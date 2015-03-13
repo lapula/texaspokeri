@@ -18,6 +18,7 @@ public class Player {
     private int balance;
     private boolean isHuman;
     private int bid;
+    private int id;
     
     /**
      * Luokka pelaajalle. Pelaaja voi olla ihminen tai tekoäly. Pelaajalla on omat
@@ -26,10 +27,11 @@ public class Player {
      * @param isHuman onko ihminen.
      */
     
-    public Player(int balance, boolean isHuman) {
+    public Player(int balance, boolean isHuman, int id) {
         this.balance = balance;
         this.isHuman = isHuman;
         this.bid = 0;
+        this.id = id;
     }
     
     /**
@@ -109,6 +111,10 @@ public class Player {
     
     public void resetBid() {
         this.bid = 0;
+    }
+    
+    public int getId() {
+        return this.id;
     }
     
 }

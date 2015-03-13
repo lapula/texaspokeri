@@ -28,7 +28,7 @@ public class HandRatingTest {
     
     public HandRatingTest() {
         table = new Table(0);
-        player = new Player(100, true);
+        player = new Player(100, true, 1);
         handRating = new HandRating();
     }
     

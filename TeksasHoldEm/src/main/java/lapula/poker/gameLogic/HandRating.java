@@ -67,8 +67,6 @@ public class HandRating {
         
         Arrays.sort(result);
         
-        
-        
         return result[result.length - 1];
         
     }

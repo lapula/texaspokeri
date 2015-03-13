@@ -8,6 +8,7 @@ package lapula.poker.gameLogic;
 import lapula.poker.cards.Card;
 import lapula.poker.cards.Deck;
 import java.util.ArrayList;
+import java.util.HashMap;
 import lapula.poker.table.Player;
 import lapula.poker.table.Table;
 import lapula.poker.table.AllPlayers;
@@ -43,6 +44,8 @@ public class Game {
         
         while (true) {
             
+            
+            
             setUp();
                      
             for (int i = 0; i < PHASE; i++) {
@@ -72,7 +75,7 @@ public class Game {
             }
             System.out.println("");
             for (int i = 0; i < 4; i++) {
-                System.out.println("Player " + i + " cards:");
+                System.out.println("Player " + currentPlayers.get(i).getId() + " cards:");
                 System.out.println(currentPlayers.get(i).getCards().get(0).getValue());
                 System.out.println(currentPlayers.get(i).getCards().get(1).getValue());
             }
@@ -82,8 +85,13 @@ public class Game {
             
             resolve = new Resolve(currentPlayers, table);
             
-            System.out.println(resolve.giveWinner());
+            HashMap<Player, Double> result = resolve.giveWinner();
             
+            
+            System.out.println("Winners are:");
+            for (Player player : result.keySet()) {
+                System.out.println("Player " + player.getId() + " with a rating of: " + result.get(player));
+            }
             
             
             break;
