@@ -74,35 +74,6 @@ public class PlayerTest {
     public void testIsHuman() {
         assertTrue(player.isHuman());
     }
-
-    
-    @Test
-    public void testBid() {
-        assertEquals(0, player.bid());
-    }
-
-    
-    @Test
-    public void testAddBid() {
-        player.addBid(10);
-        assertEquals(10, player.bid());
-    }
-    
-    @Test
-    public void testAddBidWithNegative() {
-        player.addBid(-10);
-        assertEquals(0, player.bid());
-    }
-
-    
-    @Test
-    public void testResetBid() {
-        
-        player.addBid(10);
-        player.resetBid();
-        assertEquals(0, player.bid());
-        
-    }
     
     @Test
     public void testGetId() {

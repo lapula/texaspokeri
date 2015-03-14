@@ -1,12 +1,13 @@
 C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\gameLogic\Game.java
-C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\gameLogic\HandRating.java
-C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\cards\Suit.java
 C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\cards\Card.java
 C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\gameLogic\Bidding.java
 C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\cards\Deck.java
 C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\gameLogic\GameSettings.java
 C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\table\Player.java
-C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\gameLogic\Resolve.java
+C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\util\TextReader.java
 C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\table\Table.java
+C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\gameLogic\HandRating.java
+C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\cards\Suit.java
+C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\gameLogic\Resolve.java
 C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\Poker.java
 C:\Users\Sara ja Laur\Documents\GitHub\texaspokeri\TeksasHoldEm\src\main\java\lapula\poker\table\AllPlayers.java

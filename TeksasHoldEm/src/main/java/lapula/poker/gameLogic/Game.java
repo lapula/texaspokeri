@@ -63,6 +63,11 @@ public class Game {
                 
                 bidding = new Bidding(currentPlayers);
                 currentPlayers = bidding.startBidding();
+                System.out.println("");
+                System.out.println("ROUND!!!");
+                System.out.println("");
+                System.out.println("table money: " + table.getPot());
+                System.out.println("size: " + currentPlayers.size());
             }
             
             /**
@@ -74,7 +79,7 @@ public class Game {
                 System.out.print(table.getCards().get(i).getValue() + ", ");
             }
             System.out.println("");
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < currentPlayers.size(); i++) {
                 System.out.println("Player " + currentPlayers.get(i).getId() + " cards:");
                 System.out.println(currentPlayers.get(i).getCards().get(0).getValue());
                 System.out.println(currentPlayers.get(i).getCards().get(1).getValue());

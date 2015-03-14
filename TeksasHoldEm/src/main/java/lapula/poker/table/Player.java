@@ -17,8 +17,8 @@ public class Player {
     private ArrayList<Card> hand = new ArrayList<>();
     private int balance;
     private boolean isHuman;
-    private int bid;
     private int id;
+    private int bid;
     
     /**
      * Luokka pelaajalle. Pelaaja voi olla ihminen tai tekoäly. Pelaajalla on omat
@@ -30,8 +30,8 @@ public class Player {
     public Player(int balance, boolean isHuman, int id) {
         this.balance = balance;
         this.isHuman = isHuman;
-        this.bid = 0;
         this.id = id;
+        this.bid = 0;
     }
     
     /**
@@ -83,38 +83,20 @@ public class Player {
         return this.isHuman;
     }
     
-    /**
-     * @return tämänhetkisen panoksen määrä.
-     */
-    
-    public int bid() {
-        return this.bid;
+    public int getId() {
+        return this.id;
     }
     
-    /**
-     * Lisätään panosta.
-     * @param sum lisättävä määrä.
-     */
-    
     public void addBid(int sum) {
-        
-        if (sum < 0) {
-            return;
-        }
-        
         this.bid += sum;
     }
     
-    /**
-     * Nollataan pelaajan panos (tältä kierrokselta).
-     */
+    public int getBid() {
+        return this.bid;
+    }
     
     public void resetBid() {
         this.bid = 0;
-    }
-    
-    public int getId() {
-        return this.id;
     }
     
 }

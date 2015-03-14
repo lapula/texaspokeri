@@ -33,6 +33,7 @@ public class GameSettings {
         for (int i = 2; i < playerCount + 1; i++) {
             AllPlayers.addPlayer(new Player(startingBalance, false, i));
         }
+        AllPlayers.addPlayer(new Player(startingBalance, true, 5));
     }
     
 }

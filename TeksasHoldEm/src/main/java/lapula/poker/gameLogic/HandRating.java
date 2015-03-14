@@ -165,11 +165,14 @@ public class HandRating {
         
         Collections.sort(cards);
         int start = 0;
+        int fullOf = 2;
         
         if (cards.get(0).getValue() == cards.get(1).getValue()) {
             start = 2;
+            fullOf = 0;
         } else if (cards.get(cards.size() - 1).getValue() == cards.get(cards.size() - 2).getValue()) {
             start = 0;
+            fullOf = 5;
         } else {
             return 0;
         }
@@ -184,7 +187,7 @@ public class HandRating {
             }
         }
         
-        return 700.0 + define;
+        return 700.0 + define + (cards.get(fullOf).getValue() / 100.0);
         
     } 
     

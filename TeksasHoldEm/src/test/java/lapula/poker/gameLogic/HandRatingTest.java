@@ -136,7 +136,7 @@ public class HandRatingTest {
         table.addCard(new Card(Suit.CLUBS, 5));
         table.addCard(new Card(Suit.SPADES, 5));
         
-        assertEquals(705.0, handRating.giveRating(table.getCards()), DELTA);
+        assertEquals(705.02, handRating.giveRating(table.getCards()), DELTA);
     }
     
     @Test

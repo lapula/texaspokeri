@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="10" failures="0" name="lapula.poker.table.PlayerTest" time="0.002" errors="0" skipped="0">
+<testsuite tests="7" failures="0" name="lapula.poker.table.PlayerTest" time="0.002" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_25\jre\bin"/>
@@ -61,14 +61,11 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="lapula.poker.table.PlayerTest" name="testAddBidWithNegative" time="0"/>
   <testcase classname="lapula.poker.table.PlayerTest" name="testGetCards" time="0"/>
-  <testcase classname="lapula.poker.table.PlayerTest" name="testBid" time="0"/>
+  <testcase classname="lapula.poker.table.PlayerTest" name="testGetId" time="0"/>
   <testcase classname="lapula.poker.table.PlayerTest" name="testAlterBalance" time="0"/>
   <testcase classname="lapula.poker.table.PlayerTest" name="testGetBalance" time="0"/>
-  <testcase classname="lapula.poker.table.PlayerTest" name="testResetBid" time="0"/>
   <testcase classname="lapula.poker.table.PlayerTest" name="testAddCardWorks" time="0"/>
-  <testcase classname="lapula.poker.table.PlayerTest" name="testAddBid" time="0"/>
   <testcase classname="lapula.poker.table.PlayerTest" name="testAlterBalanceToUnderZero" time="0"/>
   <testcase classname="lapula.poker.table.PlayerTest" name="testIsHuman" time="0"/>
 </testsuite>

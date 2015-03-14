@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Table {
     
     private ArrayList<Card> tableCards = new ArrayList<Card>();
-    private int pot;
+    private static int pot;
     
     /**
      * Pelipöytä joka sisältää kortit ja potin.
@@ -48,11 +48,11 @@ public class Table {
      * @param sum lisättävä summa.
      */
     
-    public void addToPot(int sum) {
+    public static void addToPot(int sum) {
         if (sum < 0) {
             return;
         }
-        this.pot += sum;
+        Table.pot += sum;
     }
     
     /**

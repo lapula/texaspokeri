@@ -41,4 +41,9 @@ public class AllPlayers {
         return players;
     }
     
+    public static void resetBids() {
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).resetBid();
+        }
+    }
 }
