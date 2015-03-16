@@ -41,6 +41,16 @@ public class AllPlayers {
         return players;
     }
     
+    public static boolean removePlayer(Player player) {
+        for (int i = 0; i < players.size(); i++) {
+            if (player.getId() == players.get(i).getId()) {
+                players.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public static void resetBids() {
         for (int i = 0; i < players.size(); i++) {
             players.get(i).resetBid();

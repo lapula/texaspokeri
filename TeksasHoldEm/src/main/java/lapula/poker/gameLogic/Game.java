@@ -12,6 +12,7 @@ import java.util.HashMap;
 import lapula.poker.table.Player;
 import lapula.poker.table.Table;
 import lapula.poker.table.AllPlayers;
+import lapula.poker.util.TextReader;
 
 /**
  *
@@ -27,6 +28,7 @@ public class Game {
     private Deck deck;
     private Bidding bidding;
     private Resolve resolve;
+    private TextReader textReader;
     
     
     public Game() {
@@ -34,7 +36,8 @@ public class Game {
         this.roundNumber = 1;
         gameSettings = new GameSettings(4, 100);
         gameSettings.initialize();
-        currentPlayers = AllPlayers.getPlayers();
+        currentPlayers = new ArrayList<>(AllPlayers.getPlayers());
+        textReader = new TextReader();
         
     }
     
@@ -49,6 +52,13 @@ public class Game {
             setUp();
                      
             for (int i = 0; i < PHASE; i++) {
+                
+                System.out.println("");
+                System.out.println("PLAYER ORDER");
+                for (int a = 0; a < currentPlayers.size(); a++) {
+                    System.out.println(currentPlayers.get(a).getId());
+                }
+                System.out.println("");
 
                 if (i == 0) {
                     //nothing;
@@ -97,9 +107,20 @@ public class Game {
             for (Player player : result.keySet()) {
                 System.out.println("Player " + player.getId() + " with a rating of: " + result.get(player));
             }
+            for (Player player : result.keySet()) {
+                player.alterBalance(table.getPot() / result.keySet().size());
+            }
             
+            System.out.println("SIZE ALL: " + AllPlayers.getPlayers().size());
+            endOfRound();
+            currentPlayers = new ArrayList<>(AllPlayers.getPlayers());
             
-            break;
+            System.out.println("Quit? (Y/N)");
+            String answer = textReader.read();
+            
+            if (answer.equals("Y") || currentPlayers.size() < 2) {
+                break;
+            }
         }
         
     }
@@ -113,6 +134,31 @@ public class Game {
             currentPlayers.get(i).addCard(deck.drawCard());
             currentPlayers.get(i).addCard(deck.drawCard());
         }
+    }
+    
+    private void endOfRound() {
+        
+        table.resetPot();
+        table.getCards().removeAll(table.getCards());
+        deck = new Deck();
+        
+        
+        for (int i = 0; i < AllPlayers.getPlayers().size(); i++) {
+            
+            Player player = (Player) AllPlayers.getPlayers().get(i);
+            player.getCards().removeAll(player.getCards());
+            System.out.println("END OF ROUND BALANCE: " + player.getId() + ": " + player.getBalance());
+            if (player.getBalance() < 10) {
+                System.out.println("Remover player: " + player.getId());
+                AllPlayers.removePlayer(player);
+                i--;
+            }
+            
+        }
+        
+        
+        
+        
     }
     
     

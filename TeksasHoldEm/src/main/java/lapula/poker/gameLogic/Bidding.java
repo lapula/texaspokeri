@@ -43,6 +43,7 @@ public class Bidding {
                 if (player.isHuman()) {
                     System.out.println("PLAYER: " + player.getId());
                     System.out.println("Current cost to call is: " + (highest - player.getBid()));
+                    System.out.println("Your money: " + player.getBalance());
                     System.out.println("Give order:");
                     order = textReader.read();
                 }    
@@ -118,7 +119,7 @@ public class Bidding {
     
     private boolean call(Player player, int highest) {
         
-        boolean succeeded = player.alterBalance(highest);
+        boolean succeeded = player.alterBalance(-highest);
         
         if (!succeeded) {
             return false;
