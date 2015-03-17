@@ -107,13 +107,17 @@ public class Game {
             for (Player player : result.keySet()) {
                 System.out.println("Player " + player.getId() + " with a rating of: " + result.get(player));
             }
+            
+            /**
+             * PÄIVITÄ!
+             */
             for (Player player : result.keySet()) {
                 player.alterBalance(table.getPot() / result.keySet().size());
             }
             
             System.out.println("SIZE ALL: " + AllPlayers.getPlayers().size());
             endOfRound();
-            currentPlayers = new ArrayList<>(AllPlayers.getPlayers());
+            
             
             System.out.println("Quit? (Y/N)");
             String answer = textReader.read();
@@ -128,7 +132,6 @@ public class Game {
     private void setUp() {
         
         deck = new Deck();
-        table.resetPot();
         
         for (int i = 0; i < currentPlayers.size(); i++) {
             currentPlayers.get(i).addCard(deck.drawCard());
@@ -140,25 +143,34 @@ public class Game {
         
         table.resetPot();
         table.getCards().removeAll(table.getCards());
-        deck = new Deck();
         
         
         for (int i = 0; i < AllPlayers.getPlayers().size(); i++) {
             
             Player player = (Player) AllPlayers.getPlayers().get(i);
             player.getCards().removeAll(player.getCards());
+            player.refreshMaxWin();
+            player.resetAllIn();
             System.out.println("END OF ROUND BALANCE: " + player.getId() + ": " + player.getBalance());
             if (player.getBalance() < 10) {
-                System.out.println("Remover player: " + player.getId());
+                System.out.println("Remove player: " + player.getId());
                 AllPlayers.removePlayer(player);
                 i--;
             }
             
         }
         
+        currentPlayers = new ArrayList<>(AllPlayers.getPlayers());
+        Player player = currentPlayers.get(0);
+        currentPlayers.remove(0);
+        currentPlayers.add(player);
         
-        
-        
+    }
+    
+    private void dividePot(HashMap<Player, Double> result) {
+        for (Player player : result.keySet()) {
+            player.alterBalance(table.getPot() / result.keySet().size());
+        }
     }
     
     

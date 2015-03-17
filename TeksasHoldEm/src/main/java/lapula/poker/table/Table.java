@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Table {
     
-    private ArrayList<Card> tableCards = new ArrayList<Card>();
+    private ArrayList<Card> tableCards = new ArrayList<>();
     private static int pot;
     
     /**
@@ -23,7 +23,7 @@ public class Table {
      */
     
     public Table(int pot) {
-        this.pot = pot;
+        Table.pot = pot;
     }
     
     /**
@@ -60,7 +60,7 @@ public class Table {
      */
     
     public int getPot() {
-        return this.pot;
+        return Table.pot;
     }
     
     /**
@@ -68,7 +68,7 @@ public class Table {
      */
     
     public void resetPot() {
-        this.pot = 0;
+        Table.pot = 0;
     }
     
     

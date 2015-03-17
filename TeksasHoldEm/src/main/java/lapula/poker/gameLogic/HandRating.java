@@ -9,7 +9,6 @@ import lapula.poker.cards.Card;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import lapula.poker.cards.Suit;
 
 /**
@@ -37,6 +36,16 @@ public class HandRating {
      * One Pair: 200
      * High Card: 100
      */
+    
+    private final double STRAIGHT_FLUSH = 900.0;
+    private final double FOUR_OF_A_KIND = 800.0;
+    private final double FULL_HOUSE = 700.0;
+    private final double FLUSH = 600.0;
+    private final double STRAIGHT = 500.0;
+    private final double THREE_OF_A_KIND = 400.0;
+    private final double TWO_PAIRS = 300.0;
+    private final double ONE_PAIR = 200.0;
+    private final double HIGH_CARD = 100.0;
     
     
     public HandRating() {
@@ -132,7 +141,7 @@ public class HandRating {
             }
         }
         
-        return 900.0 + start;
+        return STRAIGHT_FLUSH + start;
         
     }
     
@@ -157,7 +166,7 @@ public class HandRating {
             
         }
         
-        return 800.0 + define;
+        return FOUR_OF_A_KIND + define;
         
     }
     
@@ -187,7 +196,7 @@ public class HandRating {
             }
         }
         
-        return 700.0 + define + (cards.get(fullOf).getValue() / 100.0);
+        return FULL_HOUSE + define + (cards.get(fullOf).getValue() / 100.0);
         
     } 
     
@@ -205,7 +214,7 @@ public class HandRating {
             }
         }
         
-        return 600.0 + cards.get(cards.size() - 1).getValue();
+        return FLUSH + cards.get(cards.size() - 1).getValue();
         
     }
     
@@ -223,7 +232,7 @@ public class HandRating {
             }
         }
         
-        return 500.0 + straight;
+        return STRAIGHT + straight;
     }
     
     private double threeOfAKind(ArrayList<Card> cards) {
@@ -234,7 +243,7 @@ public class HandRating {
             if (cards.get(i).getValue() == cards.get(i - 1).getValue() &&
                 cards.get(i - 2).getValue() == cards.get(i - 1).getValue()) {
                 
-                return 400.0 + cards.get(i).getValue();
+                return THREE_OF_A_KIND + cards.get(i).getValue();
             }
         }
         
@@ -257,7 +266,7 @@ public class HandRating {
                     continue;
                 }
                 
-                return 300.0 + cards.get(i).getValue() + (cards.get(index).getValue() / 100.0);
+                return TWO_PAIRS + cards.get(i).getValue() + (cards.get(index).getValue() / 100.0);
             }
         }
         
@@ -271,7 +280,7 @@ public class HandRating {
         
         for (int i = cards.size() - 1; i > 0; i--) {
             if (cards.get(i).getValue() == cards.get(i - 1).getValue()) {
-                return 200.0 + cards.get(i).getValue();
+                return ONE_PAIR + cards.get(i).getValue();
             }
         }
         
@@ -281,7 +290,7 @@ public class HandRating {
     private double highCard(ArrayList<Card> cards) {
         
         Collections.sort(cards);
-        return 100.0 + cards.get(cards.size() - 1).getValue();
+        return HIGH_CARD + cards.get(cards.size() - 1).getValue();
     }
     
     

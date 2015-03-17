@@ -37,72 +37,87 @@ public class Bidding {
         
         for (int i = 0; i < end; i++) {
             
+            
+            
             Player player = players.get(i % players.size());
             String order = "call";
+            
+            if (player.isAllIn()) {
+                continue;
+            }
                 
-                if (player.isHuman()) {
-                    System.out.println("PLAYER: " + player.getId());
-                    System.out.println("Current cost to call is: " + (highest - player.getBid()));
-                    System.out.println("Your money: " + player.getBalance());
-                    System.out.println("Give order:");
-                    order = textReader.read();
-                }    
+            if (player.isHuman()) {
+                System.out.println("PLAYER: " + player.getId());
+                System.out.println("Current cost to call is: " + (highest - player.getBid()));
+                System.out.println("Your money: " + player.getBalance());
+                System.out.println("Give order:");
+                order = textReader.read();
+            }
                 
-                if (order.equals("call")) {
+            if (order.equals("call")) {
+                   
+                boolean succeeded = call(player, (highest - player.getBid()));
                     
-                    boolean succeeded = call(player, (highest - player.getBid()));
-                    
-                    if (!succeeded) {
-                        System.out.println("You do not have enough money");
-                        players.remove(player);
-                    } else {
-                        player.addBid(highest - player.getBid());
-                    }
-                    
-                } else if (order.equals("bid")) {
-                    
-                    System.out.print("Amount to bid: ");
-                    int amount = Integer.parseInt(textReader.read());
-                    
-                    boolean succeeded = bid(player, amount);
-                    
-                    if (!succeeded) {
-                        System.out.println("You did not have enough money");
-                    } else {
-                        highest += amount;
-                        player.addBid(amount);
-                        end += players.size();
-                        lastRaised = player;
-                    }
-                        
-                } else if (order.equals("raise")) {
-                    
-                    System.out.print("Raise by: ");
-                    int amount = Integer.parseInt(textReader.read());
-                    
-                    boolean succeeded = raise(player, highest, amount);
-                    
-                    if (!succeeded) {
-                        System.out.println("You did not have enough money");
-                    } else {
-                        player.addBid(amount + (highest - player.getBid()) );
-                        highest += amount;
-                        end += players.size();
-                        lastRaised = player;
-                    }
-                      
-                } else if (order.equals("fold")) { 
-                    
+                if (!succeeded) {
+                    System.out.println("You do not have enough money");
                     players.remove(player);
-                    
                 } else {
-                    if (lastRaised != null) {
-                        if (player.getId() == lastRaised.getId()) {
-                            break;
-                        }
-                    }
-                    //pass
+                    player.addBid(highest - player.getBid());
                 }
+                    
+            } else if (order.equals("bid")) {
+                    
+                System.out.print("Amount to bid: ");
+                int amount = Integer.parseInt(textReader.read());
+                    
+                boolean succeeded = bid(player, amount);
+                    
+                if (!succeeded) {
+                    System.out.println("You did not have enough money");
+                } else {
+                    highest += amount;
+                    player.addBid(amount);
+                    end += players.size();
+                    lastRaised = player;
+                }
+                        
+            } else if (order.equals("raise")) {
+                    
+                System.out.print("Raise by: ");
+                int amount = Integer.parseInt(textReader.read());
+                    
+                boolean succeeded = raise(player, highest, amount);
+                    
+                if (!succeeded) {
+                    System.out.println("You did not have enough money");
+                } else {
+                    player.addBid(amount + (highest - player.getBid()) );
+                    highest += amount;
+                    end += players.size();
+                    lastRaised = player;
+                }
+                      
+            } else if (order.equals("fold")) { 
+                    
+                players.remove(player);
+                    
+            } else if (order.equals("allIn")) {
+                
+                player.setAllInTrue();
+                highest += player.getBalance();
+                bid(player, player.getBalance());
+                end += players.size();
+                lastRaised = player;
+                
+                                
+            } else {
+                if (lastRaised != null) {
+                    if (player.getId() == lastRaised.getId()) {
+                        break;
+                    }
+                }
+                    //pass
+            }
             
             
         }

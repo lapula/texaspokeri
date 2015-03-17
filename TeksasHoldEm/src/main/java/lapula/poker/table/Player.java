@@ -19,6 +19,8 @@ public class Player {
     private boolean isHuman;
     private int id;
     private int bid;
+    private boolean allIn;
+    private int maxWin;
     
     /**
      * Luokka pelaajalle. Pelaaja voi olla ihminen tai tekoäly. Pelaajalla on omat
@@ -32,6 +34,8 @@ public class Player {
         this.isHuman = isHuman;
         this.id = id;
         this.bid = 0;
+        this.allIn = false;
+        this.maxWin = balance;
     }
     
     /**
@@ -97,6 +101,26 @@ public class Player {
     
     public void resetBid() {
         this.bid = 0;
+    }
+    
+    public boolean isAllIn() {
+        return this.allIn;
+    }
+    
+    public void setAllInTrue() {
+        this.allIn = true;
+    }
+    
+    public void resetAllIn() {
+        this.allIn = false;
+    }
+    
+    public int getMaxWin() {
+        return this.maxWin;
+    }
+    
+    public void refreshMaxWin() {
+        this.maxWin = this.getBalance();
     }
     
 }
