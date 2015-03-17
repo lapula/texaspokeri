@@ -1,0 +1,13 @@
+poker\gameLogic\GameSettings.class
+poker\util\TextReader.class
+poker\table\Player.class
+poker\Poker.class
+poker\table\Table.class
+poker\gameLogic\Bidding.class
+poker\cards\Card.class
+poker\cards\Deck.class
+poker\gameLogic\Game.class
+poker\cards\Suit.class
+poker\table\AllPlayers.class
+poker\gameLogic\HandRating.class
+poker\gameLogic\Resolve.class

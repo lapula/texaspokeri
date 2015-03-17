@@ -1,0 +1,9 @@
+poker\gameLogic\HandRatingTest.class
+poker\PokerTest.class
+poker\cards\DeckTest.class
+poker\table\TableTest.class
+poker\gameLogic\ResolveTest.class
+poker\table\AllPlayersTest.class
+poker\cards\CardTest.class
+poker\table\PlayerTest.class
+poker\cards\SuitTest.class
