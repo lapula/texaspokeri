@@ -111,8 +111,30 @@ public class Resolve {
             }
         }
         
+        int bestValue = 3;
+        
+        
         result = new HashMap<>(copy);
         copy = new HashMap<>(result);
+        
+        for (Player player : result.keySet()) {
+            
+            int value = Collections.max(player.getCards()).getSuitID();
+            
+            if (value < bestValue) {
+                bestValue = value;
+            }
+        }
+        
+        for (Player player : result.keySet()) {
+            
+            int value = Collections.max(player.getCards()).getSuitID();
+            
+            if (value != bestValue) {
+                result.remove(player);
+            }
+        }
+        
         
         return result;
         

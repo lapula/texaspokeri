@@ -5,11 +5,7 @@
  */
 package poker.table;
 
-import poker.table.Player;
-import poker.table.AllPlayers;
-import java.util.ArrayList;
-import poker.table.AllPlayers;
-import poker.table.Player;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

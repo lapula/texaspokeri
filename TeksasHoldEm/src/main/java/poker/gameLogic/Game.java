@@ -173,5 +173,9 @@ public class Game {
         }
     }
     
+    private void removeFirstWinner(HashMap<Player, Double> result) {
+        
+    }
+    
     
 }
