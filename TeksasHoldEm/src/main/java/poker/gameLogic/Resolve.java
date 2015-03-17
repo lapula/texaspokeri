@@ -135,6 +135,8 @@ public class Resolve {
             }
         }
         
+        result = new HashMap<>(copy);
+        copy = new HashMap<>(result);
         
         return result;
         

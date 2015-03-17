@@ -38,8 +38,8 @@ public class Bidding {
         for (int i = 0; i < end; i++) {
             
             
-            
-            Player player = players.get(i % players.size());
+            int size = players.size();
+            Player player = players.get(i % size);
             String order = "call";
             
             if (player.isAllIn()) {
@@ -47,9 +47,12 @@ public class Bidding {
             }
                 
             if (player.isHuman()) {
+                System.out.println("");
                 System.out.println("PLAYER: " + player.getId());
                 System.out.println("Current cost to call is: " + (highest - player.getBid()));
                 System.out.println("Your money: " + player.getBalance());
+                System.out.println("i on: " + i);
+                System.out.println("size on: " + size);
                 System.out.println("Give order:");
                 order = textReader.read();
             }
@@ -100,14 +103,16 @@ public class Bidding {
             } else if (order.equals("fold")) { 
                     
                 players.remove(player);
+                i--;
                     
             } else if (order.equals("allIn")) {
                 
                 player.setAllInTrue();
-                highest += player.getBalance();
+                if (player.getBalance() - highest > 0) {
+                    highest += player.getBalance() - highest;
+                }
                 bid(player, player.getBalance());
-                end += players.size();
-                lastRaised = player;
+                end += players.size() - 1;
                 
                                 
             } else {

@@ -30,10 +30,11 @@ public class GameSettings {
     
     public void initialize() {
         AllPlayers.addPlayer(new Player(startingBalance, true, 1));
-        for (int i = 2; i < playerCount + 1; i++) {
+        /*for (int i = 2; i < playerCount + 1; i++) {
             AllPlayers.addPlayer(new Player(startingBalance, false, i));
-        }
-        AllPlayers.addPlayer(new Player(startingBalance, true, 5));
+        }*/
+        AllPlayers.addPlayer(new Player(startingBalance, true, 2));
+        AllPlayers.addPlayer(new Player(startingBalance, true, 3));
     }
     
 }

@@ -31,7 +31,7 @@ public class AllPlayersTest {
     public void tearDown() {
     }
 
-    @Test
+    /*@Test
     public void testAddPlayer() {
         
         Player player = new Player(100, true, 1); 
@@ -47,6 +47,6 @@ public class AllPlayersTest {
         
         assertEquals(0, AllPlayers.getPlayers().size());
         
-    }
+    }*/
     
 }

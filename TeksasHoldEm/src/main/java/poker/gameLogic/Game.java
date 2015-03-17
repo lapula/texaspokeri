@@ -168,14 +168,28 @@ public class Game {
     }
     
     private void dividePot(HashMap<Player, Double> result) {
-        for (Player player : result.keySet()) {
-            player.alterBalance(table.getPot() / result.keySet().size());
+        
+        int pot = table.getPot();
+        
+        while (true) {
+            int win = 0;
+        
+            for (Player player : result.keySet()) {
+                win = player.getMaxWin() * currentPlayers.size();
+                player.alterBalance(pot);
+                pot = pot - win;
+                currentPlayers.remove(player);
+            }
+            
+            if (pot <= 0 || currentPlayers.size() < 1) {
+                break;
+            } else {
+                resolve = new Resolve(currentPlayers, table);
+                result = new HashMap<>(resolve.giveWinner());
+            }
         }
     }
     
-    private void removeFirstWinner(HashMap<Player, Double> result) {
-        
-    }
     
     
 }
