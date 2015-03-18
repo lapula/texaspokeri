@@ -12,6 +12,7 @@ import java.util.HashMap;
 import poker.table.Player;
 import poker.table.Table;
 import poker.table.AllPlayers;
+import poker.util.CodeToText;
 import poker.util.TextReader;
 
 /**
@@ -29,15 +30,17 @@ public class Game {
     private Bidding bidding;
     private Resolve resolve;
     private TextReader textReader;
+    private CodeToText codeToText;
     
     
     public Game() {
         
         this.roundNumber = 1;
-        gameSettings = new GameSettings(4, 100);
-        gameSettings.initialize();
-        currentPlayers = new ArrayList<>(AllPlayers.getPlayers());
-        textReader = new TextReader();
+        this.gameSettings = new GameSettings(4, 100);
+        this.gameSettings.initialize();
+        this.currentPlayers = new ArrayList<>(AllPlayers.getPlayers());
+        this.textReader = new TextReader();
+        this.codeToText = new CodeToText();
         
     }
     
@@ -61,18 +64,19 @@ public class Game {
                 System.out.println("");
 
                 if (i == 0) {
-                    //nothing;
+                    bidding = new Bidding(currentPlayers, true);
                 } else if (i == 1) {
                     table.addCard(deck.drawCard());
                     table.addCard(deck.drawCard());
                     table.addCard(deck.drawCard());
+                    bidding = new Bidding(currentPlayers, false);
                 } else {
                     table.addCard(deck.drawCard());
+                    bidding = new Bidding(currentPlayers, false);
                 }
                 
-                
-                bidding = new Bidding(currentPlayers);
                 currentPlayers = bidding.startBidding();
+                
                 System.out.println("");
                 System.out.println("ROUND!!!");
                 System.out.println("");
@@ -86,13 +90,13 @@ public class Game {
             
             System.out.println("Table Cards: ");
             for (int i = 0; i < 5; i++) {
-                System.out.print(table.getCards().get(i).getValue() + ", ");
+                System.out.println(codeToText.cardText(table.getCards().get(i),-1));
             }
             System.out.println("");
             for (int i = 0; i < currentPlayers.size(); i++) {
                 System.out.println("Player " + currentPlayers.get(i).getId() + " cards:");
-                System.out.println(currentPlayers.get(i).getCards().get(0).getValue());
-                System.out.println(currentPlayers.get(i).getCards().get(1).getValue());
+                System.out.println(codeToText.cardText(currentPlayers.get(i).getCards().get(0),-1));
+                System.out.println(codeToText.cardText(currentPlayers.get(i).getCards().get(1),-1));
             }
             /**
              * loppuu tähän.
@@ -105,7 +109,7 @@ public class Game {
             
             System.out.println("Winners are:");
             for (Player player : result.keySet()) {
-                System.out.println("Player " + player.getId() + " with a rating of: " + result.get(player));
+                System.out.println("Player " + player.getId() + " with a rating of: " + codeToText.ratingToText(result.get(player)));
             }
             
             /**
@@ -172,6 +176,7 @@ public class Game {
         int pot = table.getPot();
         
         while (true) {
+            
             int win = 0;
         
             for (Player player : result.keySet()) {
