@@ -60,7 +60,7 @@ public class HandRating {
         
         
         for (int i = 0; i < cards.size(); i++) {
-            
+            System.out.println(count);
             ArrayList<Card> test = new ArrayList<Card>(cards);
             
             test.remove(i);

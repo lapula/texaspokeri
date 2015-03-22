@@ -143,4 +143,35 @@ public class ResolveTest {
         
     }
     
+    @Test
+    public void testResolveWinnerByLowCard2() {
+        
+        table = new Table(0);
+        table.addCard(new Card(Suit.CLUBS, 9));
+        table.addCard(new Card(Suit.DIAMONDS, 12));
+        table.addCard(new Card(Suit.HEARTS, 7));
+        table.addCard(new Card(Suit.HEARTS, 10));
+        table.addCard(new Card(Suit.DIAMONDS, 7));
+        
+        ArrayList<Player> players = new ArrayList<>();
+        
+        players.add(playerOne);
+        players.add(playerTwo);
+        
+        playerOne.addCard(new Card(Suit.DIAMONDS, 8));
+        playerOne.addCard(new Card(Suit.SPADES, 9));
+        playerTwo.addCard(new Card(Suit.CLUBS, 3));
+        playerTwo.addCard(new Card(Suit.DIAMONDS, 9));
+        
+        resolve = new Resolve(players, table);
+        Player winner = null;
+        
+        for (Player player : resolve.giveWinner().keySet()) {
+            winner = player;
+        }
+        
+        assertEquals(playerOne ,winner);
+        assertEquals(1, resolve.giveWinner().keySet().size());
+        
+    }
 }

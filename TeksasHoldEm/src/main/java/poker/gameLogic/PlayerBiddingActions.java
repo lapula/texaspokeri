@@ -7,6 +7,7 @@ package poker.gameLogic;
 
 import java.util.ArrayList;
 import poker.table.Player;
+import poker.table.Table;
 
 /**
  *
@@ -14,8 +15,10 @@ import poker.table.Player;
  */
 public class PlayerBiddingActions {
     
+    private static String order;
+    
     public PlayerBiddingActions() {
-        
+        this.order = "";
     }
     
     public ArrayList<String> getActions(Player player, boolean isBidding, boolean isAllIn) {
@@ -34,6 +37,52 @@ public class PlayerBiddingActions {
         result.add("allIn");
         
         return result;
+    }
+    
+    public boolean call(Player player, int highest) {
+
+        boolean succeeded = player.alterBalance(-highest);
+
+        if (!succeeded) {
+            return false;
+        }
+
+        Table.addToPot(highest);
+        return true;
+    }
+
+    public boolean bid(Player player, int sum) {
+
+        boolean succeeded = player.alterBalance(-sum);
+
+        if (!succeeded) {
+            return false;
+        }
+
+        Table.addToPot(sum);
+        return true;
+
+    }
+
+    public boolean raise(Player player, int highest, int sum) {
+
+        boolean succeeded = player.alterBalance(-(sum + highest));
+
+        if (!succeeded) {
+            return false;
+        }
+
+        Table.addToPot(sum + highest);
+        return true;
+
+    }
+    
+    public static void setOrder(String string) {
+        PlayerBiddingActions.order = string;
+    }
+    
+    public static String getOrder() {
+        return PlayerBiddingActions.order;
     }
     
 }

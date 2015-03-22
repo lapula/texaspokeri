@@ -9,10 +9,14 @@ import poker.cards.Card;
 import poker.cards.Deck;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import poker.gui.PokerGUI;
 import poker.table.Player;
 import poker.table.Table;
 import poker.table.AllPlayers;
 import poker.util.CodeToText;
+import poker.util.GameFeed;
 import poker.util.TextReader;
 
 /**
@@ -20,7 +24,8 @@ import poker.util.TextReader;
  * @author Sara ja Laur
  */
 public class Game {
-    
+
+    private JTextArea feed;
     private int roundNumber;
     private final int PHASE = 4;
     private GameSettings gameSettings;
@@ -31,161 +36,151 @@ public class Game {
     private Resolve resolve;
     private TextReader textReader;
     private CodeToText codeToText;
-    
-    
-    public Game() {
-        
-        this.roundNumber = 1;
+    private boolean isRunning = false;
+
+    public Game(JTextArea feed) {
+
+        this.feed = feed;
+        this.roundNumber = 0;
         this.gameSettings = new GameSettings(4, 100);
         this.gameSettings.initialize();
         this.currentPlayers = new ArrayList<>(AllPlayers.getPlayers());
         this.textReader = new TextReader();
         this.codeToText = new CodeToText();
-        
-    }
-    
-    
-    public void start() {
-        System.out.println("Started!");
-        
-        while (true) {
-            
-            
-            
-            setUp();
-                     
-            for (int i = 0; i < PHASE; i++) {
-                
-                System.out.println("");
-                System.out.println("PLAYER ORDER");
-                for (int a = 0; a < currentPlayers.size(); a++) {
-                    System.out.println(currentPlayers.get(a).getId());
-                }
-                System.out.println("");
 
-                if (i == 0) {
-                    bidding = new Bidding(currentPlayers, true);
-                } else if (i == 1) {
-                    table.addCard(deck.drawCard());
-                    table.addCard(deck.drawCard());
-                    table.addCard(deck.drawCard());
-                    bidding = new Bidding(currentPlayers, false);
-                } else {
-                    table.addCard(deck.drawCard());
-                    bidding = new Bidding(currentPlayers, false);
-                }
-                
-                currentPlayers = bidding.startBidding();
-                
-                System.out.println("");
-                System.out.println("ROUND!!!");
-                System.out.println("");
-                System.out.println("table money: " + table.getPot());
-                System.out.println("size: " + currentPlayers.size());
-            }
-            
-            /**
-             * VÄLIAIKAINEN TARKISTUSMETODI
-             */
-            
-            System.out.println("Table Cards: ");
-            for (int i = 0; i < 5; i++) {
-                System.out.println(codeToText.cardText(table.getCards().get(i),-1));
-            }
-            System.out.println("");
-            for (int i = 0; i < currentPlayers.size(); i++) {
-                System.out.println("Player " + currentPlayers.get(i).getId() + " cards:");
-                System.out.println(codeToText.cardText(currentPlayers.get(i).getCards().get(0),-1));
-                System.out.println(codeToText.cardText(currentPlayers.get(i).getCards().get(1),-1));
-            }
-            /**
-             * loppuu tähän.
-             */
-            
-            resolve = new Resolve(currentPlayers, table);
-            
-            HashMap<Player, Double> result = resolve.giveWinner();
-            
-            
-            System.out.println("Winners are:");
-            for (Player player : result.keySet()) {
-                System.out.println("Player " + player.getId() + " with a rating of: " + codeToText.ratingToText(result.get(player)));
-            }
-            
-            /**
-             * PÄIVITÄ!
-             */
-            for (Player player : result.keySet()) {
-                player.alterBalance(table.getPot() / result.keySet().size());
-            }
-            
-            System.out.println("SIZE ALL: " + AllPlayers.getPlayers().size());
-            endOfRound();
-            
-            
-            System.out.println("Quit? (Y/N)");
-            String answer = textReader.read();
-            
-            if (answer.equals("Y") || currentPlayers.size() < 2) {
-                break;
-            }
+    }
+
+    public void startRound(int round) {
+        isRunning = true;
+        System.out.println("round: " + round);
+        this.roundNumber = round;
+        
+        if (roundNumber == 0) {
+            setUp();
         }
         
+
+                //System.out.println("");
+        //System.out.println("PLAYER ORDER");
+        GameFeed.addText(feed, "PLAYER ORDER");
+
+        for (int a = 0; a < currentPlayers.size(); a++) {
+            GameFeed.addText(feed, "" + currentPlayers.get(a).getId());
+        }
+        GameFeed.addText(feed, "");
+
+        if (round == 0) {
+            bidding = new Bidding(true, this);
+        } else if (round == 1) {
+            table.addCard(deck.drawCard());
+            table.addCard(deck.drawCard());
+            table.addCard(deck.drawCard());
+            bidding = new Bidding(false, this);
+        } else {
+            table.addCard(deck.drawCard());
+            bidding = new Bidding(false, this);
+        }
+        
+        
+        
+       //bidding.startBidding();
+        
+        GameFeed.addText(feed, "");
+        GameFeed.addText(feed, "ROUND!!!");
+        GameFeed.addText(feed, "table money: " + table.getPot());
+        GameFeed.addText(feed, "size:" + currentPlayers.size());
+        GameFeed.addText(feed, "");
+
     }
-    
-    private void setUp() {
-        
-        deck = new Deck();
-        
+
+    public void finishRound() {
+
+        GameFeed.addText(feed, "Table Cards: ");
+        for (int i = 0; i < 5; i++) {
+            GameFeed.addText(feed, codeToText.cardText(table.getCards().get(i), -1));
+        }
+        GameFeed.addText(feed, "");
         for (int i = 0; i < currentPlayers.size(); i++) {
+            GameFeed.addText(feed, "Player " + currentPlayers.get(i).getId() + " cards:");
+            GameFeed.addText(feed, codeToText.cardText(currentPlayers.get(i).getCards().get(0), -1));
+            GameFeed.addText(feed, codeToText.cardText(currentPlayers.get(i).getCards().get(1), -1));
+        }
+        
+        System.out.println(table.getCards().size());
+
+        resolve = new Resolve(currentPlayers, table);
+
+        HashMap<Player, Double> result = resolve.giveWinner();
+
+        GameFeed.addText(feed, "Winners are:");
+        for (Player player : result.keySet()) {
+            GameFeed.addText(feed, "Player " + player.getId() + " with a rating of: " + codeToText.ratingToText(result.get(player)));
+        }
+
+        
+        for (Player player : result.keySet()) {
+            player.alterBalance(table.getPot() / result.keySet().size());
+        }
+
+        GameFeed.addText(feed, "SIZE ALL: " + AllPlayers.getPlayers().size());
+        endOfRound();
+        isRunning = false;
+
+    }
+
+    private void setUp() {
+
+        deck = new Deck();
+
+        for (int i = 0; i < currentPlayers.size(); i++) {
+            System.out.println("!!");
             currentPlayers.get(i).addCard(deck.drawCard());
             currentPlayers.get(i).addCard(deck.drawCard());
         }
     }
-    
+
     private void endOfRound() {
-        
+
         table.resetPot();
         table.getCards().removeAll(table.getCards());
-        
-        
+
         for (int i = 0; i < AllPlayers.getPlayers().size(); i++) {
-            
+
             Player player = (Player) AllPlayers.getPlayers().get(i);
             player.getCards().removeAll(player.getCards());
             player.refreshMaxWin();
             player.resetAllIn();
-            System.out.println("END OF ROUND BALANCE: " + player.getId() + ": " + player.getBalance());
+            GameFeed.addText(feed, "END OF ROUND BALANCE: " + player.getId() + ": " + player.getBalance());
             if (player.getBalance() < 10) {
-                System.out.println("Remove player: " + player.getId());
+                GameFeed.addText(feed, "Remove player: " + player.getId());
                 AllPlayers.removePlayer(player);
                 i--;
             }
-            
+
         }
-        
+
         currentPlayers = new ArrayList<>(AllPlayers.getPlayers());
         Player player = currentPlayers.get(0);
         currentPlayers.remove(0);
         currentPlayers.add(player);
-        
+
     }
-    
+
     private void dividePot(HashMap<Player, Double> result) {
-        
+
         int pot = table.getPot();
-        
+
         while (true) {
-            
+
             int win = 0;
-        
+
             for (Player player : result.keySet()) {
                 win = player.getMaxWin() * currentPlayers.size();
                 player.alterBalance(pot);
                 pot = pot - win;
                 currentPlayers.remove(player);
             }
-            
+
             if (pot <= 0 || currentPlayers.size() < 1) {
                 break;
             } else {
@@ -195,6 +190,28 @@ public class Game {
         }
     }
     
+    public int getRoundNumber() {
+        return this.roundNumber;
+    }
     
+    public ArrayList<Player> getCurrentPlayers() {
+        return this.currentPlayers;
+    }
     
+    public void setCurrentPlayers(ArrayList<Player> newPlayers) {
+        this.currentPlayers = newPlayers;
+    }
+    
+    public JTextArea getFeed() {
+        return this.feed;
+    }
+
+    public Bidding getCurrentBidding() {
+        return this.bidding;
+    }
+    
+    public boolean isRunning() {
+        return this.isRunning;
+    }
+
 }

@@ -36,6 +36,7 @@ public class Resolve {
         
         for (int i = 0; i < players.size(); i++) {
             ArrayList<Card> sevenCards = unify(players.get(i).getCards(), table.getCards());
+            System.out.println("really is seven cards: " + sevenCards.size());
             double rating = handRating.giveRating(sevenCards);
             
             if (rating > max) {
@@ -93,6 +94,8 @@ public class Resolve {
             return result;
         }
         
+        biggestCard = 0;
+        
         for (Player player : result.keySet()) {
             
             Card card = Collections.min(player.getCards());
@@ -109,6 +112,10 @@ public class Resolve {
             if (card.getValue() != biggestCard) {
                 copy.remove(player);
             }
+        }
+        
+        if (result.size() == 1) {
+            return result;
         }
         
         int bestValue = 3;
