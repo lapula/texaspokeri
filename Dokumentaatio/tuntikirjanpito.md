@@ -5,3 +5,8 @@
 <span>14.03 - 5h - Biddingin säätöä</span><br>
 <span>15.03 - 1h - Peli toimii nyt useamman kierroksen</span><br>
 <span>16.03 - 2h - Bugien korjausta</span><br>
+<span>17.03 - 2h - Graaffisen käyttöliittymän tekoa</span><br>
+<span>18.03 - 3h - Graaffisen käyttöliittymän tekoa</span><br>
+<span>20.03 - 6h - Graaffisen käyttöliittymän tekoa</span><br>
+<span>21.03 - 2h - Graaffisen käyttöliittymän tekoa</span><br>
+<span>22.03 - 2h - Graaffisen käyttöliittymän tekoa</span><br>
