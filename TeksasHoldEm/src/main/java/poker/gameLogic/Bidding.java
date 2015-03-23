@@ -59,7 +59,7 @@ public class Bidding {
     public void startBidding() {
 
         if (turn >= end || players.size() < 2) {
-            AllPlayers.resetBids();
+            game.getGameAllPlayers().resetBids();
 
             if (game.getRoundNumber() + 1 == 4) {
                 System.out.println("!");
@@ -168,7 +168,7 @@ public class Bidding {
             //pass
             if (lastRaised != null) {
                 if (lastRaised.getId() == player.getId() && (!player.isAllIn())) {
-                    AllPlayers.resetBids();
+                    game.getGameAllPlayers().resetBids();
                     if (game.getRoundNumber() + 1 == 4) {
                         System.out.println("!");
                         this.turn = 0;

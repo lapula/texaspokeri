@@ -44,9 +44,6 @@ public class GameFeed {
         for (int i = beginning; i < textField.size(); i++) {
             field.append(textField.get(i) + "\n");
         }
-        
-        
-        
     }
     
 }

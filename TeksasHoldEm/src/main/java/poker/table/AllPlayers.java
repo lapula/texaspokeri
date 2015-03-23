@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class AllPlayers {
     
-    private static ArrayList<Player> players = new ArrayList<Player>();
+    private ArrayList<Player> players = new ArrayList<Player>();
     
     /**
      * Luokka jossa pidetään listaa kaikista pelaajista, siis myös niistä jotka
@@ -29,7 +29,7 @@ public class AllPlayers {
      * @param player uusi pelaaja.
      */
     
-    public static void addPlayer(Player player) {
+    public void addPlayer(Player player) {
         players.add(player);
     }
     
@@ -37,11 +37,11 @@ public class AllPlayers {
      * @return lista pelaajista.
      */
     
-    public static ArrayList getPlayers() {
+    public ArrayList getPlayers() {
         return players;
     }
     
-    public static boolean removePlayer(Player player) {
+    public boolean removePlayer(Player player) {
         for (int i = 0; i < players.size(); i++) {
             if (player.getId() == players.get(i).getId()) {
                 players.remove(i);
@@ -51,7 +51,7 @@ public class AllPlayers {
         return false;
     }
     
-    public static void resetBids() {
+    public void resetBids() {
         for (int i = 0; i < players.size(); i++) {
             players.get(i).resetBid();
         }

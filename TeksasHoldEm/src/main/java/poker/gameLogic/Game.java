@@ -37,6 +37,7 @@ public class Game {
     private TextReader textReader;
     private CodeToText codeToText;
     private boolean isRunning = false;
+    private AllPlayers allPlayers;
 
     public Game(JTextArea feed) {
 
@@ -44,9 +45,11 @@ public class Game {
         this.roundNumber = 0;
         this.gameSettings = new GameSettings(4, 100);
         this.gameSettings.initialize();
-        this.currentPlayers = new ArrayList<>(AllPlayers.getPlayers());
+        allPlayers = gameSettings.getAllPlayers();
+        this.currentPlayers = new ArrayList<>(allPlayers.getPlayers());
         this.textReader = new TextReader();
         this.codeToText = new CodeToText();
+        
 
     }
 
@@ -122,7 +125,7 @@ public class Game {
             player.alterBalance(table.getPot() / result.keySet().size());
         }
 
-        GameFeed.addText(feed, "SIZE ALL: " + AllPlayers.getPlayers().size());
+        GameFeed.addText(feed, "SIZE ALL: " + allPlayers.getPlayers().size());
         endOfRound();
         isRunning = false;
 
@@ -144,22 +147,22 @@ public class Game {
         table.resetPot();
         table.getCards().removeAll(table.getCards());
 
-        for (int i = 0; i < AllPlayers.getPlayers().size(); i++) {
+        for (int i = 0; i < allPlayers.getPlayers().size(); i++) {
 
-            Player player = (Player) AllPlayers.getPlayers().get(i);
+            Player player = (Player) allPlayers.getPlayers().get(i);
             player.getCards().removeAll(player.getCards());
             player.refreshMaxWin();
             player.resetAllIn();
             GameFeed.addText(feed, "END OF ROUND BALANCE: " + player.getId() + ": " + player.getBalance());
             if (player.getBalance() < 10) {
                 GameFeed.addText(feed, "Remove player: " + player.getId());
-                AllPlayers.removePlayer(player);
+                allPlayers.removePlayer(player);
                 i--;
             }
 
         }
 
-        currentPlayers = new ArrayList<>(AllPlayers.getPlayers());
+        currentPlayers = new ArrayList<>(allPlayers.getPlayers());
         Player player = currentPlayers.get(0);
         currentPlayers.remove(0);
         currentPlayers.add(player);
@@ -212,6 +215,10 @@ public class Game {
     
     public boolean isRunning() {
         return this.isRunning;
+    }
+    
+    public AllPlayers getGameAllPlayers() {
+        return this.allPlayers;
     }
 
 }
