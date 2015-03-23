@@ -26,8 +26,6 @@ public class CodeToText {
         if (numeric < 0) {
             suitText = suitText(card.getSuit());
             value = card.getValue();
-        } else {
-            
         }
         
         String cardText = null;

@@ -17,10 +17,10 @@ import static org.junit.Assert.*;
  */
 public class AllPlayersTest {
     
-    
+    AllPlayers allPlayers;
     
     public AllPlayersTest() {
-        
+        allPlayers = new AllPlayers();
     }
     
     @Before
@@ -31,22 +31,50 @@ public class AllPlayersTest {
     public void tearDown() {
     }
 
-    /*@Test
+    @Test
     public void testAddPlayer() {
         
         Player player = new Player(100, true, 1); 
-        AllPlayers.addPlayer(player);
+        allPlayers.addPlayer(player);
         
-        assertEquals(player, AllPlayers.getPlayers().get(0));
+        assertEquals(player, allPlayers.getPlayers().get(0));
         
     }
 
     @Test
     public void testGetPlayers() {
         
+        Player player = new Player(100, true, 1); 
+        allPlayers.addPlayer(player);
         
-        assertEquals(0, AllPlayers.getPlayers().size());
+        assertEquals(1, allPlayers.getPlayers().size());
         
-    }*/
+    }
+    
+    @Test
+    public void testRemovePlayer() {
+        
+        Player remove = new Player(100, true, 2); 
+        Player player = new Player(100, true, 1); 
+        allPlayers.addPlayer(player);
+        
+        allPlayers.removePlayer(remove);
+        
+        assertEquals(player, allPlayers.getPlayers().get(0));
+        
+    }
+    
+    @Test
+    public void testResetBids() {
+        
+        Player player = new Player(100, true, 1);
+        player.addBid(10);
+        allPlayers.addPlayer(player);
+        allPlayers.resetBids();
+        Player compare = (Player) allPlayers.getPlayers().get(0);
+        
+        assertEquals(0, compare.getBid());
+        
+    }
     
 }

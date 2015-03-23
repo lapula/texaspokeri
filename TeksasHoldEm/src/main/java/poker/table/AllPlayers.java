@@ -41,6 +41,12 @@ public class AllPlayers {
         return players;
     }
     
+    /**
+     * Poista pelaaja.
+     * @param player poistettava
+     * @return true jos onnistuu
+     */
+    
     public boolean removePlayer(Player player) {
         for (int i = 0; i < players.size(); i++) {
             if (player.getId() == players.get(i).getId()) {
@@ -50,6 +56,10 @@ public class AllPlayers {
         }
         return false;
     }
+    
+    /**
+     * Nollataan kaikkien pelaajien panokset panostuskierroksen päätteeksi.
+     */
     
     public void resetBids() {
         for (int i = 0; i < players.size(); i++) {

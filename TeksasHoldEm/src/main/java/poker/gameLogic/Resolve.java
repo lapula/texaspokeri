@@ -7,7 +7,6 @@ package poker.gameLogic;
 
 import poker.cards.Card;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import poker.table.Player;
@@ -36,7 +35,6 @@ public class Resolve {
         
         for (int i = 0; i < players.size(); i++) {
             ArrayList<Card> sevenCards = unify(players.get(i).getCards(), table.getCards());
-            System.out.println("really is seven cards: " + sevenCards.size());
             double rating = handRating.giveRating(sevenCards);
             
             if (rating > max) {
@@ -138,7 +136,7 @@ public class Resolve {
             int value = Collections.max(player.getCards()).getSuitID();
             
             if (value != bestValue) {
-                result.remove(player);
+                copy.remove(player);
             }
         }
         

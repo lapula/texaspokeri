@@ -5,17 +5,9 @@
  */
 package poker.gameLogic;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import poker.table.AllPlayers;
 import poker.table.Player;
-import poker.table.Table;
 import poker.util.GameFeed;
-import poker.util.TextReader;
 
 /**
  *
@@ -25,7 +17,6 @@ public class Bidding {
 
     private boolean bid;
     private ArrayList<Player> players;
-    private TextReader textReader;
     private boolean buttonSetPassBid;
     private boolean isFirstRound;
     private int end;
@@ -39,12 +30,11 @@ public class Bidding {
 
     public Bidding(boolean isFirstRound, Game game) {
 
-        this.textReader = new TextReader();
         this.isFirstRound = isFirstRound;
         this.highest = 0;
         this.lastRaised = null;
-        this.action = new PlayerBiddingActions();
         this.game = game;
+        this.action = new PlayerBiddingActions(game.getGameTable());
         this.order = null;
         this.players = game.getCurrentPlayers();
         this.end = players.size();
@@ -57,18 +47,18 @@ public class Bidding {
     }
 
     public void startBidding() {
-
+        
         if (turn >= end || players.size() < 2) {
             game.getGameAllPlayers().resetBids();
 
             if (game.getRoundNumber() + 1 == 4) {
-                System.out.println("!");
+                
                 game.finishRound();
                 this.turn = 0;
                 this.end = end;
                 return;
             } else {
-                System.out.println("?");
+                
                 this.turn = 0;
                 this.end = end;
                 game.startRound(game.getRoundNumber() + 1);
@@ -78,7 +68,7 @@ public class Bidding {
             }
 
         }
-
+        
         int size = players.size();
         player = players.get(turn % size);
 
@@ -91,16 +81,6 @@ public class Bidding {
                 buttonSetPassBid = false;
             }
         }
-        GameFeed.addText(game.getFeed(), "");
-        System.out.println("turn: " + turn);
-        GameFeed.addText(game.getFeed(), "turn: " + turn);
-        System.out.println("end: " + end);
-        GameFeed.addText(game.getFeed(), "end: " + end);
-        GameFeed.addText(game.getFeed(), "");
-
-        System.out.println(player.getId());
-        System.out.println(player.getBalance());
-        System.out.println(turn);
 
         if (player.isAllIn()) {
             takeBiddingAction("pass");
@@ -109,12 +89,11 @@ public class Bidding {
 
         if (player.isHuman()) {
 
-            GameFeed.addText(game.getFeed(), "");
             GameFeed.addText(game.getFeed(), "PLAYER: " + player.getId());
             GameFeed.addText(game.getFeed(), "Current cost to call is: " + (highest - player.getBid()));
+            GameFeed.addText(game.getFeed(), "HIGHEST: " + highest);
             GameFeed.addText(game.getFeed(), "Your money: " + player.getBalance());
             GameFeed.addText(game.getFeed(), "Select order:");
-            //GameFeed.addText(game.getFeed(), "");
 
             if (isFirstRound) {
                 GameFeed.addText(game.getFeed(), "YOU PLACED BIG BLIND (NON-OPTIONAL)");
@@ -148,10 +127,13 @@ public class Bidding {
             turn++;
 
         } else if (order.equals("fold")) {
+            
+            if (turn % players.size() == 0) {
+                turn--;
+            }
+            
             GameFeed.addText(game.getFeed(), "FOLD");
             players.remove(player);
-            //turn++;
-            //end--;
 
         } else if (order.equals("allIn")) {
             GameFeed.addText(game.getFeed(), "ALL IN");
@@ -173,12 +155,14 @@ public class Bidding {
                         System.out.println("!");
                         this.turn = 0;
                         this.end = end;
+                        GameFeed.addText(game.getFeed(), "");
                         game.finishRound();
                         return;
                     } else {
                         System.out.println("?");
                         this.turn = 0;
                         this.end = end;
+                        GameFeed.addText(game.getFeed(), "");
                         game.startRound(game.getRoundNumber() + 1);
                         game.getCurrentBidding().startBidding();
                         return;
@@ -188,6 +172,7 @@ public class Bidding {
             }
             turn++;
         }
+        GameFeed.addText(game.getFeed(), "");
 
         startBidding();
 
@@ -196,9 +181,13 @@ public class Bidding {
     public boolean buttonsSetPassBid() {
         return buttonSetPassBid;
     }
-    
+
     public Player getCurrentBidder() {
         return this.player;
+    }
+    
+    public int costToCall(Player player) {
+        return highest - player.getBid();
     }
 
     private void orderCall(Player player) {
@@ -220,7 +209,6 @@ public class Bidding {
         if (isFirstRound) {
             amount = 10;
         } else {
-
             amount = 10;
         }
 

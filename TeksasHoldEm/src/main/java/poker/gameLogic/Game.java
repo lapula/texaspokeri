@@ -5,19 +5,15 @@
  */
 package poker.gameLogic;
 
-import poker.cards.Card;
 import poker.cards.Deck;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import poker.gui.PokerGUI;
 import poker.table.Player;
 import poker.table.Table;
 import poker.table.AllPlayers;
 import poker.util.CodeToText;
 import poker.util.GameFeed;
-import poker.util.TextReader;
 
 /**
  *
@@ -27,44 +23,39 @@ public class Game {
 
     private JTextArea feed;
     private int roundNumber;
-    private final int PHASE = 4;
     private GameSettings gameSettings;
     private ArrayList<Player> currentPlayers;
-    private Table table = new Table(0);
+    private Table table;
     private Deck deck;
     private Bidding bidding;
     private Resolve resolve;
-    private TextReader textReader;
     private CodeToText codeToText;
     private boolean isRunning = false;
     private AllPlayers allPlayers;
 
     public Game(JTextArea feed) {
-
+        
+        this.table = new Table(0);
         this.feed = feed;
         this.roundNumber = 0;
         this.gameSettings = new GameSettings(4, 100);
         this.gameSettings.initialize();
-        allPlayers = gameSettings.getAllPlayers();
+        this.allPlayers = gameSettings.getAllPlayers();
         this.currentPlayers = new ArrayList<>(allPlayers.getPlayers());
-        this.textReader = new TextReader();
         this.codeToText = new CodeToText();
         
 
     }
 
     public void startRound(int round) {
+        
         isRunning = true;
-        System.out.println("round: " + round);
         this.roundNumber = round;
         
         if (roundNumber == 0) {
             setUp();
         }
         
-
-                //System.out.println("");
-        //System.out.println("PLAYER ORDER");
         GameFeed.addText(feed, "PLAYER ORDER");
 
         for (int a = 0; a < currentPlayers.size(); a++) {
@@ -85,11 +76,8 @@ public class Game {
         }
         
         
-        
-       //bidding.startBidding();
-        
-        GameFeed.addText(feed, "");
         GameFeed.addText(feed, "ROUND!!!");
+        GameFeed.addText(feed, "");
         GameFeed.addText(feed, "table money: " + table.getPot());
         GameFeed.addText(feed, "size:" + currentPlayers.size());
         GameFeed.addText(feed, "");
@@ -98,7 +86,7 @@ public class Game {
 
     public void finishRound() {
 
-        GameFeed.addText(feed, "Table Cards: ");
+        GameFeed.addText(feed, "TABLE CARDS: ");
         for (int i = 0; i < 5; i++) {
             GameFeed.addText(feed, codeToText.cardText(table.getCards().get(i), -1));
         }
@@ -107,9 +95,9 @@ public class Game {
             GameFeed.addText(feed, "Player " + currentPlayers.get(i).getId() + " cards:");
             GameFeed.addText(feed, codeToText.cardText(currentPlayers.get(i).getCards().get(0), -1));
             GameFeed.addText(feed, codeToText.cardText(currentPlayers.get(i).getCards().get(1), -1));
+            GameFeed.addText(feed, "");
         }
-        
-        System.out.println(table.getCards().size());
+
 
         resolve = new Resolve(currentPlayers, table);
 
@@ -119,6 +107,7 @@ public class Game {
         for (Player player : result.keySet()) {
             GameFeed.addText(feed, "Player " + player.getId() + " with a rating of: " + codeToText.ratingToText(result.get(player)));
         }
+        GameFeed.addText(feed, "");
 
         
         for (Player player : result.keySet()) {
@@ -219,6 +208,10 @@ public class Game {
     
     public AllPlayers getGameAllPlayers() {
         return this.allPlayers;
+    }
+    
+    public Table getGameTable() {
+        return this.table;
     }
 
 }

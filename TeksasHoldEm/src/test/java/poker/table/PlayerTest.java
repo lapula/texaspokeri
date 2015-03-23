@@ -83,4 +83,53 @@ public class PlayerTest {
         
     }
     
+    @Test
+    public void testAddBid() {
+        player.addBid(10);
+        assertEquals(10, player.getBid());
+    }
+    
+    @Test
+    public void testGetBid() {
+        assertEquals(0, player.getBid());
+    }
+    
+    @Test
+    public void testResetBid() {
+        player.addBid(10);
+        player.resetBid();
+        assertEquals(0, player.getBid());
+    }
+    
+    @Test
+    public void testIsAllIn() {
+        assertFalse(player.isAllIn());
+    }
+    
+    @Test
+    public void testSetAllInTrue() {
+        player.setAllInTrue();
+        assertTrue(player.isAllIn());
+    }
+    
+    @Test
+    public void testResetAllIn() {
+        player.setAllInTrue();
+        player.resetAllIn();
+        assertFalse(player.isAllIn());
+    }
+    
+    @Test
+    public void testGetMaxWin() {
+        assertEquals(100, player.getMaxWin());
+    }
+    
+    @Test
+    public void testRefreshMaxWin() {
+        player.alterBalance(-10);
+        player.refreshMaxWin();
+        assertEquals(90, player.getMaxWin());
+    }
+    
+    
 }

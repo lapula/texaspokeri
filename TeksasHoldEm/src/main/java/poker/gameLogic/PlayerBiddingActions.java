@@ -16,38 +16,23 @@ import poker.table.Table;
 public class PlayerBiddingActions {
     
     private static String order;
+    private Table table;
     
-    public PlayerBiddingActions() {
+    public PlayerBiddingActions(Table table) {
         this.order = "";
+        this.table = table;
     }
     
-    public ArrayList<String> getActions(Player player, boolean isBidding, boolean isAllIn) {
-        
-        ArrayList<String> result = new ArrayList<>();
-        result.add("fold");
-        
-        if (isBidding) {
-            result.add("pass");
-            result.add("bid");
-        } else {
-            result.add("call");
-            result.add("raise");
-        }
-        
-        result.add("allIn");
-        
-        return result;
-    }
     
-    public boolean call(Player player, int highest) {
+    public boolean call(Player player, int amount) {
 
-        boolean succeeded = player.alterBalance(-highest);
+        boolean succeeded = player.alterBalance(-(amount));
 
         if (!succeeded) {
             return false;
         }
 
-        Table.addToPot(highest);
+        table.addToPot(amount);
         return true;
     }
 
@@ -59,30 +44,24 @@ public class PlayerBiddingActions {
             return false;
         }
 
-        Table.addToPot(sum);
+        table.addToPot(sum);
         return true;
 
     }
 
     public boolean raise(Player player, int highest, int sum) {
 
-        boolean succeeded = player.alterBalance(-(sum + highest));
+        boolean succeeded = player.alterBalance(-(sum + (highest - player.getBid())));
 
         if (!succeeded) {
             return false;
         }
 
-        Table.addToPot(sum + highest);
+        table.addToPot(sum + (highest - player.getBid()));
         return true;
 
     }
     
-    public static void setOrder(String string) {
-        PlayerBiddingActions.order = string;
-    }
     
-    public static String getOrder() {
-        return PlayerBiddingActions.order;
-    }
     
 }

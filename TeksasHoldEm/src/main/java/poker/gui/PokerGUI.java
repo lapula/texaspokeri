@@ -10,13 +10,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.ScrollPane;
-import java.awt.TextArea;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 /**
  *
@@ -53,36 +47,35 @@ public class PokerGUI implements Runnable {
         container.setLayout(new BorderLayout());
 
         GameFeedRenderer right = new GameFeedRenderer(new BorderLayout());
-        //JPanel middle = new JPanel(new BorderLayout());
         JPanel middle = new JPanel(new BorderLayout());
 
-        JTextArea middleTop = new JTextArea();
+        JTextArea window = new JTextArea();
 
-        JTextArea rightTop = new JTextArea();
-        JScrollPane scrollPane = new JScrollPane(rightTop);
+        JTextArea feed = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(feed);
         JButton start = new JButton("Start");
         start.setPreferredSize(new Dimension(700, 100));
 
-        rightTop.setBackground(Color.cyan);
+        feed.setBackground(Color.cyan);
         right.add(scrollPane, BorderLayout.CENTER);
         right.add(start, BorderLayout.SOUTH);
-        middleTop.setEditable(false);
-        middle.add(middleTop, BorderLayout.CENTER);
+        window.setEditable(false);
+        middle.add(window, BorderLayout.CENTER);
 
-        rightTop.setEditable(false);
+        feed.setEditable(false);
         right.setPreferredSize(new Dimension(300, HEIGHT));
-
+        
         JButton fold = new JButton("Fold");
         JButton call = new JButton("Call");
-        JButton raise = new JButton("Raise");
+        JButton raise = new JButton("Call & Raise by 10");
         JButton allIn = new JButton("All In");
-        JButton bid = new JButton("Bid");
+        JButton bid = new JButton("Bid (10)");
         JButton pass = new JButton("Pass");
-        PokerActionListener listener = new PokerActionListener(rightTop, start, fold, call, raise, allIn, bid, pass);
-        ButtonRenderer middleButtons = new ButtonRenderer(new FlowLayout(), start, fold, call, raise, allIn, bid, pass, listener);
+        PokerActionListener listener = new PokerActionListener(feed, start, fold, call, raise, allIn, bid, pass);
+        ButtonRenderer buttons = new ButtonRenderer(new FlowLayout(), start, fold, call, raise, allIn, bid, pass, listener);
 
-        middle.add(middleButtons, BorderLayout.SOUTH);
-        middleButtons.setPreferredSize(new Dimension(700, 100));
+        middle.add(buttons, BorderLayout.SOUTH);
+        buttons.setPreferredSize(new Dimension(700, 100));
         bid.setPreferredSize(new Dimension(215, 90));
         fold.setPreferredSize(new Dimension(215, 90));
         call.setPreferredSize(new Dimension(215, 90));
@@ -90,18 +83,18 @@ public class PokerGUI implements Runnable {
         allIn.setPreferredSize(new Dimension(215, 90));
         pass.setPreferredSize(new Dimension(215, 90));
 
-        middleButtons.setBackground(Color.GREEN);
+        buttons.setBackground(Color.GREEN);
 
-        middleButtons.add(fold);
-        middleButtons.add(call);
-        middleButtons.add(raise);
+        buttons.add(fold);
+        buttons.add(call);
+        buttons.add(raise);
 
-        middleButtons.add(bid);
-        middleButtons.add(pass);
+        buttons.add(bid);
+        buttons.add(pass);
         bid.setVisible(false);
         pass.setVisible(false);
 
-        middleButtons.add(allIn);
+        buttons.add(allIn);
 
         pass.setEnabled(false);
         fold.setEnabled(false);

@@ -90,6 +90,9 @@ public class ButtonRenderer extends JPanel {
             call.setEnabled(false);
             raise.setEnabled(false);
             bid.setEnabled(false);
+        } if (bidding.costToCall(player) > player.getBalance()) {
+            call.setEnabled(false);
+            raise.setEnabled(false);
         }
 
     }

@@ -44,11 +44,13 @@
             <param>poker.gameLogic.*</param>
             <param>poker.cards.*</param>
             <param>poker.table.*</param>
+            <param>poker.util.*</param>
         </targetClasses>
         <targetTests>
             <param>poker.gameLogic.*</param>
             <param>poker.cards.*</param>
             <param>poker.table.*</param>
+            <param>poker.util.*</param>
         </targetTests>
     </configuration>
 </plugin>

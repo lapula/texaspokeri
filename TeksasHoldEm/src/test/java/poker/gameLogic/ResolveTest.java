@@ -174,4 +174,31 @@ public class ResolveTest {
         assertEquals(1, resolve.giveWinner().keySet().size());
         
     }
+    
+    @Test
+    public void testResolveWinnerBySuit() {
+        
+        
+        
+        ArrayList<Player> players = new ArrayList<>();
+        
+        players.add(playerOne);
+        players.add(playerTwo);
+        
+        playerOne.addCard(new Card(Suit.DIAMONDS, 2));
+        playerOne.addCard(new Card(Suit.SPADES, 11));
+        playerTwo.addCard(new Card(Suit.CLUBS, 2));
+        playerTwo.addCard(new Card(Suit.DIAMONDS, 11));
+        
+        resolve = new Resolve(players, table);
+        Player winner = null;
+        
+        for (Player player : resolve.giveWinner().keySet()) {
+            winner = player;
+        }
+        
+        assertEquals(playerOne ,winner);
+        assertEquals(1, resolve.giveWinner().keySet().size());
+        
+    }
 }

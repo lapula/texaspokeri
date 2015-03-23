@@ -87,37 +87,74 @@ public class Player {
         return this.isHuman;
     }
     
+    /**
+     * @return pelaajan I.
+     */
+    
     public int getId() {
         return this.id;
     }
+    
+    /**
+     * Lisätään panosta.
+     * @param sum määrä.
+     */
     
     public void addBid(int sum) {
         this.bid += sum;
     }
     
+    /**
+     * @return Pelaajan tämän kierroksen panos.
+     */
+    
     public int getBid() {
         return this.bid;
     }
+    
+    /**
+     * Nollataan panos.
+     */
     
     public void resetBid() {
         this.bid = 0;
     }
     
+    /**
+     * @return onko pelaaja all in;
+     */
+    
     public boolean isAllIn() {
         return this.allIn;
     }
+    
+    /**
+     * Pelaaja on all in.
+     */
     
     public void setAllInTrue() {
         this.allIn = true;
     }
     
+    /**
+     * Nollataan All In status.
+     */
+    
     public void resetAllIn() {
         this.allIn = false;
     }
     
+    /**
+     * @return Maksimi summa minkä voi voittaa.
+     */
+    
     public int getMaxWin() {
         return this.maxWin;
     }
+    
+    /**
+     * Päivitetään maksimivoittosumma.
+     */
     
     public void refreshMaxWin() {
         this.maxWin = this.getBalance();
