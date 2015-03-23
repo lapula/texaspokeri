@@ -32,6 +32,7 @@ public class Game {
     private CodeToText codeToText;
     private boolean isRunning = false;
     private AllPlayers allPlayers;
+    private Player winner;
 
     public Game(JTextArea feed) {
         
@@ -102,10 +103,12 @@ public class Game {
         resolve = new Resolve(currentPlayers, table);
 
         HashMap<Player, Double> result = resolve.giveWinner();
+        
 
         GameFeed.addText(feed, "Winners are:");
         for (Player player : result.keySet()) {
             GameFeed.addText(feed, "Player " + player.getId() + " with a rating of: " + codeToText.ratingToText(result.get(player)));
+            winner = player;
         }
         GameFeed.addText(feed, "");
 
@@ -121,7 +124,14 @@ public class Game {
     }
 
     private void setUp() {
-
+        
+        table.getCards().removeAll(table.getCards());
+        
+        for (int i = 0; i < allPlayers.getPlayers().size(); i++) {
+            Player player = (Player) allPlayers.getPlayers().get(i);
+            player.getCards().removeAll(player.getCards());
+        }
+        
         deck = new Deck();
 
         for (int i = 0; i < currentPlayers.size(); i++) {
@@ -134,12 +144,12 @@ public class Game {
     private void endOfRound() {
 
         table.resetPot();
-        table.getCards().removeAll(table.getCards());
+        
 
         for (int i = 0; i < allPlayers.getPlayers().size(); i++) {
 
             Player player = (Player) allPlayers.getPlayers().get(i);
-            player.getCards().removeAll(player.getCards());
+            
             player.refreshMaxWin();
             player.resetAllIn();
             GameFeed.addText(feed, "END OF ROUND BALANCE: " + player.getId() + ": " + player.getBalance());
@@ -212,6 +222,10 @@ public class Game {
     
     public Table getGameTable() {
         return this.table;
+    }
+    
+    public Player getWinner() {
+        return this.winner;
     }
 
 }

@@ -25,7 +25,7 @@ public class PokerGUI implements Runnable {
 
     @Override
     public void run() {
-        // Luo sovelluksesi tänne
+
         frame = new JFrame("Ikkuna");
         frame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -45,11 +45,13 @@ public class PokerGUI implements Runnable {
     private void createComponents(Container container) {
 
         container.setLayout(new BorderLayout());
+        
+        ImageLoader imageLoader = new ImageLoader();
 
         GameFeedRenderer right = new GameFeedRenderer(new BorderLayout());
         JPanel middle = new JPanel(new BorderLayout());
 
-        JTextArea window = new JTextArea();
+        //JTextArea window = new JTextArea();
 
         JTextArea feed = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(feed);
@@ -59,12 +61,11 @@ public class PokerGUI implements Runnable {
         feed.setBackground(Color.cyan);
         right.add(scrollPane, BorderLayout.CENTER);
         right.add(start, BorderLayout.SOUTH);
-        window.setEditable(false);
-        middle.add(window, BorderLayout.CENTER);
+        
 
         feed.setEditable(false);
         right.setPreferredSize(new Dimension(300, HEIGHT));
-        
+
         JButton fold = new JButton("Fold");
         JButton call = new JButton("Call");
         JButton raise = new JButton("Call & Raise by 10");
@@ -73,6 +74,8 @@ public class PokerGUI implements Runnable {
         JButton pass = new JButton("Pass");
         PokerActionListener listener = new PokerActionListener(feed, start, fold, call, raise, allIn, bid, pass);
         ButtonRenderer buttons = new ButtonRenderer(new FlowLayout(), start, fold, call, raise, allIn, bid, pass, listener);
+        MainRenderer window = new MainRenderer(listener, imageLoader);
+        middle.add(window, BorderLayout.CENTER);
 
         middle.add(buttons, BorderLayout.SOUTH);
         buttons.setPreferredSize(new Dimension(700, 100));
