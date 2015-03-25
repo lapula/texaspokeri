@@ -33,6 +33,7 @@ public class Game {
     private boolean isRunning = false;
     private AllPlayers allPlayers;
     private Player winner;
+    private boolean isSetupping = true;
 
     public Game(JTextArea feed) {
         
@@ -54,15 +55,12 @@ public class Game {
         this.roundNumber = round;
         
         if (roundNumber == 0) {
+            isSetupping = true;
             setUp();
+            isSetupping = false;
         }
         
-        GameFeed.addText(feed, "PLAYER ORDER");
-
-        for (int a = 0; a < currentPlayers.size(); a++) {
-            GameFeed.addText(feed, "" + currentPlayers.get(a).getId());
-        }
-        GameFeed.addText(feed, "");
+        
 
         if (round == 0) {
             bidding = new Bidding(true, this);
@@ -76,18 +74,24 @@ public class Game {
             bidding = new Bidding(false, this);
         }
         
-        
+        GameFeed.addText(feed, "-----------------------------------------------");
+        GameFeed.addText(feed, "");
         GameFeed.addText(feed, "ROUND!!!");
         GameFeed.addText(feed, "");
-        GameFeed.addText(feed, "table money: " + table.getPot());
-        GameFeed.addText(feed, "size:" + currentPlayers.size());
+        GameFeed.addText(feed, "PLAYER ORDER");
+
+        for (int a = 0; a < currentPlayers.size(); a++) {
+            GameFeed.addText(feed, "" + currentPlayers.get(a).getId());
+        }
+        GameFeed.addText(feed, "");
+        GameFeed.addText(feed, "----------------------------------------------");
         GameFeed.addText(feed, "");
 
     }
 
     public void finishRound() {
 
-        GameFeed.addText(feed, "TABLE CARDS: ");
+        /*GameFeed.addText(feed, "TABLE CARDS: ");
         for (int i = 0; i < 5; i++) {
             GameFeed.addText(feed, codeToText.cardText(table.getCards().get(i), -1));
         }
@@ -97,7 +101,7 @@ public class Game {
             GameFeed.addText(feed, codeToText.cardText(currentPlayers.get(i).getCards().get(0), -1));
             GameFeed.addText(feed, codeToText.cardText(currentPlayers.get(i).getCards().get(1), -1));
             GameFeed.addText(feed, "");
-        }
+        }*/
 
 
         resolve = new Resolve(currentPlayers, table);
@@ -125,7 +129,24 @@ public class Game {
 
     private void setUp() {
         
+        
+        for (int i = 0; i < allPlayers.getPlayers().size(); i++) {
+
+            Player player = (Player) allPlayers.getPlayers().get(i);
+            
+            player.refreshMaxWin();
+            player.resetAllIn();
+            GameFeed.addText(feed, "END OF ROUND BALANCE: " + player.getId() + ": " + player.getBalance());
+            if (player.getBalance() < 10) {
+                GameFeed.addText(feed, "Remove player: " + player.getId());
+                allPlayers.removePlayer(player);
+                i--;
+            }
+
+        }
+        
         table.getCards().removeAll(table.getCards());
+        table.resetPot();
         
         for (int i = 0; i < allPlayers.getPlayers().size(); i++) {
             Player player = (Player) allPlayers.getPlayers().get(i);
@@ -135,7 +156,7 @@ public class Game {
         deck = new Deck();
 
         for (int i = 0; i < currentPlayers.size(); i++) {
-            System.out.println("!!");
+            
             currentPlayers.get(i).addCard(deck.drawCard());
             currentPlayers.get(i).addCard(deck.drawCard());
         }
@@ -143,7 +164,7 @@ public class Game {
 
     private void endOfRound() {
 
-        table.resetPot();
+        
         
 
         for (int i = 0; i < allPlayers.getPlayers().size(); i++) {
@@ -226,6 +247,10 @@ public class Game {
     
     public Player getWinner() {
         return this.winner;
+    }
+    
+    public boolean isSetupping() {
+        return this.isSetupping;
     }
 
 }

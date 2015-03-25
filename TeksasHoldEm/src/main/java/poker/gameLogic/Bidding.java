@@ -91,8 +91,7 @@ public class Bidding {
 
             GameFeed.addText(game.getFeed(), "PLAYER: " + player.getId());
             GameFeed.addText(game.getFeed(), "Current cost to call is: " + (highest - player.getBid()));
-            GameFeed.addText(game.getFeed(), "HIGHEST: " + highest);
-            GameFeed.addText(game.getFeed(), "Your money: " + player.getBalance());
+            GameFeed.addText(game.getFeed(), "Balance: " + player.getBalance());
             GameFeed.addText(game.getFeed(), "Select order:");
 
             if (isFirstRound) {
@@ -152,14 +151,14 @@ public class Bidding {
                 if (lastRaised.getId() == player.getId() && (!player.isAllIn())) {
                     game.getGameAllPlayers().resetBids();
                     if (game.getRoundNumber() + 1 == 4) {
-                        System.out.println("!");
+                        
                         this.turn = 0;
                         this.end = end;
                         GameFeed.addText(game.getFeed(), "");
                         game.finishRound();
                         return;
                     } else {
-                        System.out.println("?");
+                        
                         this.turn = 0;
                         this.end = end;
                         GameFeed.addText(game.getFeed(), "");
@@ -227,7 +226,6 @@ public class Bidding {
 
     private void orderRaise(Player player) {
 
-        System.out.print("Raise by: ");
         int amount = 10;
 
         boolean succeeded = action.raise(player, highest, amount);
@@ -245,8 +243,8 @@ public class Bidding {
     private void orderAllIn(Player player) {
 
         player.setAllInTrue();
-        if (player.getBalance() - highest > 0) {
-            highest += player.getBalance() - highest;
+        if (player.getBalance() - (highest - player.getBid()) > 0) {
+            highest += player.getBalance() - (highest - player.getBid());
         }
         action.bid(player, player.getBalance());
         end += players.size() - 1;

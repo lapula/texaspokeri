@@ -23,7 +23,7 @@ public class GameFeed {
     
     public static void addText(JTextArea field, String text) {
         
-        field.append(text + "\n");
+        field.append("  " + text + "\n");
         
         Scanner scanner = new Scanner(field.getText());
         

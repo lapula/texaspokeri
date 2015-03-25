@@ -1,4 +1,5 @@
 poker\gameLogic\GameSettings.class
+poker\gui\MainRenderer.class
 poker\gui\GameFeedRenderer.class
 poker\table\Player.class
 poker\Poker.class
@@ -7,6 +8,7 @@ poker\gameLogic\Bidding.class
 poker\gui\PokerGUI.class
 poker\cards\Card.class
 poker\util\CodeToText.class
+poker\gui\MainRenderer$1.class
 poker\cards\Deck.class
 poker\gameLogic\Game.class
 poker\cards\Suit.class
@@ -19,3 +21,4 @@ poker\gui\ButtonRenderer.class
 poker\gui\PokerActionListener.class
 poker\gameLogic\PlayerBiddingActions.class
 poker\gameLogic\Resolve.class
+poker\gui\ImageLoader.class

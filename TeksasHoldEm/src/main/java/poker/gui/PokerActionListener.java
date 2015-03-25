@@ -54,7 +54,7 @@ public class PokerActionListener implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         
         if (ae.getSource() == start) {
-            System.out.println("again");
+            
             game.startRound(0);
             game.getCurrentBidding().startBidding();
         } else if (ae.getSource() == call) {

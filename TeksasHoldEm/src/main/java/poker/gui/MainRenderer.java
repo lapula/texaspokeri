@@ -5,6 +5,8 @@
  */
 package poker.gui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,8 +39,9 @@ public class MainRenderer extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawImage(imageLoader.loadBackground(), -110, -40, null);
         //g.drawImage(imageLoader.loadCardImage(new Card(Suit.SPADES, 0)), 10, 10, null);
-        if (game.isRunning()) {
+        if (!game.isSetupping()) {
             //System.out.println("#######");
             paintPlayerCards(g);
         }
@@ -65,10 +68,28 @@ public class MainRenderer extends JPanel {
     private void paintPlayerCards(Graphics g) {
 
         Player player = game.getCurrentBidding().getCurrentBidder();
-
+        
+        int potXPos = 850;
+        
         if (player.isHuman()) {
-            g.drawImage(imageLoader.loadCardImage(player.getCards().get(0)), 10, 10, null);
-            g.drawImage(imageLoader.loadCardImage(player.getCards().get(1)), 30, 10, null);
+            
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+            g.setColor(Color.green);
+            g.drawString("Your cards:", 10, 20);
+            g.drawImage(imageLoader.loadCardImage(player.getCards().get(0)), 20, 40, null);
+            g.drawImage(imageLoader.loadCardImage(player.getCards().get(1)), 33, 40, null);
+            
+            g.drawString("YOUR BALANCE: ", 10, 610);
+            g.drawString("CURRENT POT: ", 750, 610);
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
+            g.setColor(Color.white);
+            if (game.getGameTable().getPot() > 99) {
+                potXPos = 830;
+            }
+            g.drawString("" + game.getGameTable().getPot(), potXPos, 650);
+            g.drawString("" + player.getBalance(), 10, 650);
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+            g.setColor(Color.green);
         }
 
     }
@@ -83,7 +104,7 @@ public class MainRenderer extends JPanel {
     private void paintTableCards(Graphics g) {
         
         int x = 250;
-        int y = 300;
+        int y = 280;
         
         for (Card card : game.getGameTable().getCards()) {
             g.drawImage(imageLoader.loadCardImage(card), x, y, null);

@@ -31,8 +31,8 @@ public class PokerGUI implements Runnable {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         createComponents(frame.getContentPane());
-
         frame.pack();
+        frame.setResizable(false);
 
         frame.setVisible(true);
 
@@ -45,23 +45,22 @@ public class PokerGUI implements Runnable {
     private void createComponents(Container container) {
 
         container.setLayout(new BorderLayout());
-        
+
         ImageLoader imageLoader = new ImageLoader();
 
         GameFeedRenderer right = new GameFeedRenderer(new BorderLayout());
         JPanel middle = new JPanel(new BorderLayout());
-
-        //JTextArea window = new JTextArea();
 
         JTextArea feed = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(feed);
         JButton start = new JButton("Start");
         start.setPreferredSize(new Dimension(700, 100));
 
-        feed.setBackground(Color.cyan);
+        feed.setForeground(Color.white);
+        feed.setBackground(new Color(0, 107, 61));
+        
         right.add(scrollPane, BorderLayout.CENTER);
         right.add(start, BorderLayout.SOUTH);
-        
 
         feed.setEditable(false);
         right.setPreferredSize(new Dimension(300, HEIGHT));
@@ -86,8 +85,8 @@ public class PokerGUI implements Runnable {
         allIn.setPreferredSize(new Dimension(215, 90));
         pass.setPreferredSize(new Dimension(215, 90));
 
-        buttons.setBackground(Color.GREEN);
-
+        buttons.setBackground(new Color(0, 107, 61));
+        
         buttons.add(fold);
         buttons.add(call);
         buttons.add(raise);
@@ -106,7 +105,13 @@ public class PokerGUI implements Runnable {
         allIn.setEnabled(false);
         bid.setEnabled(false);
         start.setEnabled(true);
-
+        
+        setButtonGraphics(pass, "Pass", imageLoader);
+        setButtonGraphics(fold, "Fold", imageLoader);
+        setButtonGraphics(call, "Call", imageLoader);
+        setButtonGraphics(raise, "Raise", imageLoader);
+        setButtonGraphics(allIn, "All In", imageLoader);
+        setButtonGraphics(bid, "Bid", imageLoader);
         start.addActionListener(listener);
         fold.addActionListener(listener);
         call.addActionListener(listener);
@@ -115,9 +120,20 @@ public class PokerGUI implements Runnable {
         bid.addActionListener(listener);
         pass.addActionListener(listener);
 
+
         container.add(middle, BorderLayout.CENTER);
         container.add(right, BorderLayout.EAST);
 
+    }
+    
+    private void setButtonGraphics(JButton button, String text, ImageLoader imageLoader) {
+        button.setIcon(new javax.swing.ImageIcon(imageLoader.loadButtonStyle1()));
+        button.setRolloverIcon(new javax.swing.ImageIcon(imageLoader.loadButtonStyle2()));
+        button.setPressedIcon(new javax.swing.ImageIcon(imageLoader.loadButtonStyle3()));
+        button.setText("<html><font color = white>" + text + "</font></html>");
+        button.setForeground(Color.white);
+        button.setHorizontalTextPosition(JButton.CENTER);
+        button.setVerticalTextPosition(JButton.CENTER);
     }
 
 }

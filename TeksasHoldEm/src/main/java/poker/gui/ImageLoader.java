@@ -61,6 +61,11 @@ public class ImageLoader {
 
         try {
             images.put("back", ImageIO.read(new File("images/" + path + ".png")));
+            path = "background";
+            images.put("background", ImageIO.read(new File("images/" + path + ".png")));
+            images.put("set1", ImageIO.read(new File("images/set1.png")));
+            images.put("set2", ImageIO.read(new File("images/set2.png")));
+            images.put("set3", ImageIO.read(new File("images/set3.png")));
         } catch (IOException ex) {
             System.out.println("Failed to load image!");
             System.exit(1);
@@ -114,6 +119,24 @@ public class ImageLoader {
         }
 
         return images.get(key);
+    }
+    
+    public BufferedImage loadBackground() {
+        return this.images.get("background");
+    }
+    
+    public BufferedImage loadCardBack() {
+        return this.images.get("back");
+    }
+    
+    public BufferedImage loadButtonStyle1() {
+        return this.images.get("set1");
+    }
+    public BufferedImage loadButtonStyle2() {
+        return this.images.get("set2");
+    }
+    public BufferedImage loadButtonStyle3() {
+        return this.images.get("set3");
     }
 
 }
