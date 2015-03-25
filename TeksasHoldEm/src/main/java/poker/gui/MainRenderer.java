@@ -71,6 +71,9 @@ public class MainRenderer extends JPanel {
         
         int potXPos = 850;
         
+        if (player == null) {
+            return;
+        }
         if (player.isHuman()) {
             
             g.setFont(new Font("TimesRoman", Font.PLAIN, 20));

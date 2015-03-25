@@ -9,6 +9,7 @@ import poker.cards.Deck;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JTextArea;
+import poker.gui.SoundPlayer;
 import poker.table.Player;
 import poker.table.Table;
 import poker.table.AllPlayers;
@@ -34,6 +35,7 @@ public class Game {
     private AllPlayers allPlayers;
     private Player winner;
     private boolean isSetupping = true;
+    private SoundPlayer soundPlayer;
 
     public Game(JTextArea feed) {
         
@@ -45,7 +47,7 @@ public class Game {
         this.allPlayers = gameSettings.getAllPlayers();
         this.currentPlayers = new ArrayList<>(allPlayers.getPlayers());
         this.codeToText = new CodeToText();
-        
+        this.soundPlayer = new SoundPlayer();
 
     }
 
@@ -53,6 +55,7 @@ public class Game {
         
         isRunning = true;
         this.roundNumber = round;
+        
         
         if (roundNumber == 0) {
             isSetupping = true;
@@ -68,9 +71,11 @@ public class Game {
             table.addCard(deck.drawCard());
             table.addCard(deck.drawCard());
             table.addCard(deck.drawCard());
+            soundPlayer.playSound("dealThree");
             bidding = new Bidding(false, this);
         } else {
             table.addCard(deck.drawCard());
+            soundPlayer.playSound("deal");
             bidding = new Bidding(false, this);
         }
         
@@ -86,7 +91,7 @@ public class Game {
         GameFeed.addText(feed, "");
         GameFeed.addText(feed, "----------------------------------------------");
         GameFeed.addText(feed, "");
-
+        
     }
 
     public void finishRound() {
@@ -129,6 +134,7 @@ public class Game {
 
     private void setUp() {
         
+        soundPlayer.playSound("start");
         
         for (int i = 0; i < allPlayers.getPlayers().size(); i++) {
 

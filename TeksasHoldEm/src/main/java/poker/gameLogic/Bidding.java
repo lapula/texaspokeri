@@ -6,6 +6,7 @@
 package poker.gameLogic;
 
 import java.util.ArrayList;
+import poker.gui.SoundPlayer;
 import poker.table.Player;
 import poker.util.GameFeed;
 
@@ -27,6 +28,7 @@ public class Bidding {
     private int turn;
     private Player player;
     private Game game;
+    private SoundPlayer soundPlayer;
 
     public Bidding(boolean isFirstRound, Game game) {
 
@@ -40,6 +42,7 @@ public class Bidding {
         this.end = players.size();
         this.turn = 0;
         this.player = null;
+        this.soundPlayer = new SoundPlayer();
     }
 
     public void bidding() {
@@ -47,6 +50,9 @@ public class Bidding {
     }
 
     public void startBidding() {
+        
+        int size = players.size();
+        player = players.get(turn % size);
         
         if (turn >= end || players.size() < 2) {
             game.getGameAllPlayers().resetBids();
@@ -69,8 +75,7 @@ public class Bidding {
 
         }
         
-        int size = players.size();
-        player = players.get(turn % size);
+        
 
         this.buttonSetPassBid = true;
 
@@ -96,9 +101,11 @@ public class Bidding {
 
             if (isFirstRound) {
                 GameFeed.addText(game.getFeed(), "YOU PLACED BIG BLIND (NON-OPTIONAL)");
-                this.isFirstRound = false;
+                
                 //end -= players.size();
+                
                 takeBiddingAction("bid");
+                
             }
 
         } else {
@@ -111,16 +118,26 @@ public class Bidding {
 
     public void takeBiddingAction(String order) {
         if (order.equals("call")) {
+            soundPlayer.playSound("addChips");
             GameFeed.addText(game.getFeed(), "CALL");
             orderCall(player);
             turn++;
 
         } else if (order.equals("bid")) {
+            
+            if (!isFirstRound) {
+                soundPlayer.playSound("addChips");
+                
+            } else {
+                this.isFirstRound = false;
+            }
+            
             GameFeed.addText(game.getFeed(), "BID");
             orderBid(player);
             turn++;
 
         } else if (order.equals("raise")) {
+            soundPlayer.playSound("addChips");
             GameFeed.addText(game.getFeed(), "RAISE");
             orderRaise(player);
             turn++;
@@ -130,16 +147,18 @@ public class Bidding {
             if (turn % players.size() == 0) {
                 turn--;
             }
-            
+            soundPlayer.playSound("fold");
             GameFeed.addText(game.getFeed(), "FOLD");
             players.remove(player);
 
         } else if (order.equals("allIn")) {
+            soundPlayer.playSound("allIn");
             GameFeed.addText(game.getFeed(), "ALL IN");
             orderAllIn(player);
             turn++;
 
         } else {
+            soundPlayer.playSound("pass");
             if (lastRaised != null) {
                 if (player.getId() == lastRaised.getId()) {
 
