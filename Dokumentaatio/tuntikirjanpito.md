@@ -11,3 +11,5 @@
 <span>21.03 - 2h - Graaffisen käyttöliittymän tekoa (napit)</span><br>
 <span>22.03 - 2h - Graaffisen käyttöliittymän tekoa</span><br>
 <span>22.03 - 5h - <b>LISÄÄ</b> Graaffisen käyttöliittymän tekoa (pääikkuna)</span><br>
+<span>24.03 - 2h - Grafiikoiden piirtämista, pääikkunan toiminnallisuuden lisäystä.</span><br>
+<span>22.03 - 4h - Nappien grafiikat, muita pieniä korjauksia.</span><br>
