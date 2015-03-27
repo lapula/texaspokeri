@@ -50,21 +50,21 @@ public class Bidding {
     }
 
     public void startBidding() {
-        
+
         int size = players.size();
         player = players.get(turn % size);
-        
+
         if (turn >= end || players.size() < 2) {
             game.getGameAllPlayers().resetBids();
 
             if (game.getRoundNumber() + 1 == 4) {
-                
-                game.finishRound();
+
+                game.finishGame();
                 this.turn = 0;
                 this.end = end;
                 return;
             } else {
-                
+
                 this.turn = 0;
                 this.end = end;
                 game.startRound(game.getRoundNumber() + 1);
@@ -74,17 +74,17 @@ public class Bidding {
             }
 
         }
-        
-        
 
         this.buttonSetPassBid = true;
 
         if (lastRaised != null) {
-
             if (lastRaised.getId() != player.getId()) {
-
                 buttonSetPassBid = false;
             }
+
+        }
+        if (highest - player.getBid() > 0) {
+            buttonSetPassBid = false;
         }
 
         if (player.isAllIn()) {
@@ -101,11 +101,10 @@ public class Bidding {
 
             if (isFirstRound) {
                 GameFeed.addText(game.getFeed(), "YOU PLACED BIG BLIND (NON-OPTIONAL)");
-                
+
                 //end -= players.size();
-                
                 takeBiddingAction("bid");
-                
+
             }
 
         } else {
@@ -124,14 +123,14 @@ public class Bidding {
             turn++;
 
         } else if (order.equals("bid")) {
-            
+
             if (!isFirstRound) {
                 soundPlayer.playSound("addChips");
-                
+
             } else {
                 this.isFirstRound = false;
             }
-            
+
             GameFeed.addText(game.getFeed(), "BID");
             orderBid(player);
             turn++;
@@ -143,7 +142,7 @@ public class Bidding {
             turn++;
 
         } else if (order.equals("fold")) {
-            
+
             if (turn % players.size() == 0) {
                 turn--;
             }
@@ -170,14 +169,14 @@ public class Bidding {
                 if (lastRaised.getId() == player.getId() && (!player.isAllIn())) {
                     game.getGameAllPlayers().resetBids();
                     if (game.getRoundNumber() + 1 == 4) {
-                        
+
                         this.turn = 0;
                         this.end = end;
                         GameFeed.addText(game.getFeed(), "");
-                        game.finishRound();
+                        game.finishGame();
                         return;
                     } else {
-                        
+
                         this.turn = 0;
                         this.end = end;
                         GameFeed.addText(game.getFeed(), "");
@@ -203,9 +202,24 @@ public class Bidding {
     public Player getCurrentBidder() {
         return this.player;
     }
-    
+
     public int costToCall(Player player) {
         return highest - player.getBid();
+    }
+    
+    public boolean isAllOthersAllIn() {
+        
+        int count = 0;
+        for (Player player : players) {
+            if (player.isAllIn()) {
+                count++;
+            }
+        }
+        if (players.size() < 2 || count != players.size() - 1) {
+            return false;
+        }
+        return true;
+        
     }
 
     private void orderCall(Player player) {
@@ -267,7 +281,7 @@ public class Bidding {
         }
         action.bid(player, player.getBalance());
         end += players.size() - 1;
-        lastRaised = player;
+        //lastRaised = player;
     }
 
 }

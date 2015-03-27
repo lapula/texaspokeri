@@ -2,9 +2,11 @@ poker\gameLogic\GameSettings.class
 poker\gui\MainRenderer.class
 poker\table\Player.class
 poker\gameLogic\Bidding.class
+poker\gui\SettingsChangeListener.class
 poker\gui\MainRenderer$1.class
 poker\cards\Deck.class
 poker\cards\Suit.class
+poker\gui\SettingsGUI$2.class
 poker\gui\ButtonRenderer$1.class
 poker\gui\SoundPlayer.class
 poker\table\AllPlayers.class
@@ -14,12 +16,15 @@ poker\gui\ButtonRenderer.class
 poker\gui\PokerActionListener.class
 poker\gameLogic\PlayerBiddingActions.class
 poker\gameLogic\Resolve.class
+poker\gui\SettingsActionListener.class
 poker\gui\GameFeedRenderer.class
+poker\gui\SettingsGUI.class
 poker\Poker.class
 poker\table\Table.class
 poker\gui\PokerGUI.class
 poker\cards\Card.class
 poker\util\CodeToText.class
 poker\gameLogic\Game.class
+poker\gui\SettingsGUI$1.class
 poker\util\GameFeed.class
 poker\gui\ImageLoader.class

@@ -9,6 +9,7 @@ package poker;
 import javax.swing.SwingUtilities;
 import poker.gameLogic.Game;
 import poker.gui.PokerGUI;
+import poker.gui.SettingsGUI;
 
 /**
  *
@@ -19,7 +20,8 @@ public class Poker {
 
     
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new PokerGUI());
+        SwingUtilities.invokeLater(new SettingsGUI());
+        //SwingUtilities.invokeLater(new PokerGUI());
     }
     
 }

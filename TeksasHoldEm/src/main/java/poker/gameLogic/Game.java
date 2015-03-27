@@ -42,7 +42,7 @@ public class Game {
         this.table = new Table(0);
         this.feed = feed;
         this.roundNumber = 0;
-        this.gameSettings = new GameSettings(4, 100);
+        this.gameSettings = new GameSettings();
         this.gameSettings.initialize();
         this.allPlayers = gameSettings.getAllPlayers();
         this.currentPlayers = new ArrayList<>(allPlayers.getPlayers());
@@ -94,7 +94,7 @@ public class Game {
         
     }
 
-    public void finishRound() {
+    public void finishGame() {
 
         /*GameFeed.addText(feed, "TABLE CARDS: ");
         for (int i = 0; i < 5; i++) {
@@ -114,21 +114,28 @@ public class Game {
         HashMap<Player, Double> result = resolve.giveWinner();
         
 
-        GameFeed.addText(feed, "Winners are:");
+        GameFeed.addText(feed, "Winner is:");
         for (Player player : result.keySet()) {
-            GameFeed.addText(feed, "Player " + player.getId() + " with a rating of: " + codeToText.ratingToText(result.get(player)));
+            GameFeed.addText(feed, "Player " + player.getId() + " with a " + codeToText.ratingToText(result.get(player)));
             winner = player;
         }
         GameFeed.addText(feed, "");
 
         
-        for (Player player : result.keySet()) {
+        /*for (Player player : result.keySet()) {
             player.alterBalance(table.getPot() / result.keySet().size());
-        }
+        }*/
+        dividePot(result);
 
         GameFeed.addText(feed, "SIZE ALL: " + allPlayers.getPlayers().size());
         endOfRound();
         isRunning = false;
+        
+        if (allPlayers.getPlayers().size() == 1) {
+            Player endWinner =  (Player) allPlayers.getPlayers().get(0);
+            GameFeed.addText(feed, "PLAYER " + endWinner.getId() + " HAS CLEANED THE TABLE!");
+            GameFeed.addText(feed, "GAME HAS ENDED!");
+        }
 
     }
 
@@ -142,12 +149,12 @@ public class Game {
             
             player.refreshMaxWin();
             player.resetAllIn();
-            GameFeed.addText(feed, "END OF ROUND BALANCE: " + player.getId() + ": " + player.getBalance());
+            /*
             if (player.getBalance() < 10) {
                 GameFeed.addText(feed, "Remove player: " + player.getId());
                 allPlayers.removePlayer(player);
                 i--;
-            }
+            }*/
 
         }
         
@@ -169,10 +176,7 @@ public class Game {
     }
 
     private void endOfRound() {
-
         
-        
-
         for (int i = 0; i < allPlayers.getPlayers().size(); i++) {
 
             Player player = (Player) allPlayers.getPlayers().get(i);
@@ -187,6 +191,7 @@ public class Game {
             }
 
         }
+        GameFeed.addText(feed, "");
 
         currentPlayers = new ArrayList<>(allPlayers.getPlayers());
         Player player = currentPlayers.get(0);
@@ -195,8 +200,9 @@ public class Game {
 
     }
 
-    private void dividePot(HashMap<Player, Double> result) {
-
+    public void dividePot(HashMap<Player, Double> result) {
+        
+        ArrayList<Player> copy = new ArrayList<>(currentPlayers);
         int pot = table.getPot();
 
         while (true) {
@@ -204,16 +210,25 @@ public class Game {
             int win = 0;
 
             for (Player player : result.keySet()) {
-                win = player.getMaxWin() * currentPlayers.size();
-                player.alterBalance(pot);
+                win = player.getMaxWin() * allPlayers.getPlayers().size();
+                
+                if (win < pot) {
+                    player.alterBalance(win);
+                } else {
+                    player.alterBalance(pot);
+                    
+                }
                 pot = pot - win;
-                currentPlayers.remove(player);
+                copy.remove(player);
             }
 
-            if (pot <= 0 || currentPlayers.size() < 1) {
+            if (pot <= 0 || copy.size() < 1) {
+                if (pot > 0) {
+                    System.out.println("POT WAS NOT DIVIDED FULLY, " + pot + " REMAINED");
+                }
                 break;
             } else {
-                resolve = new Resolve(currentPlayers, table);
+                resolve = new Resolve(copy, table);
                 result = new HashMap<>(resolve.giveWinner());
             }
         }

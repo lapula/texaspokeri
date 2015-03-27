@@ -100,10 +100,10 @@ public class CodeToText {
             return "Straight ";
         } else if (rating < 700) {
             cards -= 600;
-            return "Full House ";
+            return "Flush ";
         } else if (rating < 800) {
             cards -= 700;
-            return "Flush ";
+            return "Full House ";
         } else if (rating < 900) {
             cards -= 800;
             return "Four of a Kind ";

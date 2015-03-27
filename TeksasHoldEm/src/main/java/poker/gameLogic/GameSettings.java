@@ -5,7 +5,11 @@
  */
 package poker.gameLogic;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import poker.table.Player;
 import poker.table.AllPlayers;
 
@@ -15,27 +19,39 @@ import poker.table.AllPlayers;
  */
 public class GameSettings {
     
-    private int playerCount;
-    private int startingBalance;
     private AllPlayers allPlayers;
+    private Scanner scanner;
     
-    public GameSettings(int playerCount, int startingBalance) {
+    
+    public GameSettings() {
         
-        
-        this.playerCount = playerCount;
-        this.startingBalance = startingBalance;
         this.allPlayers = new AllPlayers();
         
         
     }
     
     public void initialize() {
-        allPlayers.addPlayer(new Player(startingBalance, true, 1));
-        /*for (int i = 2; i < playerCount + 1; i++) {
+        
+        File file = new File("teksts/settings.txt");
+        try {
+            scanner = new Scanner(file);
+        } catch (FileNotFoundException ex) {
+            System.out.println("SETTINGS NOT LOADED");
+        }
+        
+        int startingBalance = Integer.parseInt(scanner.nextLine());
+        int humanPlayers = Integer.parseInt(scanner.nextLine());
+        int aiPlayers = Integer.parseInt(scanner.nextLine());
+        int a = 0;
+        
+        for (int i = 1; i < humanPlayers + 1; i++) {
+            allPlayers.addPlayer(new Player(startingBalance, true, i));
+            a++;
+        }
+        for (int i = a; i < aiPlayers + a; i++) {
             allPlayers.addPlayer(new Player(startingBalance, false, i));
-        }*/
-        allPlayers.addPlayer(new Player(startingBalance, true, 2));
-        allPlayers.addPlayer(new Player(startingBalance, true, 3));
+        }
+        
     }
     
     public AllPlayers getAllPlayers() {

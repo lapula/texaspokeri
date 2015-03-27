@@ -33,6 +33,7 @@ public class PokerGUI implements Runnable {
         createComponents(frame.getContentPane());
         frame.pack();
         frame.setResizable(false);
+        frame.setTitle("Teksas Hold 'Em");
 
         frame.setVisible(true);
 

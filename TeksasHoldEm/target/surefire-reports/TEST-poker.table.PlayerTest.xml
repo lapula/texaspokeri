@@ -75,5 +75,5 @@
   <testcase classname="poker.table.PlayerTest" name="testIsAllIn" time="0"/>
   <testcase classname="poker.table.PlayerTest" name="testIsHuman" time="0"/>
   <testcase classname="poker.table.PlayerTest" name="testSetAllInTrue" time="0"/>
-  <testcase classname="poker.table.PlayerTest" name="testResetAllIn" time="0"/>
+  <testcase classname="poker.table.PlayerTest" name="testResetAllIn" time="0.001"/>
 </testsuite>

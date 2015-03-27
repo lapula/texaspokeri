@@ -82,7 +82,10 @@ public class ButtonRenderer extends JPanel {
             call.setVisible(false);
             raise.setVisible(false);
             fold.setEnabled(false);
-            
+
+            if (bidding.isAllOthersAllIn()) {
+                bid.setEnabled(false);
+            }
 
         }
 
@@ -90,7 +93,8 @@ public class ButtonRenderer extends JPanel {
             call.setEnabled(false);
             raise.setEnabled(false);
             bid.setEnabled(false);
-        } if (bidding.costToCall(player) > player.getBalance()) {
+        }
+        if (bidding.costToCall(player) > player.getBalance()) {
             call.setEnabled(false);
             raise.setEnabled(false);
         }
@@ -104,7 +108,12 @@ public class ButtonRenderer extends JPanel {
         raise.setEnabled(false);
         allIn.setEnabled(false);
         bid.setEnabled(false);
-        start.setEnabled(true);
+        if (listener.getGame().getGameAllPlayers().getPlayers().size() == 1) {
+            start.setEnabled(false);
+        } else {
+            start.setEnabled(true);
+        }
+        
     }
 
     private void setGame() {
