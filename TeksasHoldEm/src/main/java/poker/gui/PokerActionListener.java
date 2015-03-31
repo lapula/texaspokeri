@@ -18,6 +18,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
+import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import poker.gameLogic.Bidding;
@@ -41,6 +42,7 @@ public class PokerActionListener implements ActionListener {
     private boolean started;
     private ButtonRenderer buttonRenderer;
     
+    
 
     public PokerActionListener(JTextArea feed, JButton start, JButton fold,
             JButton call, JButton raise, JButton allIn,
@@ -54,6 +56,7 @@ public class PokerActionListener implements ActionListener {
         this.pass = pass;
         this.game = new Game(feed);
         this.feed = feed;
+        
         
 
     }

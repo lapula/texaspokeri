@@ -28,6 +28,7 @@ public class Bidding {
     private int turn;
     private Player player;
     private Game game;
+    private int sliderValue;
     private SoundPlayer soundPlayer;
 
     public Bidding(boolean isFirstRound, Game game) {
@@ -88,7 +89,7 @@ public class Bidding {
         }
 
         if (player.isAllIn()) {
-            takeBiddingAction("pass");
+            takeBiddingAction("allInPass");
             return;
         }
 
@@ -127,8 +128,6 @@ public class Bidding {
             if (!isFirstRound) {
                 soundPlayer.playSound("addChips");
 
-            } else {
-                this.isFirstRound = false;
             }
 
             GameFeed.addText(game.getFeed(), "BID");
@@ -157,36 +156,37 @@ public class Bidding {
             turn++;
 
         } else {
-            soundPlayer.playSound("pass");
-            if (lastRaised != null) {
-                if (player.getId() == lastRaised.getId()) {
 
-                }
-            }
-            GameFeed.addText(game.getFeed(), "PASS");
-            //pass
-            if (lastRaised != null) {
-                if (lastRaised.getId() == player.getId() && (!player.isAllIn())) {
-                    game.getGameAllPlayers().resetBids();
-                    if (game.getRoundNumber() + 1 == 4) {
+            if (order.equals("allInPass")) {
 
-                        this.turn = 0;
-                        this.end = end;
-                        GameFeed.addText(game.getFeed(), "");
-                        game.finishGame();
-                        return;
-                    } else {
+            } else {
+                soundPlayer.playSound("pass");
+                GameFeed.addText(game.getFeed(), "PASS");
 
-                        this.turn = 0;
-                        this.end = end;
-                        GameFeed.addText(game.getFeed(), "");
-                        game.startRound(game.getRoundNumber() + 1);
-                        game.getCurrentBidding().startBidding();
-                        return;
+                if (lastRaised != null) {
+                    if (lastRaised.getId() == player.getId() && (!player.isAllIn())) {
+                        game.getGameAllPlayers().resetBids();
+                        if (game.getRoundNumber() + 1 == 4) {
 
+                            this.turn = 0;
+                            this.end = end;
+                            GameFeed.addText(game.getFeed(), "");
+                            game.finishGame();
+                            return;
+                        } else {
+
+                            this.turn = 0;
+                            this.end = end;
+                            GameFeed.addText(game.getFeed(), "");
+                            game.startRound(game.getRoundNumber() + 1);
+                            game.getCurrentBidding().startBidding();
+                            return;
+
+                        }
                     }
                 }
             }
+
             turn++;
         }
         GameFeed.addText(game.getFeed(), "");
@@ -207,6 +207,14 @@ public class Bidding {
         return highest - player.getBid();
     }
     
+    public int highest() {
+        return this.highest;
+    }
+    
+    public void setSliderValue(int value) {
+        this.sliderValue = value;
+    }
+    
     public boolean isAllOthersAllIn() {
         
         int count = 0;
@@ -219,7 +227,7 @@ public class Bidding {
             return false;
         }
         return true;
-        
+
     }
 
     private void orderCall(Player player) {
@@ -240,8 +248,9 @@ public class Bidding {
 
         if (isFirstRound) {
             amount = 10;
+            isFirstRound = false;
         } else {
-            amount = 10;
+            amount = sliderValue;
         }
 
         boolean succeeded = action.bid(player, amount);
@@ -259,7 +268,7 @@ public class Bidding {
 
     private void orderRaise(Player player) {
 
-        int amount = 10;
+        int amount = sliderValue;
 
         boolean succeeded = action.raise(player, highest, amount);
 

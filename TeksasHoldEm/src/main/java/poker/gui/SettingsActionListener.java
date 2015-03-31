@@ -44,6 +44,8 @@ public class SettingsActionListener implements ActionListener {
         
         if (ae.getSource() == start) {
             
+            SoundPlayer sp = new SoundPlayer();
+            sp.playSound("pass");
 
             try {
                 FileWriter writer = new FileWriter("teksts/settings.txt");

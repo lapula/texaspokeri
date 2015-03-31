@@ -10,7 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.Timer;
+import javax.swing.UIManager;
 import poker.gameLogic.Bidding;
 import poker.gameLogic.Game;
 import poker.table.Player;
@@ -29,10 +31,12 @@ public class ButtonRenderer extends JPanel {
     private JButton bid;
     private JButton pass;
     private PokerActionListener listener;
+    private JSlider slider;
+    private Player oldPlayer;
 
     public ButtonRenderer(LayoutManager lm, JButton start, JButton fold,
             JButton call, JButton raise, JButton allIn,
-            JButton bid, JButton pass, PokerActionListener listener) {
+            JButton bid, JButton pass, PokerActionListener listener, JSlider slider) {
         super(lm);
         this.start = start;
         this.fold = fold;
@@ -42,6 +46,7 @@ public class ButtonRenderer extends JPanel {
         this.bid = bid;
         this.pass = pass;
         this.listener = listener;
+        this.slider = slider;
         StartTimer();
 
     }
@@ -54,6 +59,7 @@ public class ButtonRenderer extends JPanel {
                 if (listener.getGame().isRunning()) {
                     setGame();
                     setButtons();
+                    setSlider();
                 } else {
                     setEnd();
                 }
@@ -74,6 +80,7 @@ public class ButtonRenderer extends JPanel {
         bid.setVisible(false);
         call.setVisible(true);
         raise.setVisible(true);
+        
 
         if (bidding.buttonsSetPassBid()) {
 
@@ -89,7 +96,12 @@ public class ButtonRenderer extends JPanel {
 
         }
 
-        if (player.getBalance() < 10) {
+        if (player.getBalance() < 5) {
+            call.setEnabled(false);
+            raise.setEnabled(false);
+            bid.setEnabled(false);
+        }
+        if (bidding.costToCall(player) >= player.getBalance()) {
             call.setEnabled(false);
             raise.setEnabled(false);
             bid.setEnabled(false);
@@ -99,6 +111,40 @@ public class ButtonRenderer extends JPanel {
             raise.setEnabled(false);
         }
 
+    }
+    
+    private void setSlider() {
+        
+        Game game = listener.getGame();
+        Bidding bidding = game.getCurrentBidding();
+        Player player = bidding.getCurrentBidder();
+        
+        bidding.setSliderValue(slider.getValue());
+        
+        if (oldPlayer != null) {
+            if (oldPlayer.getId() != player.getId()) {
+                slider.setValue(10);
+            }
+        }
+        
+        oldPlayer = player;
+        
+        slider.setMaximum(player.getBalance());
+        slider.setMinimum(5);
+        
+        
+        if (player.getBalance() < 5) {
+            slider.setEnabled(false);
+        }
+        
+        if (raise.isEnabled()) {
+            slider.setMaximum(player.getBalance() - (bidding.highest() - player.getBid()));
+        }
+        
+        if (!bid.isEnabled() && !raise.isEnabled()) {
+            slider.setEnabled(false);
+        }
+        
     }
 
     private void setEnd() {

@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -32,7 +33,6 @@ public class SettingsGUI implements Runnable {
     private final int HEIGHT = 400;
     private final int WIDTH = 500;
     private JButton button;
-    private JSlider playersHuman;
 
     @Override
     public void run() {
@@ -63,9 +63,23 @@ public class SettingsGUI implements Runnable {
         button = new JButton("Start Game");
 
         JSlider balance = new JSlider(JSlider.HORIZONTAL, 50, 250, 100);
-        playersHuman = new JSlider(JSlider.HORIZONTAL, 0, 8, 3);
+        JSlider playersHuman = new JSlider(JSlider.HORIZONTAL, 0, 8, 3);
         JSlider playersAI = new JSlider(JSlider.HORIZONTAL, 0, 8, 0);
-        JTextField balanceText = new JTextField("Starting Balance");
+        
+        JPanel balancePanel = new JPanel(new BorderLayout());
+        JLabel balanceLabel = new JLabel("Starting Balance:");
+        balancePanel.add(balance);
+        balancePanel.add(balanceLabel, BorderLayout.NORTH);
+        
+        JPanel humansPanel = new JPanel(new BorderLayout());
+        JLabel humansLabel = new JLabel("Human Players:");
+        humansPanel.add(playersHuman);
+        humansPanel.add(humansLabel, BorderLayout.NORTH);
+        
+        JPanel aiPanel = new JPanel(new BorderLayout());
+        JLabel aiLabel = new JLabel("AI Players:");
+        aiPanel.add(playersAI);
+        aiPanel.add(aiLabel, BorderLayout.NORTH);
 
         button.setPreferredSize(new Dimension(WIDTH, 50));
 
@@ -98,13 +112,18 @@ public class SettingsGUI implements Runnable {
         balance.addChangeListener(scl);
         playersHuman.addChangeListener(scl);
         playersAI.addChangeListener(scl);
-        balance.getAccessibleContext().setAccessibleName("Starting balance.");
-        balance.getAccessibleContext().setAccessibleDescription("Starting balance.");
-
-        //sliders.add(balanceText);
-        sliders.add(balance);
-        sliders.add(playersHuman);
-        sliders.add(playersAI);
+        
+        
+        balancePanel.setBackground(new Color(232,232,232));
+        balance.setBackground(new Color(248,248,248));
+        humansPanel.setBackground(new Color(232,232,232));
+        playersHuman.setBackground(new Color(248,248,248));
+        aiPanel.setBackground(new Color(232,232,232));
+        playersAI.setBackground(new Color(248,248,248));
+        
+        sliders.add(balancePanel);
+        sliders.add(humansPanel);
+        sliders.add(aiPanel);
 
         container.add(sliders, BorderLayout.CENTER);
         container.add(button, BorderLayout.SOUTH);
@@ -116,8 +135,6 @@ public class SettingsGUI implements Runnable {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 //System.out.println("asd");
-                playersHuman.getAccessibleContext().setAccessibleName("Starting balance.");
-                playersHuman.getAccessibleContext().setAccessibleDescription("Starting balance.");
                 frame.repaint();
             }
         };

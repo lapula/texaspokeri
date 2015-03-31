@@ -66,6 +66,7 @@ public class ImageLoader {
             images.put("set1", ImageIO.read(new File("images/set1.png")));
             images.put("set2", ImageIO.read(new File("images/set2.png")));
             images.put("set3", ImageIO.read(new File("images/set3.png")));
+            images.put("set4", ImageIO.read(new File("images/set4.png")));
         } catch (IOException ex) {
             System.out.println("Failed to load image!");
             System.exit(1);
@@ -137,6 +138,10 @@ public class ImageLoader {
     }
     public BufferedImage loadButtonStyle3() {
         return this.images.get("set3");
+    }
+    
+    public BufferedImage loadButtonStyle4() {
+        return this.images.get("set4");
     }
 
 }
