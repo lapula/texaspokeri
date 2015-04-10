@@ -17,8 +17,8 @@ import poker.util.CodeToText;
 import poker.util.GameFeed;
 
 /**
- *
- * @author Sara ja Laur
+ * Pelin ns. pääluokka, jossa hoidetaan peliin liittyvät toimitukset kuten
+ * korttien jakaminen, pelaajien hallinnoiminen, kierrosten hallinnointi yms.
  */
 public class Game {
 
@@ -38,7 +38,7 @@ public class Game {
     private SoundPlayer soundPlayer;
 
     public Game(JTextArea feed) {
-        
+
         this.table = new Table(0);
         this.feed = feed;
         this.roundNumber = 0;
@@ -52,18 +52,15 @@ public class Game {
     }
 
     public void startRound(int round) {
-        
+
         isRunning = true;
         this.roundNumber = round;
-        
-        
+
         if (roundNumber == 0) {
             isSetupping = true;
             setUp();
             isSetupping = false;
         }
-        
-        
 
         if (round == 0) {
             bidding = new Bidding(true, this);
@@ -78,61 +75,89 @@ public class Game {
             soundPlayer.playSound("deal");
             bidding = new Bidding(false, this);
         }
-        
+
         GameFeed.addText(feed, "-----------------------------------------------");
         GameFeed.addText(feed, "");
-        GameFeed.addText(feed, "ROUND!!!");
-        GameFeed.addText(feed, "");
-        GameFeed.addText(feed, "PLAYER ORDER");
 
-        for (int a = 0; a < currentPlayers.size(); a++) {
-            GameFeed.addText(feed, "" + currentPlayers.get(a).getId());
+        String roundText;
+
+        switch (roundNumber) {
+            case 0:
+                roundText = "PRE-FLOP";
+                break;
+            case 1:
+                roundText = "THE FLOP";
+                break;
+            case 2:
+                roundText = "THE TURN";
+                break;
+            case 3:
+                roundText = "THE RIVER";
+                break;
+            default:
+                roundText = "ROUND";
+
         }
+        GameFeed.addText(feed, roundText);
         GameFeed.addText(feed, "");
+        /*
+         GameFeed.addText(feed, "PLAYER ORDER");
+
+         for (int a = 0; a < currentPlayers.size(); a++) {
+         GameFeed.addText(feed, "" + currentPlayers.get(a).getId());
+         }
+         GameFeed.addText(feed, "");
+        
+        
+         */
+
         GameFeed.addText(feed, "----------------------------------------------");
         GameFeed.addText(feed, "");
-        
+
     }
 
     public void finishGame() {
 
         /*GameFeed.addText(feed, "TABLE CARDS: ");
-        for (int i = 0; i < 5; i++) {
-            GameFeed.addText(feed, codeToText.cardText(table.getCards().get(i), -1));
-        }
+         for (int i = 0; i < 5; i++) {
+         GameFeed.addText(feed, codeToText.cardText(table.getCards().get(i), -1));
+         }
+         GameFeed.addText(feed, "");
+         for (int i = 0; i < currentPlayers.size(); i++) {
+         GameFeed.addText(feed, "Player " + currentPlayers.get(i).getId() + " cards:");
+         GameFeed.addText(feed, codeToText.cardText(currentPlayers.get(i).getCards().get(0), -1));
+         GameFeed.addText(feed, codeToText.cardText(currentPlayers.get(i).getCards().get(1), -1));
+         GameFeed.addText(feed, "");
+         }*/
+        GameFeed.addText(feed, "----------------------------------------------");
         GameFeed.addText(feed, "");
-        for (int i = 0; i < currentPlayers.size(); i++) {
-            GameFeed.addText(feed, "Player " + currentPlayers.get(i).getId() + " cards:");
-            GameFeed.addText(feed, codeToText.cardText(currentPlayers.get(i).getCards().get(0), -1));
-            GameFeed.addText(feed, codeToText.cardText(currentPlayers.get(i).getCards().get(1), -1));
-            GameFeed.addText(feed, "");
-        }*/
-
+        GameFeed.addText(feed, "Showdown!");
+        GameFeed.addText(feed, "");
+        GameFeed.addText(feed, "----------------------------------------------");
+        GameFeed.addText(feed, "");
 
         resolve = new Resolve(currentPlayers, table);
 
         HashMap<Player, Double> result = resolve.giveWinner();
-        
 
-        GameFeed.addText(feed, "Winner is:");
+        GameFeed.addText(feed, "AND THE WINNER IS:");
+        
         for (Player player : result.keySet()) {
             GameFeed.addText(feed, "Player " + player.getId() + " with a " + codeToText.ratingToText(result.get(player)));
             winner = player;
         }
         GameFeed.addText(feed, "");
 
-        
         /*for (Player player : result.keySet()) {
-            player.alterBalance(table.getPot() / result.keySet().size());
-        }*/
+         player.alterBalance(table.getPot() / result.keySet().size());
+         }*/
         dividePot(result);
 
-        GameFeed.addText(feed, "SIZE ALL: " + allPlayers.getPlayers().size());
         endOfRound();
         isRunning = false;
-        
+
         if (allPlayers.getPlayers().size() == 1) {
-            Player endWinner =  (Player) allPlayers.getPlayers().get(0);
+            Player endWinner = (Player) allPlayers.getPlayers().get(0);
             GameFeed.addText(feed, "PLAYER " + endWinner.getId() + " HAS CLEANED THE TABLE!");
             GameFeed.addText(feed, "GAME HAS ENDED!");
         }
@@ -140,52 +165,57 @@ public class Game {
     }
 
     private void setUp() {
-        
+
         soundPlayer.playSound("start");
-        
+
         for (int i = 0; i < allPlayers.getPlayers().size(); i++) {
 
             Player player = (Player) allPlayers.getPlayers().get(i);
-            
+
             player.refreshMaxWin();
             player.resetAllIn();
             /*
-            if (player.getBalance() < 10) {
-                GameFeed.addText(feed, "Remove player: " + player.getId());
-                allPlayers.removePlayer(player);
-                i--;
-            }*/
+             if (player.getBalance() < 10) {
+             GameFeed.addText(feed, "Remove player: " + player.getId());
+             allPlayers.removePlayer(player);
+             i--;
+             }*/
 
         }
-        
+
         table.getCards().removeAll(table.getCards());
         table.resetPot();
-        
+
         for (int i = 0; i < allPlayers.getPlayers().size(); i++) {
             Player player = (Player) allPlayers.getPlayers().get(i);
             player.getCards().removeAll(player.getCards());
         }
-        
+
         deck = new Deck();
 
         for (int i = 0; i < currentPlayers.size(); i++) {
-            
+
             currentPlayers.get(i).addCard(deck.drawCard());
             currentPlayers.get(i).addCard(deck.drawCard());
         }
     }
 
     private void endOfRound() {
+
         
+        GameFeed.addText(feed, "CURRENT SITUATION IS:");
+        
+
         for (int i = 0; i < allPlayers.getPlayers().size(); i++) {
 
             Player player = (Player) allPlayers.getPlayers().get(i);
-            
+
             player.refreshMaxWin();
             player.resetAllIn();
-            GameFeed.addText(feed, "END OF ROUND BALANCE: " + player.getId() + ": " + player.getBalance());
+
+            GameFeed.addText(feed, "Player " + player.getId() + " balance: " + player.getBalance());
             if (player.getBalance() < 10) {
-                GameFeed.addText(feed, "Remove player: " + player.getId());
+                //GameFeed.addText(feed, "Remove player: " + player.getId());
                 allPlayers.removePlayer(player);
                 i--;
             }
@@ -200,8 +230,8 @@ public class Game {
 
     }
 
-    public void dividePot(HashMap<Player, Double> result) {
-        
+    private void dividePot(HashMap<Player, Double> result) {
+
         ArrayList<Player> copy = new ArrayList<>(currentPlayers);
         int pot = table.getPot();
 
@@ -211,12 +241,12 @@ public class Game {
 
             for (Player player : result.keySet()) {
                 win = player.getMaxWin() * allPlayers.getPlayers().size();
-                
+
                 if (win < pot) {
                     player.alterBalance(win);
                 } else {
                     player.alterBalance(pot);
-                    
+
                 }
                 pot = pot - win;
                 copy.remove(player);
@@ -233,19 +263,19 @@ public class Game {
             }
         }
     }
-    
+
     public int getRoundNumber() {
         return this.roundNumber;
     }
-    
+
     public ArrayList<Player> getCurrentPlayers() {
         return this.currentPlayers;
     }
-    
+
     public void setCurrentPlayers(ArrayList<Player> newPlayers) {
         this.currentPlayers = newPlayers;
     }
-    
+
     public JTextArea getFeed() {
         return this.feed;
     }
@@ -253,23 +283,23 @@ public class Game {
     public Bidding getCurrentBidding() {
         return this.bidding;
     }
-    
+
     public boolean isRunning() {
         return this.isRunning;
     }
-    
+
     public AllPlayers getGameAllPlayers() {
         return this.allPlayers;
     }
-    
+
     public Table getGameTable() {
         return this.table;
     }
-    
+
     public Player getWinner() {
         return this.winner;
     }
-    
+
     public boolean isSetupping() {
         return this.isSetupping;
     }

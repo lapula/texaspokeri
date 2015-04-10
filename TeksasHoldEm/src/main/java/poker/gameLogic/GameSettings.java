@@ -1,21 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package poker.gameLogic;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import poker.table.Player;
 import poker.table.AllPlayers;
 
 /**
  *
- * @author Sara ja Laur
+ * Lukee pelin asetukset tekstitiedostosta joka muokataan settings - paneelissa.
  */
 public class GameSettings {
     
@@ -30,6 +24,11 @@ public class GameSettings {
         
     }
     
+    
+    
+    /**
+     * Luo pelaajat ja asettaa rahamäärän (yms.) tekstitiedoston pohjalta.
+     */
     public void initialize() {
         
         File file = new File("teksts/settings.txt");

@@ -1,0 +1,37 @@
+		Teksas Hold 'Em
+
+***************************************************************************************************
+
+The AI does NOT work currently!
+
+***************************************************************************************************
+
+Quick rules if you're not familiar with Hold 'Em: 
+
+http://poker.about.com/od/poker101/ht/holdem101.htm
+
+This is a no-limit hold 'em, meaning you can bid or raise any amount at any time.
+Minimum bid is 5 and the big blind is 10.
+
+***************************************************************************************************
+
+Welcome to play Teksas Hold 'Em!
+
+This is a guide to how to use the game's UI.
+
+On the right there is a feed that shows various game information not displayed
+elsewhere. You can scroll it up and down.
+
+The buttons on the bottom are used to take your actions as a player. Note
+that the bid and pass buttons change to call and raise when it is required in the
+game. 
+
+At the very bottom is a slider that you should use to set the amount you want to 
+bid or raise. It does not affect other actions. The slider will adjust to your
+current available money or to the amount you can raise or bid at the moment. For
+example, if current cost to call is 10 and you have 100 chips, you can only raise by 90.
+The slider can NOT be set to 0.
+
+On the main window you can see your cards on the top-left corner, your balance on
+bottom-left corner and the current amount of money in the pot on the bottom-right
+corner. Winning hand will be revealed at the top-right corner when appropriate.

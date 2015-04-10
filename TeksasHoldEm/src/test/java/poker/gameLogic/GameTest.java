@@ -59,63 +59,18 @@ public class GameTest {
 
     @Test
     public void testFinishGame() {
-
-    }
-
-    @Test
-    public void testGetRoundNumber() {
-
-    }
-
-    @Test
-    public void testGetCurrentPlayers() {
-
-    }
-
-    @Test
-    public void testSetCurrentPlayers() {
-
-    }
-
-    @Test
-    public void testGetFeed() {
-
-    }
-
-    @Test
-    public void testGetCurrentBidding() {
-
-    }
-
-    @Test
-    public void testIsRunning() {
-
-    }
-
-    @Test
-    public void testGetGameAllPlayers() {
-
-    }
-
-    @Test
-    public void testGetGameTable() {
-
-    }
-
-    @Test
-    public void testGetWinner() {
-
-    }
-
-    @Test
-    public void testIsSetupping() {
-
-    }
-
-    @Test
-    public void testDividePot() {
+        game.startRound(0);
+        game.startRound(1);
+        game.startRound(2);
+        game.startRound(3);
+        game.finishGame();
         
-        
+        assertFalse(game.isRunning());
+        assertNotNull(game.getWinner());
+        assertEquals(0, game.getGameTable().getPot());
+        assertNotNull(game.getFeed().getText());
     }
+
+    
 
 }

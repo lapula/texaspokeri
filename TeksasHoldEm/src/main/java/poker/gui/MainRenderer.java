@@ -82,15 +82,26 @@ public class MainRenderer extends JPanel {
             g.drawImage(imageLoader.loadCardImage(player.getCards().get(0)), 20, 40, null);
             g.drawImage(imageLoader.loadCardImage(player.getCards().get(1)), 33, 40, null);
             
-            g.drawString("YOUR BALANCE: ", 10, 610);
-            g.drawString("CURRENT POT: ", 750, 610);
+            g.drawString("Your balance: ", 10, 610);
+            g.drawString("Current pot: ", 795, 610);
+            g.drawString("Cost to Call ", 405, 610);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
             g.setColor(Color.white);
             if (game.getGameTable().getPot() > 99) {
                 potXPos = 830;
             }
+            
+            int costXPos = 430;
+            
+            if (game.getCurrentBidding().costToCall(player) < 10) {
+                costXPos = 440;
+            } else if (game.getCurrentBidding().costToCall(player) > 99) {
+                costXPos = 420;
+            }
+            
             g.drawString("" + game.getGameTable().getPot(), potXPos, 650);
             g.drawString("" + player.getBalance(), 10, 650);
+            g.drawString("" + game.getCurrentBidding().costToCall(player), costXPos, 650);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
             g.setColor(Color.green);
         }

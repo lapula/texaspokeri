@@ -13,8 +13,7 @@ import poker.table.Player;
 import poker.table.Table;
 
 /**
- *
- * @author Sara ja Laur
+ * Luokka joka hakee pelaajien käsille arvot ja sen jälkeen palauttaa voittajan.
  */
 public class Resolve {
     
@@ -22,12 +21,23 @@ public class Resolve {
     private Table table;
     private HandRating handRating;
     
+    /**
+     * @param players pelin jäljellä olevat pelaajat
+     * @param table pöytäluokka
+     */
     public Resolve(ArrayList<Player> players, Table table) {
         this.players = players;
         this.table = table;
         this.handRating = new HandRating();
     }
     
+    /**
+     * Käytetään ensin hand rating luokkaa parhaan käden tuloksen arvioimiseen
+     * jokaiselle pelaajalle. Sen jälkeen määritetään voittaja ensin tämän tuloksen 
+     * perusteella, sen jälkeen käden korkeamman kortin perusteella, matamman
+     * kortin perusteella ja lopuksi korttien maiden perusteella.
+     * @return hashMap jossa voittaja ja voittokäden arvo
+     */
     public HashMap<Player, Double> giveWinner() {
         
         HashMap<Player, Double> result = new HashMap<Player, Double>();

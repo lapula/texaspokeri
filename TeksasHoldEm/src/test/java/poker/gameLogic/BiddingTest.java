@@ -5,6 +5,7 @@
  */
 package poker.gameLogic;
 
+import javax.swing.JTextArea;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,11 +18,18 @@ import poker.table.Player;
  */
 public class BiddingTest {
     
+    private Game game;
+    private Bidding bidding;
+    
     public BiddingTest() {
+        
+        game = new Game(new JTextArea());
     }
     
     @Before
     public void setUp() {
+        game.startRound(0);
+        bidding = game.getCurrentBidding();
     }
     
     @After
@@ -30,12 +38,13 @@ public class BiddingTest {
 
     @Test
     public void testBidding() {
-        
+        assertEquals(0, bidding.highest());
     }
 
     @Test
     public void testStartBidding() {
-        
+        bidding.startBidding();
+        assertEquals(10, bidding.highest());
     }
 
     @Test

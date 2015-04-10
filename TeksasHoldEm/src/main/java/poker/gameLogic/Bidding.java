@@ -11,8 +11,8 @@ import poker.table.Player;
 import poker.util.GameFeed;
 
 /**
- *
- * @author Sara ja Laur
+ * Tarjousvaihetta käsittelevä luokka. Hoitaa tarjousvuoron kieroa ja siihen
+ * liittyviä toimintoja.
  */
 public class Bidding {
 
@@ -20,6 +20,7 @@ public class Bidding {
     private ArrayList<Player> players;
     private boolean buttonSetPassBid;
     private boolean isFirstRound;
+    private int blinds;
     private int end;
     private int highest;
     private Player lastRaised;
@@ -34,6 +35,12 @@ public class Bidding {
     public Bidding(boolean isFirstRound, Game game) {
 
         this.isFirstRound = isFirstRound;
+        this.blinds = 0;
+
+        if (isFirstRound) {
+            this.blinds = 2;
+        }
+
         this.highest = 0;
         this.lastRaised = null;
         this.game = game;
@@ -44,10 +51,6 @@ public class Bidding {
         this.turn = 0;
         this.player = null;
         this.soundPlayer = new SoundPlayer();
-    }
-
-    public void bidding() {
-
     }
 
     public void startBidding() {
@@ -100,12 +103,12 @@ public class Bidding {
             GameFeed.addText(game.getFeed(), "Balance: " + player.getBalance());
             GameFeed.addText(game.getFeed(), "Select order:");
 
-            if (isFirstRound) {
-                GameFeed.addText(game.getFeed(), "YOU PLACED BIG BLIND (NON-OPTIONAL)");
-
-                //end -= players.size();
+            if (blinds == 2) {
+                GameFeed.addText(game.getFeed(), "YOU PLACED SMALL BLIND (NON-OPTIONAL)");
                 takeBiddingAction("bid");
-
+            } else if (blinds == 1) {
+                GameFeed.addText(game.getFeed(), "YOU PLACED BIG BLIND (NON-OPTIONAL)");
+                takeBiddingAction("raise");
             }
 
         } else {
@@ -129,14 +132,20 @@ public class Bidding {
                 soundPlayer.playSound("addChips");
 
             }
+            
+            if (!isFirstRound) {
+                GameFeed.addText(game.getFeed(), "BID");
+            }
 
-            GameFeed.addText(game.getFeed(), "BID");
             orderBid(player);
             turn++;
 
         } else if (order.equals("raise")) {
             soundPlayer.playSound("addChips");
-            GameFeed.addText(game.getFeed(), "RAISE");
+            if (!isFirstRound) {
+                GameFeed.addText(game.getFeed(), "RAISE");
+            }
+            
             orderRaise(player);
             turn++;
 
@@ -152,6 +161,7 @@ public class Bidding {
         } else if (order.equals("allIn")) {
             soundPlayer.playSound("allIn");
             GameFeed.addText(game.getFeed(), "ALL IN");
+            GameFeed.addText(game.getFeed(), "");
             orderAllIn(player);
             turn++;
 
@@ -189,7 +199,9 @@ public class Bidding {
 
             turn++;
         }
-        GameFeed.addText(game.getFeed(), "");
+        if (!player.isAllIn()) {
+            GameFeed.addText(game.getFeed(), "");
+        }
 
         startBidding();
 
@@ -206,17 +218,17 @@ public class Bidding {
     public int costToCall(Player player) {
         return highest - player.getBid();
     }
-    
+
     public int highest() {
         return this.highest;
     }
-    
+
     public void setSliderValue(int value) {
         this.sliderValue = value;
     }
-    
+
     public boolean isAllOthersAllIn() {
-        
+
         int count = 0;
         for (Player player : players) {
             if (player.isAllIn()) {
@@ -247,8 +259,11 @@ public class Bidding {
         int amount;
 
         if (isFirstRound) {
-            amount = 10;
-            isFirstRound = false;
+            System.out.println(blinds);
+
+            amount = 5;
+            blinds = 1;
+
         } else {
             amount = sliderValue;
         }
@@ -268,7 +283,15 @@ public class Bidding {
 
     private void orderRaise(Player player) {
 
-        int amount = sliderValue;
+        int amount;
+
+        if (isFirstRound) {
+            amount = 5;
+            blinds = 0;
+            isFirstRound = false;
+        } else {
+            amount = sliderValue;
+        }
 
         boolean succeeded = action.raise(player, highest, amount);
 

@@ -10,20 +10,27 @@ import poker.table.Player;
 import poker.table.Table;
 
 /**
- *
- * @author Sara ja Laur
+ * Käsittelee rahatilanteen muutosta vaativat pelaajan toiminnot.
  */
 public class PlayerBiddingActions {
     
     private static String order;
     private Table table;
     
+    /**
+     * @param table pelipöytä
+     */
     public PlayerBiddingActions(Table table) {
         this.order = "";
         this.table = table;
     }
     
-    
+    /**
+     * Call - toiminto, maksetaan päästä mukaan.
+     * @param player kyseessä oleva pelaaja
+     * @param amount call toimintoon vaadittava rahamäärä.
+     * @return true jos onnistuu
+     */
     public boolean call(Player player, int amount) {
 
         boolean succeeded = player.alterBalance(-(amount));
@@ -36,6 +43,12 @@ public class PlayerBiddingActions {
         return true;
     }
 
+    /**
+     * Bid - paljonko tarjoaa.
+     * @param player kyseessä oleva pelaaja
+     * @param sum tarjottava määrä
+     * @return true jos onnistuu
+     */
     public boolean bid(Player player, int sum) {
 
         boolean succeeded = player.alterBalance(-sum);
@@ -49,6 +62,13 @@ public class PlayerBiddingActions {
 
     }
 
+    /**
+     * Raise - lisätään olemassaolevan tarjouken lisäksi
+     * @param player kyseessä oleva pelaaja
+     * @param highest korkein panos
+     * @param sum lisättävä summa
+     * @return true jos onnistuu
+     */
     public boolean raise(Player player, int highest, int sum) {
 
         boolean succeeded = player.alterBalance(-(sum + (highest - player.getBid())));

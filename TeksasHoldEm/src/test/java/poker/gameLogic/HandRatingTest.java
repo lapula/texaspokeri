@@ -92,7 +92,7 @@ public class HandRatingTest {
         table.addCard(new Card(Suit.SPADES, 3));
         table.addCard(new Card(Suit.CLUBS, 10));
         table.addCard(new Card(Suit.HEARTS, 11));
-        table.addCard(new Card(Suit.HEARTS, 11));
+        table.addCard(new Card(Suit.SPADES, 12));
         
         assertEquals(403.0, handRating.giveRating(table.getCards()), DELTA);
     }

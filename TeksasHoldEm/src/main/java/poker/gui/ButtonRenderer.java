@@ -119,6 +119,25 @@ public class ButtonRenderer extends JPanel {
         Bidding bidding = game.getCurrentBidding();
         Player player = bidding.getCurrentBidder();
         
+        slider.setEnabled(true);
+        slider.setMajorTickSpacing(5);
+        slider.setMinorTickSpacing(5);
+        slider.setPaintTicks(true);
+        slider.setLabelTable(slider.createStandardLabels(5));
+        
+        
+        if (player.getBalance() >= 700) {
+            slider.setMajorTickSpacing(50);
+            slider.setMinorTickSpacing(5);
+            slider.setPaintTicks(true);
+            slider.setLabelTable(slider.createStandardLabels(50));
+        } else if (player.getBalance() >= 200) {
+            slider.setMajorTickSpacing(25);
+            slider.setMinorTickSpacing(5);
+            slider.setPaintTicks(true);
+            slider.setLabelTable(slider.createStandardLabels(25));
+        }
+        
         bidding.setSliderValue(slider.getValue());
         
         if (oldPlayer != null) {
@@ -130,7 +149,11 @@ public class ButtonRenderer extends JPanel {
         oldPlayer = player;
         
         slider.setMaximum(player.getBalance());
-        slider.setMinimum(5);
+        slider.setMinimum(0);
+        
+        if (slider.getValue() == 0) {
+            slider.setValue(5);
+        }
         
         
         if (player.getBalance() < 5) {

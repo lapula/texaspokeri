@@ -62,7 +62,7 @@ public class SettingsGUI implements Runnable {
         JPanel sliders = new JPanel(new GridLayout(3, 1));
         button = new JButton("Start Game");
 
-        JSlider balance = new JSlider(JSlider.HORIZONTAL, 50, 250, 100);
+        JSlider balance = new JSlider(JSlider.HORIZONTAL, 50, 300, 100);
         JSlider playersHuman = new JSlider(JSlider.HORIZONTAL, 0, 8, 3);
         JSlider playersAI = new JSlider(JSlider.HORIZONTAL, 0, 8, 0);
         

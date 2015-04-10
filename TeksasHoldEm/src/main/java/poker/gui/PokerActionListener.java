@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import poker.gameLogic.Bidding;
 import poker.gameLogic.Game;
 
@@ -41,12 +42,12 @@ public class PokerActionListener implements ActionListener {
     private JButton pass;
     private boolean started;
     private ButtonRenderer buttonRenderer;
-    
+    private JButton guide;
     
 
     public PokerActionListener(JTextArea feed, JButton start, JButton fold,
             JButton call, JButton raise, JButton allIn,
-            JButton bid, JButton pass) {
+            JButton bid, JButton pass, JButton guide) {
         this.start = start;
         this.fold = fold;
         this.call = call;
@@ -56,6 +57,7 @@ public class PokerActionListener implements ActionListener {
         this.pass = pass;
         this.game = new Game(feed);
         this.feed = feed;
+        this.guide = guide;
         
         
 
@@ -86,6 +88,8 @@ public class PokerActionListener implements ActionListener {
         } else if (ae.getSource() == bid) {
             
             game.getCurrentBidding().takeBiddingAction("bid");
+        } else if (ae.getSource() == guide) {
+            SwingUtilities.invokeLater(new GuideGUI());
         }
 
     }
@@ -93,5 +97,7 @@ public class PokerActionListener implements ActionListener {
     public Game getGame() {
         return this.game;
     }
+    
+    
 
 }
