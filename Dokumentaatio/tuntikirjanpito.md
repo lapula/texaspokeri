@@ -12,4 +12,12 @@
 <span>22.03 - 2h - Graaffisen käyttöliittymän tekoa</span><br>
 <span>22.03 - 5h - <b>LISÄÄ</b> Graaffisen käyttöliittymän tekoa (pääikkuna)</span><br>
 <span>24.03 - 2h - Grafiikoiden piirtämista, pääikkunan toiminnallisuuden lisäystä.</span><br>
-<span>22.03 - 4h - Nappien grafiikat, muita pieniä korjauksia.</span><br>
+<span>25.03 - 4h - Nappien grafiikat, muita pieniä korjauksia.</span><br>
+<span>27.03 - 1h - Aloitettu Asetusikkunan teko</span><br>
+<span>28.03 - 2h - Asetusikkunan säätöä</span><br>
+<span>29.03 - 2h - Asetusikkunan säätöä</span><br>
+<span>30.03 - 2h - Asetusikkunan integrointi muuhun ohjelmaan</span><br>
+<span>08.04 - 4h - Slideri ja opas (myös aiemmin aloitettu)</span><br>
+<span>09.04 - 2h - Lisätty testejä ja dokumentaatiota</span><br>
+<span>14.03 - 1h - Lisää testejä, dokumentaatiota ja bugien korjausta</span><br>
+<span>16.03 - 2h - Lisää testejä, dokumentaatiota ja bugien korjausta</span><br>
