@@ -5,4 +5,4 @@
 
 <p><b>Käyttäjät</b>: Pelaaja(t)</p>
 
-<p><b>Pelaajien toiminnot</b>: <ul><li>Panosta</li><li>Korota</li><li>Passaa</li>
+<p><b>Pelaajien toiminnot</b>: <ul><li>Panosta</li><li>Korota</li><li>Passaa</li><li>Luovuta</li><li>Kaikki peliin</li><li>Aloita Peli</li>
