@@ -50,7 +50,12 @@ public class Game {
         this.soundPlayer = new SoundPlayer();
 
     }
-
+    
+    /**
+     * Alustetaan kierros, eli laitetaan kierrosta vastaavasti kortteja pöytään,
+     * sekä aloitetaan tarjousvaihe. Ensimmäisellä kierroksella tehdään lisäksi setup.
+     * @param round kierroksen numero
+     */
     public void startRound(int round) {
 
         isRunning = true;
@@ -100,35 +105,17 @@ public class Game {
         }
         GameFeed.addText(feed, roundText);
         GameFeed.addText(feed, "");
-        /*
-         GameFeed.addText(feed, "PLAYER ORDER");
-
-         for (int a = 0; a < currentPlayers.size(); a++) {
-         GameFeed.addText(feed, "" + currentPlayers.get(a).getId());
-         }
-         GameFeed.addText(feed, "");
-        
-        
-         */
-
         GameFeed.addText(feed, "----------------------------------------------");
         GameFeed.addText(feed, "");
 
     }
 
+    /**
+     * Tehdään erän loppumiseen liittyvät toimenpiteet, mm. ratkaistaan voittaja
+     * ja jaetaan rahat.
+     */
     public void finishGame() {
 
-        /*GameFeed.addText(feed, "TABLE CARDS: ");
-         for (int i = 0; i < 5; i++) {
-         GameFeed.addText(feed, codeToText.cardText(table.getCards().get(i), -1));
-         }
-         GameFeed.addText(feed, "");
-         for (int i = 0; i < currentPlayers.size(); i++) {
-         GameFeed.addText(feed, "Player " + currentPlayers.get(i).getId() + " cards:");
-         GameFeed.addText(feed, codeToText.cardText(currentPlayers.get(i).getCards().get(0), -1));
-         GameFeed.addText(feed, codeToText.cardText(currentPlayers.get(i).getCards().get(1), -1));
-         GameFeed.addText(feed, "");
-         }*/
         GameFeed.addText(feed, "----------------------------------------------");
         GameFeed.addText(feed, "");
         GameFeed.addText(feed, "Showdown!");
@@ -137,7 +124,6 @@ public class Game {
         GameFeed.addText(feed, "");
 
         resolve = new Resolve(currentPlayers, table);
-
         HashMap<Player, Double> result = resolve.giveWinner();
 
         GameFeed.addText(feed, "AND THE WINNER IS:");
@@ -148,9 +134,6 @@ public class Game {
         }
         GameFeed.addText(feed, "");
 
-        /*for (Player player : result.keySet()) {
-         player.alterBalance(table.getPot() / result.keySet().size());
-         }*/
         dividePot(result);
 
         endOfRound();
@@ -163,7 +146,11 @@ public class Game {
         }
 
     }
-
+    
+    /**
+     * Tehdään ensimmäisen kierroksen tarvittavat luokkien alustukset ja
+     * nollaukset.
+     */
     private void setUp() {
 
         soundPlayer.playSound("start");
@@ -174,12 +161,6 @@ public class Game {
 
             player.refreshMaxWin();
             player.resetAllIn();
-            /*
-             if (player.getBalance() < 10) {
-             GameFeed.addText(feed, "Remove player: " + player.getId());
-             allPlayers.removePlayer(player);
-             i--;
-             }*/
 
         }
 
@@ -283,7 +264,10 @@ public class Game {
     public Bidding getCurrentBidding() {
         return this.bidding;
     }
-
+    
+    /**
+     * @return onko kierros käynnissä.
+     */
     public boolean isRunning() {
         return this.isRunning;
     }

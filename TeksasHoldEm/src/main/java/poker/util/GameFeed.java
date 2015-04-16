@@ -10,8 +10,7 @@ import java.util.Scanner;
 import javax.swing.JTextArea;
 
 /**
- *
- * @author Sara ja Laur
+ * Luokka joka tulostaa tekstiä käyttöliittymän tekstikenttään.
  */
 public class GameFeed {
     
@@ -21,6 +20,11 @@ public class GameFeed {
         
     }
     
+    /**
+     * Lisää tekstin ja poistaa vanhoja jos max rivimäärä ylittyy.
+     * @param field tekstikenttä
+     * @param text lisättävä teksti
+     */
     public static void addText(JTextArea field, String text) {
         
         field.append("  " + text + "\n");

@@ -16,8 +16,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- *
- * @author Sara ja Laur
+ * Luokka jolla voi soittaa ääniefektejä.
  */
 public class SoundPlayer {
 

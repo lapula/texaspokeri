@@ -10,8 +10,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- *
- * @author Sara ja Laur
+ * Asetuspaneelin kuuntelija, estää pelaajia olemasta yli 8.
  */
 public class SettingsChangeListener implements ChangeListener {
 

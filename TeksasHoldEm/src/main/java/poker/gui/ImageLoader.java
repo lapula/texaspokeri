@@ -17,8 +17,7 @@ import poker.cards.Card;
 import poker.cards.Suit;
 
 /**
- *
- * @author Sara ja Laur
+ * Luokka joka lataa kuvat ja josta kuvat haetaan.
  */
 public class ImageLoader {
 

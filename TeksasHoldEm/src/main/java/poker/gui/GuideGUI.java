@@ -28,8 +28,7 @@ import javax.swing.WindowConstants;
 import javax.swing.plaf.metal.MetalSliderUI;
 
 /**
- *
- * @author Sara ja Laur
+ * Ohjeen graaffinen käyttöliittymä.
  */
 public class GuideGUI implements Runnable, ActionListener {
 

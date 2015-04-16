@@ -26,8 +26,7 @@ import poker.gameLogic.Bidding;
 import poker.gameLogic.Game;
 
 /**
- *
- * @author Sara ja Laur
+ * Nappien kuuntelija.
  */
 public class PokerActionListener implements ActionListener {
 

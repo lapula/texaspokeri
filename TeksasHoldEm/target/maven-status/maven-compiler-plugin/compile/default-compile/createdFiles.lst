@@ -13,6 +13,7 @@ poker\table\AllPlayers.class
 poker\gameLogic\HandRating.class
 poker\gui\GameFeedRenderer$1.class
 poker\gui\ButtonRenderer.class
+poker\gui\GuideGUI.class
 poker\gui\PokerActionListener.class
 poker\gameLogic\PlayerBiddingActions.class
 poker\gameLogic\Resolve.class
@@ -26,5 +27,6 @@ poker\cards\Card.class
 poker\util\CodeToText.class
 poker\gameLogic\Game.class
 poker\gui\SettingsGUI$1.class
+poker\gui\PokerGUI$1.class
 poker\util\GameFeed.class
 poker\gui\ImageLoader.class

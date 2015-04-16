@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="poker.gameLogic.BiddingTest" time="0.284" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="poker.gameLogic.BiddingTest" time="0.382" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_25\jre\bin"/>
@@ -61,10 +61,10 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="poker.gameLogic.BiddingTest" name="testTakeBiddingAction" time="0.094"/>
-  <testcase classname="poker.gameLogic.BiddingTest" name="testCostToCall" time="0.011"/>
-  <testcase classname="poker.gameLogic.BiddingTest" name="testBidding" time="0.007"/>
-  <testcase classname="poker.gameLogic.BiddingTest" name="testGetCurrentBidder" time="0.008"/>
-  <testcase classname="poker.gameLogic.BiddingTest" name="testButtonsSetPassBid" time="0.007"/>
-  <testcase classname="poker.gameLogic.BiddingTest" name="testStartBidding" time="0.017"/>
+  <testcase classname="poker.gameLogic.BiddingTest" name="testTakeBiddingActionFold" time="0.125"/>
+  <testcase classname="poker.gameLogic.BiddingTest" name="testTakeBiddingActionBid" time="0.02"/>
+  <testcase classname="poker.gameLogic.BiddingTest" name="testBidding" time="0.004"/>
+  <testcase classname="poker.gameLogic.BiddingTest" name="testStartBidding" time="0.014"/>
+  <testcase classname="poker.gameLogic.BiddingTest" name="testAllOthersAllIn" time="0.023"/>
+  <testcase classname="poker.gameLogic.BiddingTest" name="testGameRound" time="0.058"/>
 </testsuite>

@@ -12,8 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
- *
- * @author Sara ja Laur
+ * Oikealla olevan tekstikentän renderöinti.
  */
 public class GameFeedRenderer extends JPanel {
     

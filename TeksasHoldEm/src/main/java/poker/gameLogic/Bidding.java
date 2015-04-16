@@ -96,25 +96,25 @@ public class Bidding {
             return;
         }
 
-        if (player.isHuman()) {
+        GameFeed.addText(game.getFeed(), "PLAYER: " + player.getId());
+        GameFeed.addText(game.getFeed(), "Balance: " + player.getBalance());
+        GameFeed.addText(game.getFeed(), "Select order:");
 
-            GameFeed.addText(game.getFeed(), "PLAYER: " + player.getId());
-            GameFeed.addText(game.getFeed(), "Current cost to call is: " + (highest - player.getBid()));
-            GameFeed.addText(game.getFeed(), "Balance: " + player.getBalance());
-            GameFeed.addText(game.getFeed(), "Select order:");
-
-            if (blinds == 2) {
-                GameFeed.addText(game.getFeed(), "YOU PLACED SMALL BLIND (NON-OPTIONAL)");
-                takeBiddingAction("bid");
-            } else if (blinds == 1) {
-                GameFeed.addText(game.getFeed(), "YOU PLACED BIG BLIND (NON-OPTIONAL)");
-                takeBiddingAction("raise");
+        if (blinds == 2) {
+            GameFeed.addText(game.getFeed(), "YOU PLACED SMALL BLIND (NON-OPTIONAL)");
+            takeBiddingAction("bid");
+        } else if (blinds == 1) {
+            GameFeed.addText(game.getFeed(), "YOU PLACED BIG BLIND (NON-OPTIONAL)");
+            takeBiddingAction("raise");
+        }
+        
+        if (!player.isHuman()) {
+            if (buttonSetPassBid) {
+                takeBiddingAction("pass");
+            } else {
+                takeBiddingAction("call");
             }
-
-        } else {
-            turn++;
-            takeBiddingAction("call");
-            startBidding();
+            //startBidding();
         }
 
     }
@@ -132,7 +132,7 @@ public class Bidding {
                 soundPlayer.playSound("addChips");
 
             }
-            
+
             if (!isFirstRound) {
                 GameFeed.addText(game.getFeed(), "BID");
             }
@@ -145,7 +145,7 @@ public class Bidding {
             if (!isFirstRound) {
                 GameFeed.addText(game.getFeed(), "RAISE");
             }
-            
+
             orderRaise(player);
             turn++;
 

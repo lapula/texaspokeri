@@ -9,15 +9,19 @@ import poker.cards.Card;
 import poker.cards.Suit;
 
 /**
- *
- * @author Sara ja Laur
+ * Luokka joka muuttaa käsien ja korttien arvot tekstiksi.
  */
 public class CodeToText {
 
     public CodeToText() {
 
     }
-
+    
+    /**
+     * @param card Kortin luokka, jos halutaan kortin teksti.
+     * @param numeric numeron arvo, jos halutaan vain arvon teksti.
+     * @return koodinumero tekstinä
+     */
     public String cardText(Card card, int numeric) {
 
         String suitText = null;
@@ -77,7 +81,12 @@ public class CodeToText {
         }
 
     }
-
+    
+    /**
+     * Käden arvon numeerinen arvo tekstiksi.
+     * @param rating käden arvo
+     * @return teksti
+     */
     public String ratingToText(double rating) {
 
         String answer = "";

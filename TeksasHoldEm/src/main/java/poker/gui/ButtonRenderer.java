@@ -18,8 +18,7 @@ import poker.gameLogic.Game;
 import poker.table.Player;
 
 /**
- *
- * @author Sara ja Laur
+ * Nappien renderÃ¶inti, lÃ¤hinnÃ¤ asettaa klikattavaksi tai ei ja piilottaa / nÃ¤yttÃ¤Ã¤.
  */
 public class ButtonRenderer extends JPanel {
 
@@ -55,7 +54,6 @@ public class ButtonRenderer extends JPanel {
         ActionListener taskPerformer = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                //System.out.println("asd");
                 if (listener.getGame().isRunning()) {
                     setGame();
                     setButtons();

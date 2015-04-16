@@ -24,8 +24,7 @@ import javax.swing.WindowConstants;
 import javax.swing.plaf.metal.MetalSliderUI;
 
 /**
- *
- * @author Sara ja Laur
+* Asetusikkunan Graafinen käyttöliittymä.
  */
 public class SettingsGUI implements Runnable {
 

@@ -15,8 +15,7 @@ import javax.swing.*;
 import javax.swing.plaf.metal.MetalSliderUI;
 
 /**
- *
- * @author Sara ja Laur
+ * Graaffinen käyttöliittymä pääikkunalle.
  */
 public class PokerGUI implements Runnable {
 

@@ -8,7 +8,6 @@ import poker.table.Player;
 import poker.table.AllPlayers;
 
 /**
- *
  * Lukee pelin asetukset tekstitiedostosta joka muokataan settings - paneelissa.
  */
 public class GameSettings {
@@ -41,7 +40,7 @@ public class GameSettings {
         int startingBalance = Integer.parseInt(scanner.nextLine());
         int humanPlayers = Integer.parseInt(scanner.nextLine());
         int aiPlayers = Integer.parseInt(scanner.nextLine());
-        int a = 0;
+        int a = 1;
         
         for (int i = 1; i < humanPlayers + 1; i++) {
             allPlayers.addPlayer(new Player(startingBalance, true, i));

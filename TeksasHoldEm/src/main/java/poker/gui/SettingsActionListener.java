@@ -20,8 +20,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- *
- * @author Sara ja Laur
+ * Kirjaa asetukset tekstitiedostoon ja aloittaa pelin startista.
  */
 public class SettingsActionListener implements ActionListener {
     
