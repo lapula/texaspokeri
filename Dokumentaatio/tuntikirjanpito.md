@@ -21,3 +21,4 @@
 <span>09.04 - 2h - Lisätty testejä ja dokumentaatiota</span><br>
 <span>14.03 - 1h - Lisää testejä, dokumentaatiota ja bugien korjausta</span><br>
 <span>16.03 - 2h - Lisää testejä, dokumentaatiota ja bugien korjausta</span><br>
+<span>22.03 - 3h - Dokumentaatiota ja bugien korjausta</span><br>
