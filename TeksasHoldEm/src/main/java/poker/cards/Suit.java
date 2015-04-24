@@ -7,7 +7,7 @@ package poker.cards;
 
 /**
  *
- * @author Sara ja Laur
+ * Kortin maata simuloiva luokka.
  */
 public enum Suit {
     

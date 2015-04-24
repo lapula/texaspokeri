@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import poker.cards.Card;
 
 /**
- *
- * @author Sara ja Laur
+ * Pelaajaa simuloiva luokka.
  */
 public class Player {
     
@@ -27,6 +26,7 @@ public class Player {
      * rahat (balance), kortit ja tämänhetkinen panoksen lisäyksen määrä.
      * @param balance aloitusrahat.
      * @param isHuman onko ihminen.
+     * @param id joka on pelaajan numero ja "avain".
      */
     
     public Player(int balance, boolean isHuman, int id) {

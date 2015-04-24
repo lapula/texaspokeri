@@ -9,8 +9,7 @@ import poker.cards.Card;
 import java.util.ArrayList;
 
 /**
- *
- * @author Laur
+ * Pelipöytää simuloiva luokka.
  */
 public class Table {
     

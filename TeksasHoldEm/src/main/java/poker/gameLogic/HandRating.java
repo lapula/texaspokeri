@@ -42,7 +42,6 @@ public class HandRating {
         for (int i = 0; i < cards.size(); i++) {
 
             ArrayList<Card> test = new ArrayList<Card>(cards);
-
             test.remove(i);
 
             for (int a = i; a < test.size(); a++) {
@@ -51,13 +50,10 @@ public class HandRating {
                 result[count] = tryHands(test2);
                 count++;
             }
-
         }
-
         Arrays.sort(result);
 
         return result[result.length - 1];
-
     }
     
     

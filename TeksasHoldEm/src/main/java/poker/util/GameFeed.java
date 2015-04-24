@@ -17,7 +17,6 @@ public class GameFeed {
     private static int maxLines = 200;
     
     public GameFeed() {
-        
     }
     
     /**
@@ -30,7 +29,6 @@ public class GameFeed {
         field.append("  " + text + "\n");
         
         Scanner scanner = new Scanner(field.getText());
-        
         ArrayList<String> textField = new ArrayList<>();
         
         while (scanner.hasNextLine()) {

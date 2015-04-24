@@ -15,12 +15,11 @@ public class GameSettings {
     private AllPlayers allPlayers;
     private Scanner scanner;
     
-    
+    /*
+    * Luodaan pelaajista lukua pitävä luokka.
+    */
     public GameSettings() {
-        
         this.allPlayers = new AllPlayers();
-        
-        
     }
     
     

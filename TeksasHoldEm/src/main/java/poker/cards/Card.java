@@ -7,7 +7,7 @@ package poker.cards;
 
 /**
  *
- * @author Sara ja Laur
+ * Korttia simuloiva luokka.
  */
 public class Card implements Comparable<Card>{
     

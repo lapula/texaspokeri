@@ -72,9 +72,7 @@ public class Resolve {
         if (result.size() == 1) {
             return result;
         }
-        
-        
-        
+
         int biggestCard = 0;
         
         for (Player player : result.keySet()) {

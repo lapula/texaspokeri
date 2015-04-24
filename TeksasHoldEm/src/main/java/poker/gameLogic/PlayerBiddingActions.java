@@ -56,7 +56,6 @@ public class PlayerBiddingActions {
         if (!succeeded) {
             return false;
         }
-
         table.addToPot(sum);
         return true;
 

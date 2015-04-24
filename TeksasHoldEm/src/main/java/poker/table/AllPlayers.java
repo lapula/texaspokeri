@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Sara ja Laur
+ * Luokka joka pitää kirjaa pelissä olevista pelaajista (vastapainona 
+ * kierroksella oleville pelaajielle).
  */
 public class AllPlayers {
     
@@ -21,7 +22,6 @@ public class AllPlayers {
      */
     
     public AllPlayers() {
-        
     }
     
     /**

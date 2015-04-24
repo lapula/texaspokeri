@@ -11,7 +11,7 @@ import poker.table.Player;
 import poker.util.GameFeed;
 
 /**
- * Tarjousvaihetta käsittelevä luokka. Hoitaa tarjousvuoron kieroa ja siihen
+ * Tarjousvaihetta käsittelevä luokka. Hoitaa tarjousvuoron kiertoa ja siihen
  * liittyviä toimintoja.
  */
 public class Bidding {
@@ -32,6 +32,12 @@ public class Bidding {
     private int sliderValue;
     private SoundPlayer soundPlayer;
 
+    /**
+     * Luodaan tarvittavat luokat kuten PlayerBiddingActions. Asetetaan blinds
+     * muuttuja kierroksen mukaan joko 2 tai 0.
+     * @param isFirstRound onko ensimmäinen kierros (tarvitaan blindeja varten)
+     * @param game pelin luokka
+     */
     public Bidding(boolean isFirstRound, Game game) {
 
         this.isFirstRound = isFirstRound;
@@ -40,7 +46,6 @@ public class Bidding {
         if (isFirstRound) {
             this.blinds = 2;
         }
-
         this.highest = 0;
         this.lastRaised = null;
         this.game = game;
@@ -53,6 +58,13 @@ public class Bidding {
         this.soundPlayer = new SoundPlayer();
     }
 
+    /**
+     * Tällä edetään yksi vuoro tarjouskierroksella. Aluksi se tarkistaa toteutuuko
+     * jokin kierroksen loppumisehto. Sen jälkeen määritetään mahdolliset toiminnot
+     * (buttonSetPassBid). Lopulta tehdään jokin pakollinen toiminto jos tarpeen,
+     * esim. kaikki tekoälyn toiminnot, blind:it ja jos on mennyt "all in". Muuten
+     * odotetaan syötettä pelaajalta.
+     */
     public void startBidding() {
 
         int size = players.size();
@@ -112,13 +124,27 @@ public class Bidding {
             if (buttonSetPassBid) {
                 takeBiddingAction("pass");
             } else {
-                takeBiddingAction("call");
+                if (player.getBalance() < costToCall(player)) {
+                    if (Math.random() < 0.5) {
+                        takeBiddingAction("allIn");
+                    } else {
+                        takeBiddingAction("fold");
+                    }
+                } else {
+                    takeBiddingAction("call");
+                }
             }
             //startBidding();
         }
 
     }
 
+    /**
+     * Tarjouskierroksen toimintoja käsittelevä luokka, joka tekee komentoa vastaavan
+     * toiminnon. Komento on määritetty Stringillä. Lopuksi kutsutaan startBidding
+     * jotta edetään kierroksella.
+     * @param order komento joka toteutetaan
+     */
     public void takeBiddingAction(String order) {
         if (order.equals("call")) {
             soundPlayer.playSound("addChips");
@@ -207,6 +233,9 @@ public class Bidding {
 
     }
 
+    /**
+     * @return tämän pelaajan toimintomahdollisuudet.
+     */
     public boolean buttonsSetPassBid() {
         return buttonSetPassBid;
     }
@@ -215,18 +244,33 @@ public class Bidding {
         return this.player;
     }
 
+    /**
+     * @param player jokin pelaaja (lähinnä vuorossa oleva)
+     * @return pelaajan vaadittu rahamäärä olla mukana kierroksella.
+     */
     public int costToCall(Player player) {
         return highest - player.getBid();
     }
 
+    /**
+     * @return maksimi hinta olla mukana kierroksella
+     */
     public int highest() {
         return this.highest;
     }
 
+    /**
+     * tällä haetaan sliderin osoittama rahamäärä toimintoja varten.
+     * @param value sliderin osoittama määrä.
+     */
     public void setSliderValue(int value) {
         this.sliderValue = value;
     }
 
+    /**
+     * Tarkistaa onko viimeinen joka ei ole All In.
+     * @return true tai false.
+     */
     public boolean isAllOthersAllIn() {
 
         int count = 0;

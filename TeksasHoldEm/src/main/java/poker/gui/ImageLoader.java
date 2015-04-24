@@ -78,6 +78,11 @@ public class ImageLoader {
 
     }
 
+    /**
+     * Tällä saa haettua valmiiksi ladattuja korttien kuvia.
+     * @param card kortti jonka kuva haetaan
+     * @return kuva
+     */
     public BufferedImage loadCardImage(Card card) {
 
         String key = "";
@@ -124,6 +129,14 @@ public class ImageLoader {
 
         return images.get(key);
     }
+    
+    /**
+     * KOSKEE KAIKKIA ALLAOLEVIA!
+     * nappien kuvat, jokaiselle 4 eri kuvaa, jotka ovat:
+     * perus, hover, klikattu, poistettu käytöstä.
+     * @return kuva
+     */
+    
     
     public BufferedImage loadBackground() {
         return this.images.get("background");

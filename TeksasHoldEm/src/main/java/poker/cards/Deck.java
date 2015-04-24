@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  *
- * @author Sara ja Laur
+ * Korttipakkaa simuloiva luokka.
  */
 public class Deck {
     

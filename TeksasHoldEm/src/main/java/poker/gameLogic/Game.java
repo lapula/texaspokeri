@@ -37,6 +37,11 @@ public class Game {
     private boolean isSetupping = true;
     private SoundPlayer soundPlayer;
 
+    /**
+     * Huomionarvoista tässä lähinnä gameSettingsistä kutsuttava initialize, joka
+     * luo pelaajat asetusten mukaan.
+     * @param feed pelin tekstikenttä.
+     */
     public Game(JTextArea feed) {
 
         this.table = new Table(0);
@@ -103,11 +108,11 @@ public class Game {
                 roundText = "ROUND";
 
         }
+        
         GameFeed.addText(feed, roundText);
         GameFeed.addText(feed, "");
         GameFeed.addText(feed, "----------------------------------------------");
         GameFeed.addText(feed, "");
-
     }
 
     /**
@@ -183,20 +188,16 @@ public class Game {
 
     private void endOfRound() {
 
-        
         GameFeed.addText(feed, "CURRENT SITUATION IS:");
-        
 
         for (int i = 0; i < allPlayers.getPlayers().size(); i++) {
 
             Player player = (Player) allPlayers.getPlayers().get(i);
-
             player.refreshMaxWin();
             player.resetAllIn();
 
             GameFeed.addText(feed, "Player " + player.getId() + " balance: " + player.getBalance());
             if (player.getBalance() < 10) {
-                //GameFeed.addText(feed, "Remove player: " + player.getId());
                 allPlayers.removePlayer(player);
                 i--;
             }
@@ -208,7 +209,6 @@ public class Game {
         Player player = currentPlayers.get(0);
         currentPlayers.remove(0);
         currentPlayers.add(player);
-
     }
 
     private void dividePot(HashMap<Player, Double> result) {
@@ -284,6 +284,9 @@ public class Game {
         return this.winner;
     }
 
+    /**
+     * onko setUp metodi käynnissä.
+    */
     public boolean isSetupping() {
         return this.isSetupping;
     }
