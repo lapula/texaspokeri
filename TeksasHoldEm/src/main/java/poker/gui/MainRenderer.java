@@ -62,7 +62,7 @@ public class MainRenderer extends JPanel {
 
         Player player = game.getCurrentBidding().getCurrentBidder();
 
-        int potXPos = 850;
+        int potXPos = 825;
 
         if (player == null) {
             return;
@@ -76,12 +76,12 @@ public class MainRenderer extends JPanel {
             g.drawImage(imageLoader.loadCardImage(player.getCards().get(1)), 33, 40, null);
             
             g.drawString("Your balance: ", 10, 610);
-            g.drawString("Current pot: ", 795, 610);
+            g.drawString("Current pot: ", 770, 610);
             g.drawString("Cost to Call ", 405, 610);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
             g.setColor(Color.white);
             if (game.getGameTable().getPot() > 99) {
-                potXPos = 830;
+                potXPos = 805;
             }
             g.drawString("Player " + player.getId(), 400, 50);
             int costXPos = 430;
