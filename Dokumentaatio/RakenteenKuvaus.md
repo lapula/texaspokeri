@@ -1,3 +1,6 @@
+<p>
+<b>Huomio luokkakaaviosta:</b> koostuu nuoli sisälsi siinä UML editorissa jolla tein sen "salmiakkikuvion" toisessa päässä ison nuolen, toivottavasti se ei aiheuta liikaa hämmennystä.</p>
+
 <h3>
 Käynnistys:
 <h3>
@@ -21,16 +24,22 @@ Muiden luokkien kuvauksia:
 <h3>
 <p>
 <div><b>Kortit:</b></div><br>
+</p>
+<p>
 Kortteja simuloivat luokat Suit, Card (ja Deck). Suit on enum joka kuvaa maan nimeä ja numeroa. Card taas koostuu
 kortin numerosta ja Suit:ista. Kortit luodaan Deck-luokassa, joka luodaan Game-luokassa pelin alkaessa.
 </p>
 <p>
 <div><b>Pöytä:</b></div><br>
+</p>
+<p>
 Table luokka pitää kirjaa pelipöydän tapahtumista. Sekin luodaan Game-luokassa. Table koostuu korteista ja potin
 määrästä (integer).
 </p>
 <p>
 <div><b>Pelaajat:</b></div><br>
+</p>
+<p>
 Pelaajia simuloi Player-luokka. Sillä on mm. rahamäärä, kortit ja boolean joka kertoo onko ihminen vai AI. 
 Pelaajat laitetaan AllPlayers-luokkaan ArrayListiin, jotta voidaan tehdä ero pelaavien ja kierroksella mukana
 olevien pelaajien välille. GameSettings luo nämä molemmat.
