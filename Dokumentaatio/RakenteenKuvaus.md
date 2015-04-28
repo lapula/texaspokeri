@@ -33,5 +33,5 @@ määrästä (integer).
 <div><b>Pelaajat:</b></div><br>
 Pelaajia simuloi Player-luokka. Sillä on mm. rahamäärä, kortit ja boolean joka kertoo onko ihminen vai AI. 
 Pelaajat laitetaan AllPlayers-luokkaan ArrayListiin, jotta voidaan tehdä ero pelaavien ja kierroksella mukana
-olevien pelaajien välille.
+olevien pelaajien välille. GameSettings luo nämä molemmat.
 </p>
