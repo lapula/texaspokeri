@@ -61,11 +61,11 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="poker.gameLogic.HandRatingTest" name="testGiveRatingStraight" time="0"/>
+  <testcase classname="poker.gameLogic.HandRatingTest" name="testGiveRatingStraight" time="0.001"/>
   <testcase classname="poker.gameLogic.HandRatingTest" name="testGiveRatingTwoPairs" time="0"/>
   <testcase classname="poker.gameLogic.HandRatingTest" name="testGiveRatingOnePair" time="0"/>
   <testcase classname="poker.gameLogic.HandRatingTest" name="testGiveRatingStraightFlush" time="0"/>
-  <testcase classname="poker.gameLogic.HandRatingTest" name="testGiveRatingHighCard" time="0.001"/>
+  <testcase classname="poker.gameLogic.HandRatingTest" name="testGiveRatingHighCard" time="0"/>
   <testcase classname="poker.gameLogic.HandRatingTest" name="testGiveRatingFullHouse" time="0"/>
   <testcase classname="poker.gameLogic.HandRatingTest" name="testGiveRatingThreeOfAKind" time="0"/>
   <testcase classname="poker.gameLogic.HandRatingTest" name="testGiveRatingFlush" time="0"/>
