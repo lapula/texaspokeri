@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import poker.cards.Card;
 import poker.cards.Suit;
 
@@ -24,7 +26,7 @@ public class ImageLoader {
     private BufferedImage image;
     private HashMap<String, BufferedImage> images;
 
-    public ImageLoader() {
+    public ImageLoader(JFrame frame) {
 
         images = new HashMap<>();
 
@@ -49,6 +51,7 @@ public class ImageLoader {
                     image = ImageIO.read(new File("images/" + path + ".png"));
                 } catch (IOException ex) {
                     System.out.println("Failed to load image!");
+                    JOptionPane.showMessageDialog(frame, "Some game files are missing!");
                     System.exit(1);
                 }
                 images.put(path, image);
@@ -72,6 +75,7 @@ public class ImageLoader {
             images.put("start4", ImageIO.read(new File("images/start4.png")));
         } catch (IOException ex) {
             System.out.println("Failed to load image!");
+            JOptionPane.showMessageDialog(frame, "Some game files are missing!");
             System.exit(1);
         }
         

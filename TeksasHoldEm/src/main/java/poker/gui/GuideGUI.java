@@ -81,6 +81,7 @@ public class GuideGUI implements Runnable, ActionListener {
         } catch (FileNotFoundException ex) {
             System.out.println("GUIDE TEXT NOT FOUND");
             Logger.getLogger(GuideGUI.class.getName()).log(Level.SEVERE, null, ex);
+            text.append("Guide text not found!");
         }
         
         

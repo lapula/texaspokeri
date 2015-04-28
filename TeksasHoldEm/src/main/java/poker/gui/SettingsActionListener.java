@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
@@ -54,6 +55,8 @@ public class SettingsActionListener implements ActionListener {
                 writer.close();
             } catch (IOException ex) {
                 Logger.getLogger(SettingsActionListener.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(frame, "Some game files are missing!");
+                System.exit(1);
             }
             
             frame.dispose();

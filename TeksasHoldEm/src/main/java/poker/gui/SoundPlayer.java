@@ -26,7 +26,7 @@ public class SoundPlayer {
 
     }
 
-    public void playSound(String sound) {
+    public void playSound(String sound) {/*
         String soundName = "sounds/" + sound +".wav";
         AudioInputStream audioInputStream;
         try {
@@ -40,7 +40,7 @@ public class SoundPlayer {
             Logger.getLogger(PokerActionListener.class.getName()).log(Level.SEVERE, null, ex);
         } catch (LineUnavailableException ex) {
             Logger.getLogger(PokerActionListener.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 
 }

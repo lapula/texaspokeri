@@ -48,7 +48,7 @@ public class PokerGUI implements Runnable {
 
         container.setLayout(new BorderLayout());
 
-        ImageLoader imageLoader = new ImageLoader();
+        ImageLoader imageLoader = new ImageLoader(frame);
 
         GameFeedRenderer right = new GameFeedRenderer(new BorderLayout());
         JPanel middle = new JPanel(new BorderLayout());
