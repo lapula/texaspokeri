@@ -23,3 +23,4 @@
 <span>16.03 - 2h - Lisää testejä, dokumentaatiota ja bugien korjausta</span><br>
 <span>22.03 - 3h - Dokumentaatiota ja bugien korjausta</span><br>
 <span>27.03 - 3h - Tuskailua linux-yhteensopivuuden kanssa</span><br>
+<span>30.03 - 2h - Hiottu ohjelma palautuskuntoon</span><br>
